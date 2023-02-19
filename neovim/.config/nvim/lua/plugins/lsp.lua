@@ -11,18 +11,19 @@ return {
             "--clang-tidy",
             "--background-index",
             "--header-insertion=never",
-            "--j=4"
+            "--j=4",
           },
           mason = false,
         },
         jsonls = {
           mason = false,
-        }
-      }
+        },
+        rust_analyzer = {},
+      },
     },
     keys = {
-      { '<leader>ss', ':ClangdSwitchSourceHeader<CR>', desc = "Switch Source Header" }
-    }
+      { "<leader>ss", ":ClangdSwitchSourceHeader<CR>", desc = "Switch Source Header" },
+    },
   },
 
   -- Use <tab> for completion and snippets (supertab)
