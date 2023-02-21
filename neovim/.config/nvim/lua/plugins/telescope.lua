@@ -21,7 +21,7 @@ return {
       { "<leader>ts", "<cmd>Telescope treesitter<cr>", desc = "Treesitter symbols" },
       {
         "<leader>fp",
-        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        function() require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") }) end,
         desc = "Find Plugin File",
       },
       -- Git

@@ -31,34 +31,12 @@ return {
     keys = {
       { "gs", false },
     }
-    -- event = "VeryLazy",
-    -- dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
-    -- config = function(_, opts)
-    --   local leap = require("leap")
-    --   for k, v in pairs(opts) do
-    --     leap.opts[k] = v
-    --   end
-    -- end,
-    -- keys = {
-    --   { "s", "<Plug>(leap-forward-to)", desc = "Leap forward to"},
-    --   { "S", "<Plug>(leap-backward-to)", desc = "Leap backward to"},
-    -- }
   },
 
   -- {
-  --   "tzachar/local-highlight.nvim",
-  --   config = function()
-  --     require('local-highlight').setup({
-  --       file_types = {'cc', 'cpp', 'h'},
-  --       hlgroup = 'WinBarNC',
-  --     })
-  --   end
-  -- },
-
-  {
-    "RRethy/vim-illuminate",
-    opts = {
-      under_cursor = false,
-    }
-  }
+  --   "RRethy/vim-illuminate",
+  --   opts = {
+  --     under_cursor = false,
+  --   }
+  -- }
 }
