@@ -18,6 +18,7 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
 map('i', '<C-c>', '<Esc>')
+map('n', '<C-c>', '<Esc>')
 
 -- TMUX
 map('n', '<C-h>', [[<cmd>lua require('tmux').move_left()<cr>]], {silent = true})
