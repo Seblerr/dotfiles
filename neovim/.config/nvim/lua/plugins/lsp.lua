@@ -5,20 +5,24 @@ return {
     opts = {
       servers = {
         clangd = {
+          mason = false,
           cmd = {
             "clangd",
-            -- "--log=verbose",
             "--clang-tidy",
             "--background-index",
             "--header-insertion=never",
             "--j=4",
           },
-          mason = false,
         },
         jsonls = {
           mason = false,
         },
-        rust_analyzer = {},
+        -- rust_analyzer = {
+        --   mason = false,
+        --   settings = {
+        --     ["rust-analyzer"] = {},
+        --   },
+        -- },
       },
     },
     keys = {
@@ -77,4 +81,7 @@ return {
       })
     end,
   },
+
+  -- Language specific LSP settings
+  { import = "plugins.extras.lang.rust" },
 }
