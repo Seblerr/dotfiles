@@ -13,6 +13,7 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 
+map('n', 'q:', '<nop>')
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
