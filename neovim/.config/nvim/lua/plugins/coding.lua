@@ -5,10 +5,21 @@ return {
     "numToStr/Comment.nvim", -- "gc" to comment visual regions/lines
     event = "VeryLazy",
     opts = {
-      pre_hook = function()
-        require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-      end,
+      hooks = {
+        pre = function()
+          require("ts_context_commentstring.internal").update_commentstring({})
+        end,
+      },
     },
+    config = function(_, opts)
+      require("Comment").setup(opts)
+    end,
+    -- event = "VeryLazy",
+    -- opts = {
+    --   pre_hook = function()
+    --     require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+    --   end,
+    -- },
   },
 
   {
@@ -32,6 +43,12 @@ return {
       { "gs", false },
     }
   },
+
+  {
+    "tpope/vim-fugitive",
+  },
+
+
 
   -- {
   --   "RRethy/vim-illuminate",
