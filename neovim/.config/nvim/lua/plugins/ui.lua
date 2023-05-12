@@ -32,6 +32,7 @@ return {
       },
     },
   },
+  { 'Bekaboo/deadcolumn.nvim' },
 
   -- {
   --   "chrisgrieser/nvim-early-retirement",

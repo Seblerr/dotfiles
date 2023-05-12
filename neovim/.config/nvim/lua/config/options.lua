@@ -5,3 +5,5 @@ local opt = vim.opt
 opt.scrolloff = 8 -- Lines of context
 opt.swapfile = false
 opt.listchars = "tab:▸ ,trail:·"
+opt.colorcolumn = "120"
+opt.winbar = "%=%m %f"

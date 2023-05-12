@@ -17,13 +17,13 @@ return {
         jsonls = {
           mason = false,
         },
-        -- rust_analyzer = {
-        --   mason = false,
-        --   settings = {
-        --     ["rust-analyzer"] = {},
-        --   },
-        -- },
       },
+      -- setup = {
+      --   jsonls = function()
+      --     -- require("json").setup({ server = opts })
+      --     return true
+      --   end,
+      -- }
     },
     keys = {
       { "<leader>ss", ":ClangdSwitchSourceHeader<CR>", desc = "Switch Source Header" },
