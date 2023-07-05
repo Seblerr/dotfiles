@@ -3,31 +3,40 @@ return {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
     opts = {
+      -- setup = {
+      --   clangd = function(_, opts)
+      --     opts.capabilities.offsetEncoding = { "utf-16" }
+      --   end
+      -- },
       servers = {
         clangd = {
           mason = false,
-          cmd = {
-            "clangd",
-            "--clang-tidy",
-            "--background-index",
-            "--header-insertion=never",
-            "--j=4",
-          },
+          -- cmd = {
+          --   "clangd",
+          --   "--clang-tidy",
+          --   "--background-index",
+          --   "--header-insertion=never",
+          --   "--j=4",
+          -- },
         },
         jsonls = {
           mason = false,
         },
       },
-      -- setup = {
-      --   jsonls = function()
-      --     -- require("json").setup({ server = opts })
-      --     return true
-      --   end,
-      -- }
     },
     keys = {
       { "<leader>ss", ":ClangdSwitchSourceHeader<CR>", desc = "Switch Source Header" },
     },
+  },
+
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function(_, opts)
+      -- local nls = require("null-ls")
+      -- table.insert(opts.sources, nls.builtins.diagnostics.clang_check)
+      -- table.insert(opts.sources, nls.builtins.diagnostics.cppcheck)
+      -- table.insert(opts.sources, nls.builtins.formatting.clang_format)
+    end,
   },
 
   -- Use <tab> for completion and snippets (supertab)
@@ -83,5 +92,5 @@ return {
   },
 
   -- Language specific LSP settings
-  { import = "plugins.extras.lang.rust" },
+  -- { import = "plugins.extras.lang.rust" },
 }
