@@ -1,32 +1,78 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
+    "p00f/clangd_extensions.nvim",
+    lazy = true,
+    config = function() end,
     opts = {
-      -- setup = {
-      --   clangd = function(_, opts)
-      --     opts.capabilities.offsetEncoding = { "utf-16" }
-      --   end
-      -- },
+      extensions = {
+        inlay_hints = {
+          inline = false,
+        },
+        ast = {
+          --These require codicons (https://github.com/microsoft/vscode-codicons)
+          role_icons = {
+            type = "",
+            declaration = "",
+            expression = "",
+            specifier = "",
+            statement = "",
+            ["template argument"] = "",
+          },
+          kind_icons = {
+            Compound = "",
+            Recovery = "",
+            TranslationUnit = "",
+            PackExpansion = "",
+            TemplateTypeParm = "",
+            TemplateTemplateParm = "",
+            TemplateParamObject = "",
+          },
+        },
+      },
+    },
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
       servers = {
         clangd = {
           mason = false,
-          -- cmd = {
-          --   "clangd",
-          --   "--clang-tidy",
-          --   "--background-index",
-          --   "--header-insertion=never",
-          --   "--j=4",
-          -- },
+          keys = {
+            { "<leader>ss", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+          },
+          root_dir = function(...)
+            -- using a root .clang-format or .clang-tidy file messes up projects, so remove them
+            return require("lspconfig.util").root_pattern(
+              "compile_commands.json",
+              "compile_flags.txt",
+              "configure.ac",
+              ".git"
+            )(...)
+          end,
+          capabilities = {
+            offsetEncoding = { "utf-16" },
+          },
+          cmd = {
+            "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--header-insertion=never",
+            "--completion-style=detailed",
+          },
         },
         jsonls = {
           mason = false,
         },
       },
-    },
-    keys = {
-      { "<leader>ss", ":ClangdSwitchSourceHeader<CR>", desc = "Switch Source Header" },
-    },
+      setup = {
+        clangd = function(_, opts)
+          local clangd_ext_opts = require("lazyvim.util").opts("clangd_extensions.nvim")
+          require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
+          return true
+        end,
+      },
+    }
   },
 
   {
@@ -90,7 +136,6 @@ return {
       })
     end,
   },
-
   -- Language specific LSP settings
   -- { import = "plugins.extras.lang.rust" },
 }
