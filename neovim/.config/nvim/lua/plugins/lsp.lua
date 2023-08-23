@@ -1,38 +1,5 @@
 return {
   {
-    "p00f/clangd_extensions.nvim",
-    lazy = true,
-    config = function() end,
-    opts = {
-      extensions = {
-        inlay_hints = {
-          inline = false,
-        },
-        ast = {
-          --These require codicons (https://github.com/microsoft/vscode-codicons)
-          role_icons = {
-            type = "",
-            declaration = "",
-            expression = "",
-            specifier = "",
-            statement = "",
-            ["template argument"] = "",
-          },
-          kind_icons = {
-            Compound = "",
-            Recovery = "",
-            TranslationUnit = "",
-            PackExpansion = "",
-            TemplateTypeParm = "",
-            TemplateTemplateParm = "",
-            TemplateParamObject = "",
-          },
-        },
-      },
-    },
-  },
-
-  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
@@ -44,11 +11,18 @@ return {
           root_dir = function(...)
             -- using a root .clang-format or .clang-tidy file messes up projects, so remove them
             return require("lspconfig.util").root_pattern(
-              "compile_commands.json",
-              "compile_flags.txt",
-              "configure.ac",
-              ".git"
-            )(...)
+            "Makefile",
+            "CMakeLists.txt",
+            "configure.ac",
+            "configure.in",
+            "config.h.in",
+            "meson.build",
+            "meson_options.txt",
+            "build.ninja",
+            "compile_commands.json"
+            )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
+            fname
+            ) or require("lspconfig.util").find_git_ancestor(fname)
           end,
           capabilities = {
             offsetEncoding = { "utf-16" },
@@ -64,14 +38,7 @@ return {
         jsonls = {
           mason = false,
         },
-      },
-      setup = {
-        clangd = function(_, opts)
-          local clangd_ext_opts = require("lazyvim.util").opts("clangd_extensions.nvim")
-          require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
-          return true
-        end,
-      },
+      }
     }
   },
 
