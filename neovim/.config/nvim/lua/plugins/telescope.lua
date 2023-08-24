@@ -13,6 +13,7 @@ return {
     },
     keys = {
       -- Files and buffers
+      { "<leader>ff", Util.telescope("files"), { cwd = Util.get_root() }, desc = "Find files seba" },
       { "<leader>fg", Util.telescope("git_files"), desc = "Find Git Files" },
       { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Show Buffers" },
       -- search
