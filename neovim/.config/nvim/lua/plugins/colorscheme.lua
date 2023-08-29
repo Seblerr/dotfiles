@@ -1,10 +1,4 @@
 return {
-  -- {
-  --   'navarasu/onedark.nvim',
-  --    opts = { style = "warm" },
-  --
-  -- },
-
   {
     "ellisonleao/gruvbox.nvim",
     opts = {
@@ -16,12 +10,6 @@ return {
         },
     }
   },
-
-  -- {
-  --   'folke/tokyonight.nvim',
-  --    opts = { style = "moon" },
-  --
-  -- },
 
   {
     "LazyVim/LazyVim",

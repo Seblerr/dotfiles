@@ -5,8 +5,8 @@ return {
       -- Add languages to be installed here that you want installed for treesitter
       ensure_installed = { 'lua', 'c', 'cpp', 'python', 'vimdoc', "markdown_inline", "html", "regex", "yaml" },
     },
-    config = function()
-      require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
-    end,
+    -- config = function()
+    --   require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
+    -- end,
   }
 }

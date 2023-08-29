@@ -1,5 +1,35 @@
 return {
   {
+    "p00f/clangd_extensions.nvim",
+    lazy = true,
+    config = function() end,
+    opts = {
+      inlay_hints = {
+        only_current_line = true,
+      },
+      ast = {
+        role_icons = {
+          type = "",
+          declaration = "",
+          expression = "",
+          specifier = "",
+          statement = "",
+          ["template argument"] = "",
+        },
+        kind_icons = {
+          Compound = "",
+          Recovery = "",
+          TranslationUnit = "",
+          PackExpansion = "",
+          TemplateTypeParm = "",
+          TemplateTemplateParm = "",
+          TemplateParamObject = "",
+        },
+      },
+    },
+  },
+
+  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
@@ -22,35 +52,41 @@ return {
         jsonls = {
           mason = false,
         },
-      }
+      },
+      setup = {
+        clangd = function(_, opts)
+          local clangd_ext_opts = require("lazyvim.util").opts("clangd_extensions.nvim")
+          require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
+          return false
+        end,
+      },
     }
   },
 
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      -- local nls = require("null-ls")
-      -- table.insert(opts.sources, nls.builtins.diagnostics.clang_check)
-      -- table.insert(opts.sources, nls.builtins.diagnostics.cppcheck)
-      -- table.insert(opts.sources, nls.builtins.formatting.clang_format)
-    end,
-  },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   opts = function(_, opts)
+  --     -- local nls = require("null-ls")
+  --     -- table.insert(opts.sources, nls.builtins.diagnostics.clang_check)
+  --     -- table.insert(opts.sources, nls.builtins.diagnostics.cppcheck)
+  --     -- table.insert(opts.sources, nls.builtins.formatting.clang_format)
+  --   end,
+  -- },
 
-  -- Use <tab> for completion and snippets (supertab)
-  -- first: disable default <tab> and <s-tab> behavior in LuaSnip
+  -- disable default <tab> and <s-tab> behavior in LuaSnip
   {
     "L3MON4D3/LuaSnip",
     keys = function()
       return {}
     end,
   },
-  -- then: setup supertab in cmp
+
+  -- setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-emoji",
     },
-    ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
         unpack = unpack or table.unpack
@@ -87,6 +123,4 @@ return {
       })
     end,
   },
-  -- Language specific LSP settings
-  -- { import = "plugins.extras.lang.rust" },
 }
