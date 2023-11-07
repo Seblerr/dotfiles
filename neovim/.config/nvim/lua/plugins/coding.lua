@@ -3,31 +3,35 @@ return {
 
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      -- char = "▏",
-      char = "│",
-      filetype_exclude = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-        "lazyterm",
+      indent = {
+        char = "│",
+        tab_char = "│",
       },
-      show_trailing_blankline_indent = false,
-      show_current_context = false,
+      scope = { enabled = false },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+      }
     },
   },
 
   {
     'echasnovski/mini.ai',
     event = "VeryLazy",
-    dependencies = { "nvim-treesitter-textobjects" },
+    -- dependencies = { "nvim-treesitter-textobjects" },
     version = false,
     opts = function()
       local ai = require('mini.ai')
@@ -107,10 +111,29 @@ return {
     end,
   },
 
+  -- {
+  --   'numToStr/Comment.nvim',
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   config = true
+  -- },
   {
-    'numToStr/Comment.nvim',
-    event = { "BufReadPre", "BufNewFile" },
-    config = true
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      enable_autocmd = false,
+    },
+  },
+
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+    },
   },
 
   {
@@ -144,14 +167,14 @@ return {
         mode = { "o", "x" },
         function() require("flash").treesitter_search() end,
         desc =
-          "Treesitter Search"
+        "Treesitter Search"
       },
       {
         "<c-s>",
         mode = { "c" },
         function() require("flash").toggle() end,
         desc =
-          "Toggle Flash Search"
+        "Toggle Flash Search"
       },
     },
   },
@@ -210,4 +233,30 @@ return {
       { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "Todo/Fix/Fixme" },
     },
   },
+
+  {
+    'stevearc/conform.nvim',
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>fo",
+        function()
+          require("conform").format({ formatters = { "injected" } })
+        end,
+        mode = { "n", "v" },
+        desc = "Format Injected Langs",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        cpp = { "clang_format" },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+
+    },
+  }
 }

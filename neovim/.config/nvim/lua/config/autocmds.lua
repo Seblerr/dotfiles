@@ -1,3 +1,6 @@
+vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
+vim.cmd([[autocmd FileType spec setlocal commentstring=#\ %s]])
+
 local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
