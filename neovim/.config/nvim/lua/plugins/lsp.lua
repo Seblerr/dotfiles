@@ -4,15 +4,18 @@ return
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
-    -- Automatically install LSPs to stdpath for neovim
-    { 'williamboman/mason.nvim', config = true },
-    -- 'williamboman/mason-lspconfig.nvim',
-
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
-
-    -- Additional lua configuration, makes nvim stuff amazing!
-    { 'folke/neodev.nvim',       opts = {} },
+    {
+      'williamboman/mason.nvim',
+      cmd = "Mason",
+      keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+      build = ":MasonUpdate",
+      opts = { ensure_installed = { "lua_ls" } },
+      config = function(_, opts)
+        require("mason").setup(opts)
+      end
+    },
+    { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+    { 'folke/neodev.nvim', opts = {} },
   },
   opts = {
     autoformat = true,
@@ -85,6 +88,11 @@ return
       }
     })
 
+    lspconfig.rust_analyzer.setup({
+      capabilities = capabilities,
+      on_attach = on_attach
+    })
+
     lspconfig["lua_ls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
@@ -95,36 +103,5 @@ return
         }
       }
     })
-
-
-    -- mason
-    -- require("mason").setup()
-    -- require("mason-lspconfig").setup_handlers({
-    --
-    --   function(server_name)
-    --     require("lspconfig")[server_name].setup {
-    --       on_attach = on_attach,
-    --       capabilities = capabilities
-    --     }
-    --   end,
-    --
-    --   ["lua_ls"] = function()
-    --     require('neodev').setup()
-    --     require('lspconfig').lua_ls.setup {
-    --       on_attach = on_attach,
-    --       capabilities = capabilities,
-    --       settings = {
-    --         Lua = {
-    --           workspace = { checkThirdParty = false },
-    --           telemetry = { enable = false },
-    --         },
-    --       }
-    --     }
-    --   end
-    -- })
-
-    -- mason_lspconfig.setup {
-    --   ensure_installed = vim.tbl_keys(servers),
-    -- }
   end
 }
