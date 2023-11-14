@@ -4,18 +4,9 @@ return
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
-    {
-      'williamboman/mason.nvim',
-      cmd = "Mason",
-      keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-      build = ":MasonUpdate",
-      opts = { ensure_installed = { "lua_ls" } },
-      config = function(_, opts)
-        require("mason").setup(opts)
-      end
-    },
-    { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-    { 'folke/neodev.nvim', opts = {} },
+    { 'williamboman/mason.nvim', config = true },
+    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+    { 'folke/neodev.nvim',       opts = {} },
   },
   opts = {
     autoformat = true,
