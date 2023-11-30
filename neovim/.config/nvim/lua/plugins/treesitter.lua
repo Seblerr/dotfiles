@@ -18,7 +18,7 @@ return {
     },
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim' },
+      ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'xml', 'rust' },
       highlight = { enable = true },
       indent = { enable = true },
       incremental_selection = {

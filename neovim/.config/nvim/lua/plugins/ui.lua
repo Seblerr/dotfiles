@@ -139,30 +139,30 @@ return {
     },
   },
 
-  {
-    "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
-      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-      { "H",          "<Cmd>BufferLineCyclePrev<CR>",            desc = "Switch to previous buffer" },
-      { "L",          "<Cmd>BufferLineCycleNext<CR>",            desc = "Switch to next buffer" },
-    },
-    opts = {
-      options = {
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   event = "VeryLazy",
+  --   keys = {
+  --     { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
+  --     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+  --     { "H",          "<Cmd>BufferLineCyclePrev<CR>",            desc = "Switch to previous buffer" },
+  --     { "L",          "<Cmd>BufferLineCycleNext<CR>",            desc = "Switch to next buffer" },
+  --   },
+  --   opts = {
+  --     options = {
+  --       diagnostics = "nvim_lsp",
+  --       always_show_bufferline = false,
+  --       offsets = {
+  --         {
+  --           filetype = "neo-tree",
+  --           text = "Neo-tree",
+  --           highlight = "Directory",
+  --           text_align = "left",
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "rcarriga/nvim-notify",
