@@ -18,8 +18,8 @@ local function lsp_keymaps(bufnr)
   end
 
   nmap('<leader>ss', "<cmd>ClangdSwitchSourceHeader<cr>", "Switch Source/Header (C/C++)")
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>rn', vim.lsp.buf.rename, 'Rename')
+  nmap('<leader>ca', vim.lsp.buf.code_action, 'Code action')
 
   nmap('gd', "<cmd>FzfLua lsp_definitions<cr>", '[G]oto [D]efinition')
   nmap('gD', "<cmd>FzfLua lsp_document_symbols<cr>", '[G]oto [D]efinition')

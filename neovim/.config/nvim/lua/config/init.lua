@@ -1,5 +1,5 @@
 -- icons used by other plugins
-local icons = {
+return {
   dap = {
     Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
     Breakpoint = " ",
