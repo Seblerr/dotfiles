@@ -1,5 +1,8 @@
 return {
-  { 'nathom/tmux.nvim' },
+  {
+    'nathom/tmux.nvim',
+    keys = { 'C-j', 'C-k', 'C-h', 'C-l' }
+  },
 
   {
     'echasnovski/mini.starter',
@@ -12,9 +15,7 @@ return {
 
   {
     'stevearc/dressing.nvim',
-    dependencies = {
-      'nvim-telescope/telescope.nvim'
-    },
+    dependencies = { 'nvim-telescope/telescope.nvim' },
     event = "VeryLazy",
     opts = {
       select = {

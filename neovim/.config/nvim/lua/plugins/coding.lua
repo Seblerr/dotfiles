@@ -141,7 +141,7 @@ return {
 
   {
     'jinh0/eyeliner.nvim',
-    event = "VeryLazy",
+    keys = { "f", "F", "t", "T" },
     opts = {
       highlight_on_key = true,
       dim = true
@@ -151,7 +151,6 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    vscode = true,
     opts = {
       modes = {
         char = {
@@ -169,8 +168,7 @@ return {
         "R",
         mode = { "o", "x" },
         function() require("flash").treesitter_search() end,
-        desc =
-        "Treesitter Search"
+        desc = "Treesitter Search",
       },
       {
         "<c-s>",
@@ -261,5 +259,14 @@ return {
       },
 
     },
+  },
+
+  {
+    'Wansmer/treesj',
+    keys = { '<space>m', '<space>j', '<space>s' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup({ --[[ your config ]] })
+    end,
   }
 }
