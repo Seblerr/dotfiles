@@ -11,7 +11,8 @@ return
     },
   },
   keys = {
-    { "<leader>b",  "<Cmd>FzfLua buffers<CR>",                  desc = "FzfLua buffers" },
+    { "<leader>fb", "<Cmd>FzfLua buffers<CR>",                  desc = "FzfLua buffers" },
+    { "<leader>,",  "<Cmd>FzfLua buffers<CR>",                  desc = "FzfLua buffers" },
     { "<leader>ff", "<Cmd>FzfLua files<CR>",                    desc = "FzfLua files" },
     { "<leader>fp", "<Cmd>FzfLua files cwd=~/.config/nvim<CR>", desc = "FzfLua files" },
     { "<leader>fg", "<Cmd>FzfLua git_files<CR>",                desc = "FzfLua git files" },

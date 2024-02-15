@@ -55,6 +55,7 @@ return
           "--background-index",
           "--clang-tidy",
           "--header-insertion=never",
+          "--header-insertion-decorators=false",
           "--completion-style=detailed"
         }
       })

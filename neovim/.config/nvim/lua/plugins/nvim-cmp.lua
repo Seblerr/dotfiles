@@ -58,15 +58,27 @@ return
       sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip', keyword_length = 2 },
-        { name = 'buffer',  keyword_length = 3 },
         { name = 'path' },
+        { name = 'buffer',  keyword_length = 3 }
       },
       formatting = {
-        format = function(_, item)
+        format = function(entry, item)
+          local MAX_LABEL_WIDTH = 35
+          local label = item.abbr
+          local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+          if truncated_label ~= label then
+            item.abbr = truncated_label .. '...'
+          end
+
           local icons = require("config").kinds
           if icons[item.kind] then
             item.kind = icons[item.kind] .. item.kind
           end
+
+          -- item.dup = ({
+          --   luasnip = 0
+          -- })[entry.source_name] or 0
+
           return item
         end,
       },
