@@ -31,6 +31,14 @@ return
           -- prefix = "icons",
         },
         severity_sort = true,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = require("config").diagnostics.Error,
+            [vim.diagnostic.severity.WARN] = require("config").diagnostics.Warn,
+            [vim.diagnostic.severity.HINT] = require("config").diagnostics.Hint,
+            [vim.diagnostic.severity.INFO] = require("config").diagnostics.Info,
+          },
+        },
       },
       autoformat = true,
       format = {
@@ -70,6 +78,14 @@ return
           }
         }
       })
+
+      lspconfig.pyright.setup({})
+
+      -- Diagnostics icons
+      for name, icon in pairs(require("config").diagnostics) do
+        name = "DiagnosticSign" .. name
+        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+      end
     end
   },
 
