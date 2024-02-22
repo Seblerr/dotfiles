@@ -61,10 +61,8 @@ return
         cmd = {
           "clangd",
           "--background-index",
-          "--clang-tidy",
           "--header-insertion=never",
-          "--header-insertion-decorators=false",
-          "--completion-style=detailed"
+          "--header-insertion-decorators=false"
         }
       })
 
@@ -87,6 +85,37 @@ return
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
     end
+  },
+
+  {
+    "p00f/clangd_extensions.nvim",
+    lazy = true,
+    config = function() end,
+    opts = {
+      inlay_hints = {
+        inline = false,
+      },
+      ast = {
+        --These require codicons (https://github.com/microsoft/vscode-codicons)
+        role_icons = {
+          type = "",
+          declaration = "",
+          expression = "",
+          specifier = "",
+          statement = "",
+          ["template argument"] = "",
+        },
+        kind_icons = {
+          Compound = "",
+          Recovery = "",
+          TranslationUnit = "",
+          PackExpansion = "",
+          TemplateTypeParm = "",
+          TemplateTemplateParm = "",
+          TemplateParamObject = "",
+        },
+      },
+    },
   },
 
   {
