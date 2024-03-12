@@ -16,7 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({ import = "plugins" },
+require('lazy').setup({ import = "seba.plugins" },
   {
     install = {
       colorscheme = { "gruvbox" },
@@ -35,7 +35,7 @@ require('lazy').setup({ import = "plugins" },
           "gzip",
           -- "matchit",
           -- "matchparen",
-          -- "netrwPlugin",
+          "netrwPlugin",
           "tarPlugin",
           "tohtml",
           "tutor",
@@ -46,6 +46,6 @@ require('lazy').setup({ import = "plugins" },
   })
 
 -- [[ Setting options ]]
-require('config.options')
-require('config.keymaps')
-require('config.autocmds')
+require('seba.config.options')
+require('seba.config.keymaps')
+require('seba.config.autocmds')

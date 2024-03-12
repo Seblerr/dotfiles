@@ -1,4 +1,4 @@
-local Util = require("util")
+local Util = require("seba.util")
 
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}

@@ -33,10 +33,10 @@ return
         severity_sort = true,
         signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = require("config").diagnostics.Error,
-            [vim.diagnostic.severity.WARN] = require("config").diagnostics.Warn,
-            [vim.diagnostic.severity.HINT] = require("config").diagnostics.Hint,
-            [vim.diagnostic.severity.INFO] = require("config").diagnostics.Info,
+            [vim.diagnostic.severity.ERROR] = require("seba.util.icons").diagnostics.Error,
+            [vim.diagnostic.severity.WARN] = require("seba.util.icons").diagnostics.Warn,
+            [vim.diagnostic.severity.HINT] = require("seba.util.icons").diagnostics.Hint,
+            [vim.diagnostic.severity.INFO] = require("seba.util.icons").diagnostics.Info,
           },
         },
       },
@@ -80,7 +80,7 @@ return
       lspconfig.pyright.setup({})
 
       -- Diagnostics icons
-      for name, icon in pairs(require("config").diagnostics) do
+      for name, icon in pairs(require("seba.util.icons").diagnostics) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
