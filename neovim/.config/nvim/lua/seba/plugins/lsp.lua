@@ -50,14 +50,14 @@ return
       local lspconfig = require('lspconfig')
 
       -- Get keybinds for LSP
-      require('lsp.attach')
+      local lsp_settings = require('seba.lsp.attach')
 
       require('neodev').setup()
 
 
       lspconfig.clangd.setup({
-        capabilities = require('lsp.attach').capabilities,
-        on_attach = require('lsp.attach').on_attach,
+        capabilities = lsp_settins.capabilities,
+        on_attach = lsp_settins.on_attach,
         cmd = {
           "clangd",
           "--background-index",
@@ -67,8 +67,8 @@ return
       })
 
       lspconfig["lua_ls"].setup({
-        capabilities = require('lsp.attach').capabilities,
-        on_attach = require('lsp.attach').on_attach,
+        capabilities = lsp_settings.capabilities,
+        on_attach = lsp_settings.on_attach,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -126,9 +126,9 @@ return
       vim.g.rustaceanvim = {
         server = {
           on_attach = function(client, bufnr)
-            require('lsp.attach').on_attach(client, bufnr)
+            require('seba.lsp.attach').on_attach(client, bufnr)
           end,
-          capabilities = require('lsp.attach').capabilities,
+          capabilities = require('seba.lsp.attach').capabilities,
         },
       }
     end,
