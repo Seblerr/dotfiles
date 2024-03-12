@@ -70,7 +70,7 @@ return
             item.abbr = truncated_label .. '...'
           end
 
-          local icons = require("config").kinds
+          local icons = require("seba.util.icons").kinds
           if icons[item.kind] then
             item.kind = icons[item.kind] .. item.kind
           end

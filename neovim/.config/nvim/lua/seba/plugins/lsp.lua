@@ -56,8 +56,8 @@ return
 
 
       lspconfig.clangd.setup({
-        capabilities = lsp_settins.capabilities,
-        on_attach = lsp_settins.on_attach,
+        capabilities = lsp_settings.capabilities,
+        on_attach = lsp_settings.on_attach,
         cmd = {
           "clangd",
           "--background-index",
