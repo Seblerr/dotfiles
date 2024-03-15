@@ -100,14 +100,6 @@ return {
       {
         "<leader>fe",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = require("seba.util").get_root() })
-          -- require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>fE",
-        function()
           local reveal_file = vim.fn.expand('%:p')
           if (reveal_file == '') then
             reveal_file = vim.fn.getcwd()
@@ -120,22 +112,19 @@ return {
             end
           end
           require("neo-tree.command").execute({
-            action = "focus",          -- OPTIONAL, this is the default value
-            source = "filesystem",     -- OPTIONAL, this is the default value
-            position = "left",         -- OPTIONAL, this is the default value
             reveal_file = reveal_file, -- path to file or folder to reveal
             reveal_force_cwd = true,   -- change cwd without asking if needed
           })
         end,
         desc = "Open Neo-tree at current file or working dir",
       },
-      -- {
-      --   "<leader>fE",
-      --   function()
-      --     require("neo-tree.command").execute({ toggle = true, dir = vim.fn.finddir(".git", ".;") .. "/.." })
-      --   end,
-      --   desc = "Explorer NeoTree (git root)",
-      -- },
+      {
+        "<leader>fE",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.fn.finddir(".git", ".;") .. "/.." })
+        end,
+        desc = "Explorer NeoTree (git root)",
+      },
       { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
       { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (git root)", remap = true },
     },
