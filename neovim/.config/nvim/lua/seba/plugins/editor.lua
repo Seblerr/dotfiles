@@ -43,4 +43,11 @@ return {
       leader_key = ';' -- Recommended to be a single key
     }
   },
+
+  {
+    "nvim-pack/nvim-spectre",
+    keys = {
+      { "<leader>rr", function() require("spectre").toggle() end, desc = "Toggle Spectre" },
+    }
+  },
 }

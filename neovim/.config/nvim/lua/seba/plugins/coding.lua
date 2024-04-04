@@ -69,6 +69,9 @@ return {
           -- jump_labels = true
           enabled = false
           -- multi_line = false,
+        },
+        search = {
+          enabled = false
         }
       }
     },
