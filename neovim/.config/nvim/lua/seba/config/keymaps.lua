@@ -14,9 +14,6 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
 map('i', '<C-c>', '<Esc>')
-map('n', '<leader>dh', ':diffget //2<CR>')
-map('n', '<leader>dl', ':diffget //3<CR>')
-map('n', '<leader>do', ':only<CR>')
 
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

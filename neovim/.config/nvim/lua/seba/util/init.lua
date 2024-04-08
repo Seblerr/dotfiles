@@ -45,6 +45,11 @@ function M.get_root()
   return root
 end
 
+M.get_git_root = function()
+  local dot_git_path = vim.fn.finddir(".git", ".;")
+  return vim.fn.fnamemodify(dot_git_path, ":h")
+end
+
 -- Check if plugin installed
 function M.has(plugin)
   return require("lazy.core.config").plugins[plugin] ~= nil

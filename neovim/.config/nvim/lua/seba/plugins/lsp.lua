@@ -52,7 +52,9 @@ return
       -- Get keybinds for LSP
       local lsp_settings = require('seba.lsp.attach')
 
-      require('neodev').setup()
+      require('neodev').setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
 
 
       lspconfig.clangd.setup({

@@ -1,5 +1,4 @@
-return
-{
+return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -26,7 +25,6 @@ return
 
   },
   config = function(_, opts)
-    -- calling `setup` is optional for customization
     require("fzf-lua").setup({ 'telescope', opts })
   end
 }
