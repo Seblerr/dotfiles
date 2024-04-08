@@ -176,7 +176,6 @@ return {
     },
     config = function()
       local conform = require("conform")
-      local notify = require("notify")
 
       conform.setup({
         format_on_save = function(bufnr)
@@ -188,16 +187,13 @@ return {
         end,
       })
 
-      local function show_notification(message, level)
-        notify(message, level, { title = "conform.nvim" })
-      end
-
       vim.api.nvim_create_user_command("FormatToggle", function()
+        local util = require("seba.util")
         vim.g.disable_autoformat = not vim.g.disable_autoformat
         if vim.g.disable_autoformat then
-          show_notification("Autoformat disabled", "info")
+          util.notify("Autoformat disabled", "warn", "conform.nvim")
         else
-          show_notification("Autoformat enabled", "info")
+          util.notify("Autoformat enabled", "info", "conform.nvim")
         end
       end, {
         desc = "Toggle autoformat-on-save",
