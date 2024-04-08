@@ -152,6 +152,7 @@ return {
 
   {
     'stevearc/conform.nvim',
+    dependencies = "rcarriga/nvim-notify",
     event = "VeryLazy",
     keys = {
       {
@@ -172,8 +173,37 @@ return {
         timeout_ms = 500,
         lsp_fallback = true,
       },
-
     },
+    config = function()
+      local conform = require("conform")
+      local notify = require("notify")
+
+      conform.setup({
+        format_on_save = function(bufnr)
+          -- Disable with a global or buffer-local variable
+          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+            return
+          end
+          return { timeout_ms = 500, lsp_fallback = true }
+        end,
+      })
+
+      local function show_notification(message, level)
+        notify(message, level, { title = "conform.nvim" })
+      end
+
+      vim.api.nvim_create_user_command("FormatToggle", function()
+        vim.g.disable_autoformat = not vim.g.disable_autoformat
+        if vim.g.disable_autoformat then
+          show_notification("Autoformat disabled", "info")
+        else
+          show_notification("Autoformat enabled", "info")
+        end
+      end, {
+        desc = "Toggle autoformat-on-save",
+        bang = true,
+      })
+    end
   },
 
   {

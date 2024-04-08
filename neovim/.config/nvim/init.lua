@@ -16,6 +16,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- [[ Setting options ]]
+require('seba.config.options')
+require('seba.config.keymaps')
+require('seba.config.autocmds')
+
 require('lazy').setup({ import = "seba.plugins" },
   {
     install = {
@@ -44,8 +49,3 @@ require('lazy').setup({ import = "seba.plugins" },
       },
     }
   })
-
--- [[ Setting options ]]
-require('seba.config.options')
-require('seba.config.keymaps')
-require('seba.config.autocmds')
