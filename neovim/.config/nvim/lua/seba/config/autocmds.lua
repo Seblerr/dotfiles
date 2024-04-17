@@ -5,6 +5,13 @@ local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
+-- Open quickfix list automatically
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  group = vim.api.nvim_create_augroup("AutoOpenQuickfix", { clear = true }),
+  pattern = { "[^l]*" },
+  command = "cwindow"
+})
+
 -- [[ Highlight on yank ]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {

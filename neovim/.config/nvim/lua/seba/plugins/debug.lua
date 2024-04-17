@@ -46,6 +46,7 @@ return {
   },
   config = function()
     local dap = require 'dap'
+    local launch_path = require('seba.util').get_git_root() .. '/.vscode/launch.json'
 
     -- Keymaps
     vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Debug: Start/Continue' })
@@ -61,6 +62,10 @@ return {
     vim.keymap.set('n', '<leader>dB', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
+    vim.keymap.set('n', '<leader>dv', function()
+      require('dap.ext.vscode').load_launchjs(launch_path, { cppdbg = { 'cc', 'cpp' } })
+      require('seba.util').notify("Loaded launch.json", "info", "DAP")
+    end, { desc = 'Debug: Load launch.json' })
 
     dap.adapters.cppdbg = {
       id = 'cppdbg',
@@ -102,7 +107,6 @@ return {
       )
     end
 
-    local launch_path = require('seba.util').get_git_root() .. '/.vscode/launch.json'
     require('dap.ext.vscode').load_launchjs(launch_path, { cppdbg = { 'cc', 'cpp' } })
   end,
 }

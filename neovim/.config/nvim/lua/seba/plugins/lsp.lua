@@ -79,7 +79,10 @@ return
         }
       })
 
-      lspconfig.pyright.setup({})
+      lspconfig.pyright.setup({
+        capabilities = lsp_settings.capabilities,
+        on_attach = lsp_settings.on_attach,
+      })
 
       -- Diagnostics icons
       for name, icon in pairs(require("seba.util.icons").diagnostics) do
