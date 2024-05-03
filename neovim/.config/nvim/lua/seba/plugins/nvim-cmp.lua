@@ -29,11 +29,11 @@ return
       mapping = cmp.mapping.preset.insert {
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
+          behavior = cmp.ConfirmBehavior.Insert,
           select = false,
         }),
         ['<Tab>'] = cmp.mapping(function(fallback)
@@ -63,11 +63,17 @@ return
       },
       formatting = {
         format = function(entry, item)
-          local MAX_LABEL_WIDTH = 35
+          local ELLIPSIS_CHAR = '…'
+          local MAX_LABEL_WIDTH = 20
+          local MIN_LABEL_WIDTH = 20
+
           local label = item.abbr
           local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
           if truncated_label ~= label then
-            item.abbr = truncated_label .. '...'
+            item.abbr = truncated_label .. ELLIPSIS_CHAR
+          elseif string.len(label) < MIN_LABEL_WIDTH then
+            local padding = string.rep(' ', MIN_LABEL_WIDTH - string.len(label))
+            item.abbr = label .. padding
           end
 
           local icons = require("seba.util.icons").kinds
@@ -75,13 +81,10 @@ return
             item.kind = icons[item.kind] .. item.kind
           end
 
+          item.menu = ""
+
           return item
         end,
-      },
-      experimental = {
-        ghost_text = {
-          hl_group = "CmpGhostText",
-        },
       },
       sorting = {
         comparators = {

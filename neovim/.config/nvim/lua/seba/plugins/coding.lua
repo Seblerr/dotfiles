@@ -151,58 +151,6 @@ return {
   },
 
   {
-    'stevearc/conform.nvim',
-    dependencies = "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>fo",
-        function()
-          require("conform").format({ formatters = { "injected" } })
-        end,
-        mode = { "n", "v" },
-        desc = "Format Injected Langs",
-      },
-    },
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        cpp = { "clang_format" },
-      },
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
-    },
-    config = function()
-      local conform = require("conform")
-
-      conform.setup({
-        format_on_save = function(bufnr)
-          -- Disable with a global or buffer-local variable
-          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-            return
-          end
-          return { timeout_ms = 500, lsp_fallback = true }
-        end,
-      })
-
-      vim.api.nvim_create_user_command("FormatToggle", function()
-        local util = require("seba.util")
-        vim.g.disable_autoformat = not vim.g.disable_autoformat
-        if vim.g.disable_autoformat then
-          util.notify("Autoformat disabled", "warn", "conform.nvim")
-        else
-          util.notify("Autoformat enabled", "info", "conform.nvim")
-        end
-      end, {
-        desc = "Toggle autoformat-on-save",
-        bang = true,
-      })
-    end
-  },
-
-  {
     'Wansmer/treesj',
     keys = { '<space>m', '<space>j', '<space>s' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },

@@ -15,6 +15,7 @@ return {
     { "<leader>,",  "<Cmd>FzfLua buffers<CR>",                  desc = "FzfLua buffers" },
     { "<leader>fp", "<Cmd>FzfLua files cwd=~/.config/nvim<CR>", desc = "FzfLua files" },
     { "<leader>fg", "<Cmd>FzfLua git_files<CR>",                desc = "FzfLua git files" },
+    { "<leader>gl", "<Cmd>FzfLua git_bcommits<CR>",             desc = "FzfLua git log (buffer)" },
     { "<leader>sg", "<Cmd>FzfLua grep<CR>",                     desc = "FzfLua grep" },
     { "<leader>sf", "<Cmd>FzfLua live_grep<CR>",                desc = "FzfLua live grep (fuzzy)" },
     { "<leader>sc", "<Cmd>FzfLua grep_curbuf<CR>",              desc = "FzfLua fuzzy grep current buffer" },

@@ -79,6 +79,11 @@ return
         }
       })
 
+      lspconfig.bashls.setup({
+        capabilities = lsp_settings.capabilities,
+        on_attach = lsp_settings.on_attach,
+      })
+
       lspconfig.pyright.setup({
         capabilities = lsp_settings.capabilities,
         on_attach = lsp_settings.on_attach,

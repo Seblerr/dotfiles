@@ -50,4 +50,13 @@ return {
       { "<leader>rr", function() require("spectre").toggle() end, desc = "Toggle Spectre" },
     }
   },
+
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<leader>o", "<Cmd>Oil --float<Cr>", "oil.nvim float" }
+    }
+  }
 }
