@@ -51,12 +51,12 @@ return {
     }
   },
 
-  {
-    'stevearc/oil.nvim',
-    opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    keys = {
-      { "<leader>o", "<Cmd>Oil --float<Cr>", "oil.nvim float" }
-    }
-  }
+  -- {
+  --   'stevearc/oil.nvim',
+  --   opts = {},
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   keys = {
+  --     { "<leader>o", "<Cmd>Oil --float<Cr>", "oil.nvim float" }
+  --   }
+  -- }
 }

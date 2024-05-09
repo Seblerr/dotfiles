@@ -9,12 +9,8 @@ return {
       return {
         n_lines = 500,
         custom_textobjects = {
-          -- This will override default "function call" textobject
           f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
           c = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
-          -- This will possibly conflict with textobjects from 'mini.indentscope':
-          -- If typed quickly (within 'timeoutlen' milliseconds),
-          -- 'mini.indentscope' will be used, this one otherwise.
           i = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
         }
       }
@@ -50,5 +46,14 @@ return {
         update_n_lines = 'gsn', -- Update `n_lines`
       }
     }
+  },
+
+  {
+    'echasnovski/mini.files',
+    version = '*',
+    keys = {
+      { "<leader>o", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "MiniFiles open" },
+    },
+    opts = {}
   },
 }
