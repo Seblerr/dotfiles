@@ -18,6 +18,12 @@ return {
   },
 
   {
+    'echasnovski/mini.starter',
+    version = false,
+    opts = {}
+  },
+
+  {
     'echasnovski/mini.move',
     event = { "BufReadPost", "BufNewFile" },
     version = false,
@@ -52,7 +58,19 @@ return {
     'echasnovski/mini.files',
     version = '*',
     keys = {
-      { "<leader>o", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "MiniFiles open" },
+      { "<leader>e", function()
+        local mf = require('mini.files')
+        if not mf.close() then
+          mf.open(vim.api.nvim_buf_get_name(0))
+        end
+      end, "MiniFiles open" },
+      { "<leader>E", function()
+        local mf = require('mini.files')
+        if not mf.close() then
+          local git_root = require('seba.util').get_git_root()
+          mf.open(git_root, false)
+        end
+      end, "MiniFiles open" },
     },
     opts = {}
   },

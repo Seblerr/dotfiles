@@ -4,19 +4,12 @@ return {
     keys = { 'C-j', 'C-k', 'C-h', 'C-l' }
   },
 
-  {
-    'echasnovski/mini.starter',
-    version = false,
-    opts = {}
-  },
-
-  -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
 
   {
     'stevearc/dressing.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
     event = "VeryLazy",
+    dependencies = { 'nvim-telescope/telescope.nvim' },
     opts = {
       select = {
         -- backend = { "builtin", "telescope", "fzf_lua", "fzf", "nui" },
@@ -97,97 +90,6 @@ return {
       }
     end,
   },
-
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-    },
-    keys = {
-      {
-        "<leader>fe",
-        function()
-          local reveal_file = vim.fn.expand('%:p')
-          if (reveal_file == '') then
-            reveal_file = vim.fn.getcwd()
-          else
-            local f = io.open(reveal_file, "r")
-            if (f) then
-              f.close(f)
-            else
-              reveal_file = vim.fn.getcwd()
-            end
-          end
-          require("neo-tree.command").execute({
-            reveal_file = reveal_file, -- path to file or folder to reveal
-            reveal_force_cwd = true,   -- change cwd without asking if needed
-          })
-        end,
-        desc = "Open Neo-tree at current file or working dir",
-      },
-      {
-        "<leader>fE",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.fn.finddir(".git", ".;") .. "/.." })
-        end,
-        desc = "Explorer NeoTree (git root)",
-      },
-      { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
-      { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (git root)", remap = true },
-    },
-    opts = {
-      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-      open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
-      filesystem = {
-        bind_to_cwd = false,
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
-      },
-      window = {
-        mappings = {
-          ["o"] = "open",
-          ["z"] = "none",
-          ["space"] = "none",
-        },
-      },
-      default_component_configs = {
-        indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
-        },
-      },
-    },
-  },
-
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   event = "VeryLazy",
-  --   keys = {
-  --     { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
-  --     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-  --     { "H",          "<Cmd>BufferLineCyclePrev<CR>",            desc = "Switch to previous buffer" },
-  --     { "L",          "<Cmd>BufferLineCycleNext<CR>",            desc = "Switch to next buffer" },
-  --   },
-  --   opts = {
-  --     options = {
-  --       diagnostics = "nvim_lsp",
-  --       always_show_bufferline = false,
-  --       offsets = {
-  --         {
-  --           filetype = "neo-tree",
-  --           text = "Neo-tree",
-  --           highlight = "Directory",
-  --           text_align = "left",
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
 
   {
     "rcarriga/nvim-notify",
