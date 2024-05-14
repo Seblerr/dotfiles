@@ -70,6 +70,7 @@ map("n", "<leader>ul", function()
   Util.toggle("number")
 end, { desc = "Toggle Line Numbers" })
 map("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+map("n", "<leader>ui", Util.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
 map("n", "<leader>uf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
 
 -- windows

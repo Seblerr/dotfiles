@@ -31,15 +31,27 @@ function M.toggle(option, silent, values)
   end
 end
 
-local enabled = true
+local diag_enabled = true
 function M.toggle_diagnostics()
-  enabled = not enabled
-  if enabled then
+  diag_enabled = not diag_enabled
+  if diag_enabled then
     vim.diagnostic.enable()
     M.notify("Enabled diagnostics", "info", "Diagnostics")
   else
     vim.diagnostic.disable()
     M.notify("Disabled diagnostics", "warn", "Diagnostics")
+  end
+end
+
+local inlay_enabled = true
+function M.toggle_inlay_hints()
+  inlay_enabled = not inlay_enabled
+  if inlay_enabled then
+    vim.lsp.inlay_hint.enable(0, true)
+    M.notify("Enabled inlay hints", "info", "LSP")
+  else
+    vim.lsp.inlay_hint.enable(0, false)
+    M.notify("Disabled inlay hints", "warn", "LSP")
   end
 end
 

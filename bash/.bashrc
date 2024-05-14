@@ -9,6 +9,7 @@ shopt -s cdspell
 
 # Path
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/nvim-linux64/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
@@ -42,3 +43,7 @@ PROMPT_DIRTRIM=3
 
 # Fzf setup
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# fnm
+export PATH="/home/enilseb/.local/share/fnm:$PATH"
+eval "`fnm env`"

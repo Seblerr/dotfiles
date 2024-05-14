@@ -17,7 +17,6 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>ss', "<cmd>ClangdSwitchSourceHeader<cr>", "Switch Source/Header (C/C++)")
   nmap('<leader>rn', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>ca', vim.lsp.buf.code_action, 'Code action')
 
@@ -42,7 +41,7 @@ end
 M.on_attach = function(_, bufnr)
   lsp_keymaps(bufnr)
   if vim.fn.has("nvim-0.10") == 1 then
-    vim.lsp.inlay_hint.enable(0, true)
+    vim.lsp.inlay_hint.enable(bufnr, true)
   end
 end
 

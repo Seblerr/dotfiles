@@ -4,58 +4,31 @@ return
     'neovim/nvim-lspconfig',
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
       {
-        'williamboman/mason.nvim',
+        "williamboman/mason-lspconfig.nvim",
         cmd = "Mason",
-        keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-        build = ":MasonUpdate",
-        opts = { ensure_installed = { "lua_ls" } },
-        config = function(_, opts)
-          require("mason").setup(opts)
+        dependencies = {
+          'williamboman/mason.nvim',
+        },
+        config = function()
+          require("mason").setup()
+          require("mason-lspconfig").setup {
+            ensure_installed = {
+              "lua_ls",
+              "bashls",
+              "pyright",
+            } }
         end
       },
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-      { 'folke/neodev.nvim', opts = {} },
-    },
-    opts = {
-      diagnostics = {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-          -- prefix = "icons",
-        },
-        severity_sort = true,
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = require("seba.util.icons").diagnostics.Error,
-            [vim.diagnostic.severity.WARN] = require("seba.util.icons").diagnostics.Warn,
-            [vim.diagnostic.severity.HINT] = require("seba.util.icons").diagnostics.Hint,
-            [vim.diagnostic.severity.INFO] = require("seba.util.icons").diagnostics.Info,
-          },
-        },
-      },
-      autoformat = true,
-      format = {
-        formatting_options = nil,
-        timeout_ms = nil,
-      },
+      { 'hrsh7th/cmp-nvim-lsp', },
+      { 'j-hui/fidget.nvim',    tag = 'legacy', opts = {} },
+      { 'folke/neodev.nvim',    opts = {} },
     },
     config = function()
       local lspconfig = require('lspconfig')
 
       -- Get keybinds for LSP
       local lsp_settings = require('seba.lsp.attach')
-
-      require('neodev').setup({
-        library = { plugins = { "nvim-dap-ui" }, types = true },
-      })
-
 
       lspconfig.clangd.setup({
         capabilities = lsp_settings.capabilities,
@@ -99,33 +72,56 @@ return
 
   {
     "p00f/clangd_extensions.nvim",
-    lazy = true,
-    config = function() end,
-    opts = {
-      inlay_hints = {
-        inline = false,
-      },
-      ast = {
-        --These require codicons (https://github.com/microsoft/vscode-codicons)
-        role_icons = {
-          type = "",
-          declaration = "",
-          expression = "",
-          specifier = "",
-          statement = "",
-          ["template argument"] = "",
-        },
-        kind_icons = {
-          Compound = "",
-          Recovery = "",
-          TranslationUnit = "",
-          PackExpansion = "",
-          TemplateTypeParm = "",
-          TemplateTemplateParm = "",
-          TemplateParamObject = "",
-        },
-      },
+    ft = {
+      "c",
+      "cpp",
     },
+    config = function()
+      local group = vim.api.nvim_create_augroup("clangd_extensions", {
+        clear = true,
+      })
+
+      vim.api.nvim_create_autocmd("Filetype", {
+        group = group,
+        desc = "Setup clangd_extension scores for cmp",
+        pattern = "c,cpp",
+        callback = function()
+          local cmp = require "cmp"
+          cmp.setup.buffer {
+            sorting = {
+              comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.recently_used,
+                require "clangd_extensions.cmp_scores",
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+              },
+            },
+          }
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = group,
+        desc = "Clangd specific keymaps",
+        callback = function(args)
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client ~= nil and client.name == "clangd" then
+            require("clangd_extensions").setup()
+            vim.lsp.inlay_hint.enable(0, false)
+            vim.keymap.set(
+              "n",
+              "<leader>ss",
+              "<cmd>ClangdSwitchSourceHeader<CR>",
+              { buffer = bufnr, desc = "Switch between source and header" })
+          end
+        end,
+      })
+    end,
   },
 
   {
