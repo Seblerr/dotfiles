@@ -146,16 +146,22 @@ return {
       { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
       { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "Todo/Fix/Fixme" },
+      {
+        "<leader>sT",
+        "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",
+        desc = "Todo/Fix/Fixme",
+      },
     },
   },
 
   {
     'Wansmer/treesj',
-    keys = { '<space>m', '<space>j', '<space>s' },
+    keys = { '<space>m' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('treesj').setup({ --[[ your config ]] })
+      local tj = require('treesj')
+      tj.setup({ use_default_keymaps = false })
+      vim.keymap.set('n', '<leader>m', tj.toggle)
     end,
   },
 }

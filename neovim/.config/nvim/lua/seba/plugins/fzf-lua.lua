@@ -12,13 +12,13 @@ return {
       end,
       desc = "FzfLua files (git root)"
     },
+    { "<leader>fg", "<Cmd>FzfLua git_files<CR>",                desc = "FzfLua git files" },
     { "<leader>,",  "<Cmd>FzfLua buffers<CR>",                  desc = "FzfLua buffers" },
     { "<leader>fp", "<Cmd>FzfLua files cwd=~/.config/nvim<CR>", desc = "FzfLua files" },
-    { "<leader>fg", "<Cmd>FzfLua git_files<CR>",                desc = "FzfLua git files" },
     { "<leader>gl", "<Cmd>FzfLua git_bcommits<CR>",             desc = "FzfLua git log (buffer)" },
     { "<leader>sg", "<Cmd>FzfLua grep<CR>",                     desc = "FzfLua grep" },
     { "<leader>sf", "<Cmd>FzfLua live_grep<CR>",                desc = "FzfLua live grep (fuzzy)" },
-    { "<leader>sc", "<Cmd>FzfLua grep_curbuf<CR>",              desc = "FzfLua fuzzy grep current buffer" },
+    { "<leader>sb", "<Cmd>FzfLua grep_curbuf<CR>",              desc = "FzfLua fuzzy grep current buffer" },
     { "<leader>/",  "<Cmd>FzfLua lgrep_curbuf<CR>",             desc = "FzfLua grep current buffer" },
     { "<leader>sw", "<Cmd>FzfLua grep_cword<CR>",               desc = "FzfLua current word" },
     { "<leader>sr", "<Cmd>FzfLua resume<CR>",                   desc = "FzfLua resume" },
@@ -27,6 +27,18 @@ return {
 
   },
   config = function()
-    require("fzf-lua").setup({ 'telescope' })
+    require("fzf-lua").setup({
+      'telescope',
+      files = {
+        formatter = "path.filename_first",
+        git_icons = false,
+      },
+      git = {
+        files = {
+          formatter = "path.filename_first",
+          git_icons = false,
+        }
+      },
+    })
   end
 }
