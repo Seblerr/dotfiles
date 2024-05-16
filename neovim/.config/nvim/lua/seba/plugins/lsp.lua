@@ -112,12 +112,26 @@ return
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if client ~= nil and client.name == "clangd" then
             require("clangd_extensions").setup()
-            vim.lsp.inlay_hint.enable(0, false)
+            -- require("clangd_extensions.inlay_hints").setup_autocmd()
+            if vim.fn.has("nvim-0.10") == 1 then
+              vim.lsp.inlay_hint.enable(0, false)
+            end
             vim.keymap.set(
               "n",
               "<leader>ss",
               "<cmd>ClangdSwitchSourceHeader<CR>",
               { buffer = bufnr, desc = "Switch between source and header" })
+            -- vim.keymap.set(
+            --   "n",
+            --   "<leader>ui",
+            --   function()
+            --     if require("clangd_extensions.inlay_hints").toggle_inlay_hints() then
+            --       require("clangd_extensions.inlay_hints").disable_inlay_hints()
+            --     else
+            --       require("clangd_extensions.inlay_hints").set_inlay_hints()
+            --     end
+            --   end,
+            --   { buffer = bufnr, desc = "Switch between source and header" })
           end
         end,
       })
