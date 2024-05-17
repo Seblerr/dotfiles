@@ -1,15 +1,14 @@
 return {
   'mfussenegger/nvim-dap',
-  event = { "BufReadPost", "BufNewFile" },
+  keys = {
+    { "<leader>du", function() require("dapui").toggle() end,               desc = "Dap UI" },
+    { "<leader>dr", function() require("dapui").open({ reset = true }) end, desc = "Reset Dap UI" },
+    { "<leader>de", function() require("dapui").eval() end,                 desc = "Eval",        mode = { "n", "v" } },
+  },
   dependencies = {
     {
       'rcarriga/nvim-dap-ui',
       dependencies = { "nvim-neotest/nvim-nio" },
-      keys = {
-        { "<leader>du", function() require("dapui").toggle() end,               desc = "Dap UI" },
-        { "<leader>dr", function() require("dapui").open({ reset = true }) end, desc = "Reset Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end,                 desc = "Eval",        mode = { "n", "v" } },
-      },
       config = function()
         local dap = require('dap')
         local dapui = require('dapui')

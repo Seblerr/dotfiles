@@ -3,17 +3,16 @@ return {
     'echasnovski/mini.ai',
     event = "VeryLazy",
     version = false,
-    opts = function()
-      local ai = require('mini.ai')
-      local spec_treesitter = ai.gen_spec.treesitter
-      return {
-        n_lines = 500,
+    config = function()
+      local gen_spec = require('mini.ai').gen_spec
+      require('mini.ai').setup({
+        n_lines = 100,
         custom_textobjects = {
-          f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
-          c = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
-          i = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
+          f = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+          c = gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+          i = gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
         }
-      }
+      })
     end
   },
 

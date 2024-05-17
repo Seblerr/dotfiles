@@ -4,9 +4,6 @@ return {
     version = false,
     build = ':TSUpdate',
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
     opts = {
       ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'xml', 'rust' },
       highlight = { enable = true },
