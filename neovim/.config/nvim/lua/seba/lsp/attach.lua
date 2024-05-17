@@ -30,7 +30,6 @@ local function lsp_keymaps(bufnr)
   nmap("<leader>Q", "<cmd>lua vim.diagnostic.setloclist()<CR>", 'Diagnostics quick-fix')
   nmap('<leader>ds', "<cmd>FzfLua lsp_document_symbols<cr>", '[D]ocument [S]ymbols')
   nmap('<leader>ws', "<cmd>FzfLua lsp_workspace_symbols<cr>", '[W]orkspace [S]ymbols')
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -41,7 +40,7 @@ end
 M.on_attach = function(_, bufnr)
   lsp_keymaps(bufnr)
   if vim.fn.has("nvim-0.10") == 1 then
-    vim.lsp.inlay_hint.enable(bufnr, true)
+    vim.lsp.inlay_hint.enable(true, nil)
   end
 end
 

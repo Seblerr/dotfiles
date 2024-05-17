@@ -43,15 +43,12 @@ function M.toggle_diagnostics()
   end
 end
 
-local inlay_enabled = true
 function M.toggle_inlay_hints()
-  inlay_enabled = not inlay_enabled
-  if inlay_enabled then
-    vim.lsp.inlay_hint.enable(0, true)
-    M.notify("Enabled inlay hints", "info", "LSP")
+  if vim.lsp.inlay_hint.is_enabled({ 0 })
+  then
+    vim.lsp.inlay_hint.enable(false, { 0 })
   else
-    vim.lsp.inlay_hint.enable(0, false)
-    M.notify("Disabled inlay hints", "warn", "LSP")
+    vim.lsp.inlay_hint.enable(true, { 0 })
   end
 end
 

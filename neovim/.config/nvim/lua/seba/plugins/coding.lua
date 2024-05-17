@@ -29,29 +29,6 @@ return {
   },
 
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    lazy = true,
-    opts = function()
-      vim.g.skip_ts_context_commentstring_module = true
-      return {
-        enable_autocmd = false,
-      }
-    end
-  },
-
-  {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    opts = {
-      options = {
-        custom_commentstring = function()
-          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-        end,
-      },
-    },
-  },
-
-  {
     'jinh0/eyeliner.nvim',
     keys = { "f", "F", "t", "T" },
     opts = {
