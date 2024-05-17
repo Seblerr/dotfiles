@@ -6,7 +6,6 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'JoosepAlviste/nvim-ts-context-commentstring',
     },
     opts = {
       ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'xml', 'rust' },

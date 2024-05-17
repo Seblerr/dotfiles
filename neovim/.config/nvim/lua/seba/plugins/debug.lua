@@ -4,7 +4,7 @@ return {
   dependencies = {
     {
       'rcarriga/nvim-dap-ui',
-      dependencies = { "nvim-neotest/nvim-nio", "folke/neodev.nvim" },
+      dependencies = { "nvim-neotest/nvim-nio" },
       keys = {
         { "<leader>du", function() require("dapui").toggle() end,               desc = "Dap UI" },
         { "<leader>dr", function() require("dapui").open({ reset = true }) end, desc = "Reset Dap UI" },
@@ -33,15 +33,6 @@ return {
     {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
-    },
-    {
-      "folke/which-key.nvim",
-      optional = true,
-      opts = {
-        defaults = {
-          ["<leader>d"] = { name = "+debug" },
-        },
-      },
     },
   },
   config = function()

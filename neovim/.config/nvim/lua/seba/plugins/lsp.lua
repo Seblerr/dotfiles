@@ -4,25 +4,7 @@ return
     'neovim/nvim-lspconfig',
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      {
-        "williamboman/mason-lspconfig.nvim",
-        cmd = "Mason",
-        dependencies = {
-          'williamboman/mason.nvim',
-        },
-        config = function()
-          require("mason").setup()
-          require("mason-lspconfig").setup {
-            ensure_installed = {
-              "lua_ls",
-              "bashls",
-              "pyright",
-            } }
-        end
-      },
-      { 'hrsh7th/cmp-nvim-lsp', },
-      { 'j-hui/fidget.nvim',    tag = 'legacy', opts = {} },
-      { 'folke/neodev.nvim',    opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
     },
     config = function()
       local lspconfig = require('lspconfig')
@@ -68,6 +50,32 @@ return
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
     end
+  },
+
+  {
+    'williamboman/mason.nvim',
+    cmd = "Mason",
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+      config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup {
+          ensure_installed = {
+            "lua_ls",
+            "bashls",
+            "pyright",
+          } }
+      end
+    },
+  },
+
+  {
+    'folke/neodev.nvim',
+    ft = "lua",
+    dependencies = {
+      'neovim/nvim-lspconfig',
+    },
+    opts = {},
   },
 
   {

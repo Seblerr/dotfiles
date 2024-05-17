@@ -1,33 +1,4 @@
 return {
-  { 'tpope/vim-sleuth' },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      indent = {
-        char = "│",
-        tab_char = "│",
-      },
-      scope = { enabled = false },
-      exclude = {
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-      }
-    },
-  },
-
   {
     'jinh0/eyeliner.nvim',
     keys = { "f", "F", "t", "T" },
@@ -39,7 +10,6 @@ return {
 
   {
     "folke/flash.nvim",
-    event = "VeryLazy",
     opts = {
       modes = {
         char = {
@@ -56,12 +26,6 @@ return {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
       { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       { "r", mode = "o",               function() require("flash").remote() end,     desc = "Remote Flash" },
-      {
-        "R",
-        mode = { "o", "x" },
-        function() require("flash").treesitter_search() end,
-        desc = "Treesitter Search",
-      },
       {
         "<c-s>",
         mode = { "c" },

@@ -24,7 +24,7 @@ require('seba.config.autocmds')
 require('lazy').setup({ import = "seba.plugins" },
   {
     install = {
-      colorscheme = { "gruvbox" },
+      colorscheme = { "catppuccin" },
     },
     checker = {
       enabled = true,
