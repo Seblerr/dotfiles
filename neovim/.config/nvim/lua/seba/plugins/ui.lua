@@ -4,12 +4,9 @@ return {
     keys = { 'C-j', 'C-k', 'C-h', 'C-l' }
   },
 
-  -- { 'folke/which-key.nvim', opts = {} },
-
   {
     'stevearc/dressing.nvim',
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = { 'nvim-telescope/telescope.nvim' },
     opts = {
       select = {
         fzf_lua = {
