@@ -5,7 +5,7 @@ return {
     build = ':TSUpdate',
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'xml', 'rust' },
+      ensure_installed = { 'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim', 'markdown', 'xml', 'rust' },
       highlight = { enable = true },
       indent = { enable = true },
       autotag = { enable = true },

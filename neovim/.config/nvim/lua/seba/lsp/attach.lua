@@ -39,9 +39,6 @@ end
 
 M.on_attach = function(_, bufnr)
   lsp_keymaps(bufnr)
-  if vim.fn.has("nvim-0.10") == 1 then
-    vim.lsp.inlay_hint.enable(true, nil)
-  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

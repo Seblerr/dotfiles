@@ -11,7 +11,6 @@ opt.swapfile = false
 opt.list = true
 opt.listchars:append({ tab = '▸ ' })
 opt.listchars:append({ trail = '·' })
-opt.winbar = "%=%m %f"
 opt.autowrite = true           -- Enable auto write
 opt.clipboard = "unnamedplus"  -- Sync with system clipboard
 opt.completeopt = "menu,menuone,noselect"
