@@ -37,7 +37,11 @@ local function lsp_keymaps(bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-M.on_attach = function(_, bufnr)
+M.on_attach = function(client, bufnr)
+  if client.name == 'ruff' then
+    -- Disable hover for ruff
+    client.server_capabilities.hoverProvider = false
+  end
   lsp_keymaps(bufnr)
 end
 

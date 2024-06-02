@@ -39,10 +39,27 @@ return
         on_attach = lsp_settings.on_attach,
       })
 
-      lspconfig.pyright.setup({
+
+      lspconfig.basedpyright.setup({
+        settings = {
+          basedpyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true,
+            analysis = {
+              -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' },
+            },
+          },
+        },
         capabilities = lsp_settings.capabilities,
-        on_attach = lsp_settings.on_attach,
+        on_attach = lsp_settings.on_attach
       })
+
+      lspconfig.ruff.setup({
+        capabilities = lsp_settings.capabilities,
+        on_attach = lsp_settings.on_attach
+      })
+
 
       -- Diagnostics icons
       for name, icon in pairs(require("seba.util.icons").diagnostics) do

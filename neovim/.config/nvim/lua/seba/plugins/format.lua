@@ -19,6 +19,7 @@ return {
         lua = { "stylua" },
         cpp = { "clang_format" },
         sh = { "shfmt" },
+        python = { "ruff_format" }
       },
       formatters = {
         shfmt = {
