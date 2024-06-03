@@ -80,18 +80,15 @@ return
           ensure_installed = {
             "lua_ls",
             "bashls",
-            "pyright",
+            "basedpyright",
           } }
       end
     },
   },
 
   {
-    'folke/neodev.nvim',
-    ft = "lua",
-    dependencies = {
-      'neovim/nvim-lspconfig',
-    },
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
     opts = {},
   },
 
