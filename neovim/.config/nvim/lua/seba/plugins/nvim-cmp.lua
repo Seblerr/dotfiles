@@ -17,11 +17,6 @@ return
         completion = {
           completeopt = "menu,menuone,noinsert",
         },
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end,
-        },
         mapping = cmp.mapping.preset.insert {
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -50,6 +45,7 @@ return
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "path" },
+          { name = "snippets" }
         }, {
           { name = "buffer" },
         }),
@@ -106,7 +102,6 @@ return
           vim.snippet.expand(item.body)
         end,
       }
-      table.insert(opts.sources, { name = "snippets", keyword_length = 2 })
     end,
     keys = {
       {
