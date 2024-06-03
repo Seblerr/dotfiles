@@ -8,23 +8,9 @@ return
       'hrsh7th/cmp-nvim-lsp',
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      {
-        'L3MON4D3/LuaSnip',
-        version = "v2.*"
-      },
-      {
-        'saadparwaiz1/cmp_luasnip',
-        dependencies = {
-          'hrsh7th/nvim-cmp',
-          'hrsh7th/cmp-nvim-lsp',
-        }
-      },
-      'rafamadriz/friendly-snippets',
     },
     opts = function()
-      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
-      local luasnip = require("luasnip")
       local defaults = require("cmp.config.default")()
 
       return {
@@ -33,7 +19,7 @@ return
         },
         snippet = {
           expand = function(args)
-            require 'luasnip'.lsp_expand(args.body)
+            vim.snippet.expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert {
@@ -49,8 +35,6 @@ return
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
             else
               fallback()
             end
@@ -58,21 +42,19 @@ return
           ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
             else
               fallback()
             end
           end, { 'i', 's' }),
         },
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip', keyword_length = 2 },
-          { name = 'path' },
-          { name = 'buffer',  keyword_length = 3 }
-        },
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "path" },
+        }, {
+          { name = "buffer" },
+        }),
         formatting = {
-          format = function(entry, item)
+          format = function(_, item)
             local ELLIPSIS_CHAR = '…'
             local MAX_LABEL_WIDTH = 20
             local MIN_LABEL_WIDTH = 20
@@ -96,15 +78,55 @@ return
             return item
           end,
         },
+        sorting = defaults.sorting,
       }
     end,
     config = function(_, opts)
       opts.sources = opts.sources or {}
-      table.insert(opts.sources, {
-        name = "lazydev",
-        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-      })
+      table.insert(opts.sources, { name = "lazydev", group_index = 0 })
       require('cmp').setup(opts)
     end
+  },
+
+  -- Snippets
+  {
+    "nvim-cmp",
+    dependencies = {
+      {
+        "garymjr/nvim-snippets",
+        opts = {
+          friendly_snippets = true,
+        },
+        dependencies = { "rafamadriz/friendly-snippets" },
+      },
+    },
+    opts = function(_, opts)
+      opts.snippet = {
+        expand = function(item)
+          vim.snippet.expand(item.body)
+        end,
+      }
+      table.insert(opts.sources, { name = "snippets", keyword_length = 2 })
+    end,
+    keys = {
+      {
+        "<Tab>",
+        function()
+          return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = { "i", "s" },
+      },
+      {
+        "<S-Tab>",
+        function()
+          return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<Tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = { "i", "s" },
+      },
+    },
   },
 }
