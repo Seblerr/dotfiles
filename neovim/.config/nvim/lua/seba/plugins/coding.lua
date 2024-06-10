@@ -82,13 +82,10 @@ return {
   },
 
   {
-    'Wansmer/treesj',
-    keys = { '<space>m' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      local tj = require('treesj')
-      tj.setup({ use_default_keymaps = false })
-      vim.keymap.set('n', '<leader>m', tj.toggle)
-    end,
+    "Wansmer/treesj",
+    keys = {
+      { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
+    },
+    opts = { use_default_keymaps = false, max_join_length = 150 },
   },
 }

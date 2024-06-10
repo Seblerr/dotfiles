@@ -3,9 +3,6 @@ return
   {
     'neovim/nvim-lspconfig',
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-    },
     config = function()
       local lspconfig = require('lspconfig')
 

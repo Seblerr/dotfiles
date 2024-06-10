@@ -49,25 +49,4 @@ return {
       }
     end,
   },
-
-  {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>un",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Dismiss all Notifications",
-      },
-    },
-    opts = {
-      stages = "static",
-      timeout = 1500,
-    },
-    init = function()
-      vim.notify = require("notify")
-    end,
-  },
 }

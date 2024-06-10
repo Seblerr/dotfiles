@@ -144,4 +144,37 @@ return {
     end
 
   },
+
+  {
+    "echasnovski/mini.diff",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>go",
+        function()
+          require("mini.diff").toggle_overlay(0)
+        end,
+        desc = "Toggle mini.diff overlay",
+      },
+    },
+    opts = {
+      view = {
+        style = "sign",
+        signs = {
+          add = "▎",
+          change = "▎",
+          delete = "",
+        },
+      },
+    },
+  },
+
+  {
+    'echasnovski/mini.notify',
+    version = '*',
+    config = function()
+      require('mini.notify').setup()
+      vim.notify = require('mini.notify').make_notify()
+    end
+  },
 }

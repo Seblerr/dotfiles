@@ -12,22 +12,19 @@ function M.has(plugin)
   return require("lazy.core.config").plugins[plugin] ~= nil
 end
 
-function M.toggle(option, silent, values)
+function M.toggle(option, values)
   if values then
     if vim.opt_local[option]:get() == values[1] then
       vim.opt_local[option] = values[2]
     else
       vim.opt_local[option] = values[1]
     end
-    return M.notify("Set " .. option .. " to " .. vim.opt_local[option]:get(), "info", "Option")
   end
   vim.opt_local[option] = not vim.opt_local[option]:get()
-  if not silent then
-    if vim.opt_local[option]:get() then
-      return M.notify("Enabled " .. option, "info", "Option")
-    else
-      return M.notify("Disabled " .. option, "warn", "Option")
-    end
+  if vim.opt_local[option]:get() then
+    vim.notify("Enabled " .. option, vim.log.levels.INFO)
+  else
+    vim.notify("Disabled " .. option, vim.log.levels.WARN)
   end
 end
 
@@ -36,20 +33,15 @@ function M.toggle_diagnostics()
   diag_enabled = not diag_enabled
   if diag_enabled then
     vim.diagnostic.enable()
-    M.notify("Enabled diagnostics", "info", "Diagnostics")
+    vim.notify("Enabled diagnostics", vim.log.levels.INFO)
   else
-    vim.diagnostic.disable()
-    M.notify("Disabled diagnostics", "warn", "Diagnostics")
+    vim.diagnostic.enable(false)
+    vim.notify("Disabled diagnostics", vim.log.levels.WARN)
   end
 end
 
 function M.toggle_inlay_hints()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end
-
-function M.notify(message, level, title)
-  local notify = require("notify")
-  notify(message, level, { title = title })
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 end
 
 return M

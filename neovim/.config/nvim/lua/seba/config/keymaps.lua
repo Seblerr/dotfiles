@@ -1,4 +1,4 @@
-local Util = require("seba.util")
+local util = require("seba.util")
 
 local function map(mode, lhs, rhs, opts)
   opts = opts or {}
@@ -63,14 +63,14 @@ map("v", ">", ">gv")
 map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- Toggle
-map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+map("n", "<leader>us", function() util.toggle("spell") end, { desc = "Toggle Spelling" })
+map("n", "<leader>uw", function() util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
 map("n", "<leader>ul", function()
-  Util.toggle("relativenumber", true)
-  Util.toggle("number")
+  util.toggle("relativenumber")
+  util.toggle("number")
 end, { desc = "Toggle Line Numbers" })
-map("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
-map("n", "<leader>ui", Util.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
+map("n", "<leader>ud", util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+map("n", "<leader>ui", util.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
 map("n", "<leader>uf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
 
 -- windows
