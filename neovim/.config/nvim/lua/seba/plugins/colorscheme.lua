@@ -15,7 +15,10 @@ return {
     name = "catppuccin",
     priority = 1000,
     config = function()
-      require("catppuccin").setup({ flavour = "macchiato" })
+      require("catppuccin").setup({
+        flavour = "macchiato",
+        compile_path = vim.fn.stdpath "cache" .. "/catppuccin",
+      })
       vim.cmd([[colorscheme catppuccin]])
     end,
   },

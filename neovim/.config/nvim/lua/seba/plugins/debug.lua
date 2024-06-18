@@ -41,7 +41,7 @@ return {
       { "<leader>dv", function()
         local launch_path = require('seba.util').get_git_root() .. '/.vscode/launch.json'
         require('dap.ext.vscode').load_launchjs(launch_path, { cppdbg = { 'cc', 'cpp' } })
-        require('seba.util').notify("Loaded launch.json", "info", "DAP")
+        vim.notify("Loaded launch.json", vim.log.levels.INFO)
       end, "Debug: Load launch.json" }
     },
     config = function()

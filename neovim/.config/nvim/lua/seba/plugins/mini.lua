@@ -121,8 +121,9 @@ return {
     },
     config = function(_, opts)
       local rhs = '<Cmd>lua MiniGit.show_at_cursor()<CR>'
-      vim.keymap.set({ 'n', 'x' }, '<Leader>gs', rhs, { desc = 'Show at cursor' })
-      vim.keymap.set({ 'n', 'x' }, '<Leader>gb', '<Cmd>vertical Git blame -- %<CR>', { desc = 'Git blame buffer' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gs', rhs, { desc = 'Show at cursor' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gb', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gd', '<cmd>vertical Git diff -- %<cr>', { desc = 'Git diff buffer' })
 
       local align_blame = function(au_data)
         if au_data.data.git_subcommand ~= 'blame' then return end
