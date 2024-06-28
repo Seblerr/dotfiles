@@ -1,14 +1,5 @@
 return {
   {
-    'jinh0/eyeliner.nvim',
-    keys = { "f", "F", "t", "T" },
-    opts = {
-      highlight_on_key = true,
-      dim = true
-    }
-  },
-
-  {
     "folke/ts-comments.nvim",
     opts = {},
     event = "VeryLazy",
@@ -18,18 +9,19 @@ return {
   {
     "folke/flash.nvim",
     opts = {
+      jump = {
+        autojump = true
+      },
       modes = {
         char = {
-          -- jump_labels = true
-          enabled = false
-          -- multi_line = false,
+          autohide = true,
+          jump_labels = true,
+          multi_line = false,
         },
-        search = {
-          enabled = false
-        }
       }
     },
     keys = {
+      { "f", "F",                      "t",                                          "T" },
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
       { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       { "r", mode = "o",               function() require("flash").remote() end,     desc = "Remote Flash" },
