@@ -4,11 +4,10 @@ return {
   -- General settings
   color_scheme = 'catppuccin-macchiato',
 
-  font = wezterm.font('JetBrainsMono NF', { weight = 'Medium' }),
-  -- font = wezterm.font_with_fallback({
-  --   { family = "JetBrainsMono NF",       weight = 'Medium' },
-  --   { family = "Symbols Nerd Font Mono", scale = 0.67 }
-  -- }),
+  font = wezterm.font_with_fallback({
+    { family = "JetBrainsMono NF",       weight = 'Medium' },
+    { family = "Symbols Nerd Font Mono", scale = 0.67 }
+  }),
   font_size = 14,
 
   enable_tab_bar = false,
