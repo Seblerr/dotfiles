@@ -1,7 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
     { "<leader>ff", "<Cmd>FzfLua files<CR>",                    desc = "FzfLua files" },
     {
@@ -20,8 +19,8 @@ return {
     { "<leader>sf", "<Cmd>FzfLua live_grep<CR>",                desc = "FzfLua live grep (fuzzy)" },
     { "<leader>sb", "<Cmd>FzfLua grep_curbuf<CR>",              desc = "FzfLua fuzzy grep current buffer" },
     { "<leader>/",  "<Cmd>FzfLua lgrep_curbuf<CR>",             desc = "FzfLua grep current buffer" },
-    { "<leader>sw", "<Cmd>FzfLua grep_cword<CR>", mode = {"n"},               desc = "FzfLua current word" },
-    { "<leader>sw", "<Cmd>FzfLua grep_visual<CR>", mode = {"x"},               desc = "FzfLua grep visual selection" },
+    { "<leader>sw", "<Cmd>FzfLua grep_cword<CR>",               mode = { "n" },                           desc = "FzfLua current word" },
+    { "<leader>sw", "<Cmd>FzfLua grep_visual<CR>",              mode = { "x" },                           desc = "FzfLua grep visual selection" },
     { "<leader>sr", "<Cmd>FzfLua resume<CR>",                   desc = "FzfLua resume" },
     { "<leader>sd", "<Cmd>FzfLua diagnostics_document<CR>",     desc = "Diagnostics document" },
     { "<leader>sk", "<Cmd>FzfLua keymaps<CR>",                  desc = "Search keymaps" },

@@ -23,14 +23,14 @@ return {
     opts = {}
   },
 
-  {
-    'echasnovski/mini.pick',
-    event = "VeryLazy",
-    version = false,
-    config = function()
-      require('mini.pick').setup()
-    end
-  },
+  -- {
+  --   'echasnovski/mini.pick',
+  --   event = "VeryLazy",
+  --   version = false,
+  --   config = function()
+  --     require('mini.pick').setup()
+  --   end
+  -- },
 
   {
     'echasnovski/mini.move',
@@ -91,6 +91,7 @@ return {
   {
     'echasnovski/mini.files',
     version = '*',
+    dependencies = 'echasnovski/mini.icons',
     keys = {
       { "<leader>e", function()
         local mf = require('mini.files')
@@ -202,6 +203,14 @@ return {
     config = function()
       require('mini.notify').setup()
       vim.notify = require('mini.notify').make_notify()
+    end
+  },
+
+  {
+    'echasnovski/mini.icons',
+    version = false,
+    config = function()
+      require('mini.icons').setup()
     end
   },
 }

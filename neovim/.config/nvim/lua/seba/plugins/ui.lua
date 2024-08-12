@@ -22,10 +22,8 @@ return {
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    dependencies = 'echasnovski/mini.icons',
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
     opts = function()
       local lualine_require = require("lualine_require")
       lualine_require.require = require

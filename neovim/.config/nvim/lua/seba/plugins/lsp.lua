@@ -17,7 +17,8 @@ return
           "--background-index",
           "--header-insertion=never",
           "--header-insertion-decorators=false"
-        }
+        },
+        root_dir = lspconfig.util.root_pattern("compile_commands.json", ".git")
       })
 
       lspconfig["lua_ls"].setup({
