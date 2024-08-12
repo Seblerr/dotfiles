@@ -22,6 +22,7 @@ return {
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    version = false,
     dependencies = 'echasnovski/mini.icons',
     event = { "BufReadPost", "BufNewFile" },
     opts = function()

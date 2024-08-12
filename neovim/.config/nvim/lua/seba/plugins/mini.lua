@@ -90,7 +90,7 @@ return {
 
   {
     'echasnovski/mini.files',
-    version = '*',
+    version = false,
     dependencies = 'echasnovski/mini.icons',
     keys = {
       { "<leader>e", function()
@@ -211,6 +211,7 @@ return {
     version = false,
     config = function()
       require('mini.icons').setup()
+      MiniIcons.mock_nvim_web_devicons()
     end
   },
 }

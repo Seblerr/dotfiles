@@ -64,15 +64,13 @@ return
               item.abbr = label .. padding
             end
 
-            local icons = require("seba.util.icons").kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-
-            item.menu = ""
+            local icon, hl = require('mini.icons').get("lsp", item.kind)
+            item.kind = icon .. " " .. item.kind
+            item.kind_hl_group = hl
 
             return item
           end,
+          fields = { "abbr", "kind" } -- "menu"
         },
         sorting = defaults.sorting,
       }
