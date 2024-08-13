@@ -68,9 +68,11 @@ return
             item.kind = icon .. " " .. item.kind
             item.kind_hl_group = hl
 
+            -- item.menu = ""
+
             return item
           end,
-          fields = { "abbr", "kind" } -- "menu"
+          fields = { "abbr", "kind", "menu" } -- "menu"
         },
         sorting = defaults.sorting,
       }
