@@ -223,7 +223,7 @@ return {
         make_global = { "put", "put_text", "zoom" }
       })
       -- MiniMisc.setup_auto_root()
-      MiniMisc.setup_termbg_sync()
+      -- MiniMisc.setup_termbg_sync()
       MiniMisc.setup_restore_cursor()
     end
   }

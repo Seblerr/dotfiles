@@ -56,3 +56,31 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     vim.cmd("tabnext " .. current_tab)
   end,
 })
+
+-- Function to copy lines containing a pattern into a new buffer
+function ExtractText(pattern)
+  local original_buf = vim.api.nvim_get_current_buf()
+
+  vim.cmd("tabnew")
+
+  local new_buf = vim.api.nvim_get_current_buf()
+  vim.api.nvim_buf_set_name(new_buf, pattern)
+
+  local lines = vim.api.nvim_buf_get_lines(original_buf, 0, -1, false)
+
+  local matching_lines = {}
+  for _, line in ipairs(lines) do
+    if vim.fn.match(line, pattern) ~= -1 then
+      table.insert(matching_lines, line)
+    end
+  end
+
+  vim.api.nvim_buf_set_lines(new_buf, 0, -1, false, matching_lines)
+end
+
+vim.api.nvim_create_user_command('Extract', function(opts)
+  ExtractText(opts.args)
+end, { nargs = 1 })
+
+vim.api.nvim_set_keymap('n', '<leader>fi', ':lua ExtractText(vim.fn.input("Pattern: "))<CR>',
+  { noremap = true, silent = true })
