@@ -218,6 +218,7 @@ return {
   {
     'echasnovski/mini.misc',
     version = false,
+    event = "VeryLazy",
     keys = {
       { "<leader>z", "<cmd>lua zoom()<cr>", desc = "Zoom split" }
     },
