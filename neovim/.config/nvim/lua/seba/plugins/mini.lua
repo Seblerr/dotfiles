@@ -218,6 +218,9 @@ return {
   {
     'echasnovski/mini.misc',
     version = false,
+    keys = {
+      { "<leader>z", "<cmd>lua zoom()<cr>", desc = "Zoom split" }
+    },
     config = function()
       require('mini.misc').setup({
         make_global = { "put", "put_text", "zoom" }

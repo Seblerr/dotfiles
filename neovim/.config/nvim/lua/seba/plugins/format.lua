@@ -2,7 +2,6 @@ return {
   'stevearc/conform.nvim',
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
-  dependencies = "rcarriga/nvim-notify",
   keys = {
     {
       "<leader>fo",
@@ -18,6 +17,7 @@ return {
       formatters_by_ft = {
         -- lua = { "stylua" },
         cpp = { "clang_format" },
+        json = { "jq" },
         sh = { "shfmt" },
         python = { "ruff_format" }
       },
@@ -35,12 +35,11 @@ return {
     })
 
     vim.api.nvim_create_user_command("FormatToggle", function()
-      local util = require("seba.util")
       vim.g.disable_autoformat = not vim.g.disable_autoformat
       if vim.g.disable_autoformat then
-        util.notify("Autoformat disabled", "warn", "conform.nvim")
+        vim.notify("Disabled autoformat", vim.log.levels.WARN)
       else
-        util.notify("Autoformat enabled", "info", "conform.nvim")
+        vim.notify("Enabled autoformat", vim.log.levels.INFO)
       end
     end, {
       desc = "Toggle autoformat-on-save",

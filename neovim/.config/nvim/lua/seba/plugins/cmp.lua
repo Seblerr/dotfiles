@@ -1,13 +1,22 @@
 return
 {
   {
-    'hrsh7th/nvim-cmp',
+    -- 'hrsh7th/nvim-cmp',
+    'yioneko/nvim-cmp',
+    branch = "perf",
     version = false,
     event = "InsertEnter",
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      -- {
+      --   "garymjr/nvim-snippets",
+      --   opts = {
+      --     friendly_snippets = true,
+      --   },
+      --   dependencies = { "rafamadriz/friendly-snippets" },
+      -- }
     },
     opts = function()
       local cmp = require("cmp")
@@ -18,34 +27,34 @@ return
           completeopt = "menu,menuone,noinsert",
         },
         mapping = cmp.mapping.preset.insert {
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
+          ["<C-n>"] = cmp.mapping.select_next_item(),
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
+          ['<C-y>'] = cmp.mapping.confirm({
+            -- behavior = cmp.ConfirmBehavior.Insert,
             select = false,
           }),
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          -- ['<Tab>'] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_next_item()
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
+          -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_prev_item()
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "path" },
-          { name = "snippets" }
+          { name = "snippets" },
+          { name = "path" }
         }, {
           { name = "buffer" },
         }),
@@ -75,6 +84,13 @@ return
           fields = { "abbr", "kind", "menu" } -- "menu"
         },
         sorting = defaults.sorting,
+        matching = {
+          disallow_fuzzy_matching = true,
+          disallow_fullfuzzy_matching = true,
+          disallow_partial_fuzzy_matching = true,
+          disallow_partial_matching = false,
+          disallow_prefix_unmatching = true,
+        }
       }
     end,
     config = function(_, opts)
