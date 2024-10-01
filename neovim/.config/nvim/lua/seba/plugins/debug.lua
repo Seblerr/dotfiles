@@ -50,8 +50,8 @@ return {
       -- Keymaps
       vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Debug: Step Into' })
       vim.keymap.set('n', '<leader>do', dap.step_out, { desc = 'Debug: Step Out' })
-      vim.keymap.set('n', '<leader>dj', dap.down, { desc = 'Debug: Down' })
-      vim.keymap.set('n', '<leader>dk', dap.up, { desc = 'Debug: Up' })
+      vim.keymap.set('n', '<leader>dk', dap.down, { desc = 'Debug: Down' })
+      vim.keymap.set('n', '<leader>dj', dap.up, { desc = 'Debug: Up' })
       vim.keymap.set('n', '<leader>dl', dap.step_over, { desc = 'Debug: Step Over' })
       vim.keymap.set('n', '<leader>dh', dap.step_back, { desc = 'Debug: Step Back' })
       vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'Debug: Terminate' })

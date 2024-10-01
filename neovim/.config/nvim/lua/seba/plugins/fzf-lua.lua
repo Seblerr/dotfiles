@@ -31,12 +31,13 @@ return {
       'telescope',
       files = {
         formatter = "path.filename_first",
-        git_icons = false,
+      },
+      buffers = {
+        formatter = "path.filename_first",
       },
       git = {
         files = {
           formatter = "path.filename_first",
-          git_icons = false,
         }
       },
     })

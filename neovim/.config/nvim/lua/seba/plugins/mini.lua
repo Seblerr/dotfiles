@@ -230,5 +230,25 @@ return {
       -- MiniMisc.setup_termbg_sync()
       MiniMisc.setup_restore_cursor()
     end
-  }
+  },
+
+  {
+    'echasnovski/mini.indentscope',
+    version = false,
+    config = function()
+      require('mini.indentscope').setup({
+        symbol = "│",
+        options = {
+          try_as_border = true
+        },
+        draw = {
+          delay = 100,
+          priority = 2,
+          animation = function(s, n)
+            return s / n * 20
+          end
+        }
+      })
+    end
+  },
 }
