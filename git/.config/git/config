@@ -8,8 +8,14 @@
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [pull]
   rebase = true
+[push]
+  default = simple
 [rebase]
   autostash = true
+[merge]
+  conflictstyle = diff3
+[column]
+  ui = auto
 [rerere]
 	enabled = 1
 	autoupdate = 1
@@ -32,6 +38,7 @@
 [alias]
 	a = add -u
   A = add -A
+  unstage = reset HEAD --
 	#############
 	b = branch
 	bd = branch -d
@@ -54,6 +61,8 @@
 	#############
 	l = log --oneline
 	lg = log --oneline --graph --decorate
+  lol = log --oneline --graph --decorate --pretty='tformat:%C(yellow)%h %C(green)%cd%C(reset) %s - %C(blue)%an %ad%C(auto)%d%C(reset)' --date='format:%y%m%d %H%M'
+  last = log -1 HEAD
 	#############
 	ls = ls-files
 	lsf = !git ls-files | grep -i
@@ -74,7 +83,11 @@
 	#############
 	st = status
   #############
-	aliases = !git config -l | grep alias | cut -c 7-
+	blame = blame -w -C -C -C
+  root = rev-parse --show-toplevel
+  fix = !${EDITOR} +/HEAD $(git diff --name-only --relative --diff-filter=U | uniq)
+  #############
+	alias = !git config -l | grep alias | cut -c 7-
 	#############
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
