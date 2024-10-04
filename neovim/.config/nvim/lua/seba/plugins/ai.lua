@@ -1,28 +1,14 @@
 return {
   {
     "monkoose/neocodeium",
-    event = "VeryLazy",
-    config = function()
+    opts = {
+      filter = function()
+        local cmp = require("cmp")
+        return not cmp.visible()
+      end,
+    },
+    config = function(_, opts)
       local neocodeium = require("neocodeium")
-      local cmp = require("cmp")
-
-      cmp.event:on("menu_opened", function()
-        neocodeium.clear()
-      end)
-
-      neocodeium.setup({
-        filter = function()
-          return not cmp.visible()
-        end,
-      })
-
-      cmp.setup({
-        completion = {
-          autocomplete = false,
-        },
-      })
-
-      -- neocodeium.setup()
 
       vim.keymap.set("i", "<A-f>", function()
         neocodeium.accept()
@@ -36,40 +22,14 @@ return {
       vim.keymap.set("i", "<A-e>", function()
         neocodeium.cycle_or_complete()
       end)
-      vim.keymap.set("i", "<A-r>", function()
+      vim.keymap.set("i", "<A-q>", function()
         neocodeium.cycle_or_complete(-1)
       end)
       vim.keymap.set("i", "<A-c>", function()
         neocodeium.clear()
       end)
+
+      neocodeium.setup(opts)
     end,
   },
-
-  -- {
-  --   "nvim-cmp",
-  --   config = function()
-  --     local cmp = require("cmp")
-  --     local neocodeium = require("neocodeium")
-  --     local commands = require("neocodeium.commands")
-  --
-  --     cmp.event:on("menu_opened", function()
-  --       neocodeium.clear()
-  --     end)
-  --
-  --     neocodeium.setup({
-  --       filter = function()
-  --         return not cmp.visible()
-  --       end,
-  --     })
-  --
-  --     cmp.setup({
-  --       completion = {
-  --         autocomplete = false,
-  --       },
-  --     })
-  --   end
-  --
-  --
-  -- }
-
 }

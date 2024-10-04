@@ -24,6 +24,7 @@ return
 
       return {
         completion = {
+          autocomplete = false,
           completeopt = "menu,menuone,noinsert",
         },
         mapping = cmp.mapping.preset.insert {
@@ -81,7 +82,7 @@ return
 
             return item
           end,
-          fields = { "abbr", "kind", "menu" } -- "menu"
+          fields = { "abbr", "kind", "menu" }
         },
         sorting = defaults.sorting,
         matching = {
@@ -94,9 +95,16 @@ return
       }
     end,
     config = function(_, opts)
+      local neocodeium = require("neocodeium")
+      local cmp = require("cmp")
+
+      cmp.event:on("menu_opened", function()
+        neocodeium.clear()
+      end)
+
       opts.sources = opts.sources or {}
       table.insert(opts.sources, { name = "lazydev", group_index = 0 })
-      require('cmp').setup(opts)
+      cmp.setup(opts)
     end
   },
 
