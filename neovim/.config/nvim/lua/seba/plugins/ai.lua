@@ -6,6 +6,11 @@ return {
         local cmp = require("cmp")
         return not cmp.visible()
       end,
+      filetypes = {
+        ["dap-repl"] = false,
+        dapui_watches = false,
+        DressingInput = false,
+      }
     },
     config = function(_, opts)
       local neocodeium = require("neocodeium")
