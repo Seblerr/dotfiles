@@ -7,9 +7,14 @@ shopt -s direxpand
 shopt -s histappend
 shopt -s cdspell
 
+# Lang
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 # Path
 export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/nvim-linux64/bin:$PATH"
+export PATH="$HOME/.nvim-linux64/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
@@ -36,14 +41,10 @@ parse_git_branch() {
 }
 export_PS1()
 {
-  PS1='\[\033[38;5;007m\]\u \[\033[01;34m\]\w \[\033[01;31m\]$(parse_git_branch) \[\033[00m\]\n$ '
+  PS1='\[\033[38;5;007m\]\u@\h \[\033[01;34m\]\w \[\033[01;31m\]$(parse_git_branch) \[\033[00m\]\n$ '
 }
 export_PS1
 PROMPT_DIRTRIM=3
 
 # Fzf setup
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# fnm
-export PATH="/home/enilseb/.local/share/fnm:$PATH"
-eval "`fnm env`"
