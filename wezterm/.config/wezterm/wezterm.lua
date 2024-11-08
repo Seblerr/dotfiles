@@ -5,8 +5,8 @@ return {
   color_scheme = 'catppuccin-macchiato',
 
   font = wezterm.font_with_fallback({
-    { family = "JetBrainsMono Nerd Font",       weight = 'Medium' },
-    { family = "Symbols Nerd Font Mono", scale = 0.67 }
+    { family = "JetBrainsMono Nerd Font", weight = 'Medium' },
+    { family = "Symbols Nerd Font Mono",  scale = 0.67 }
   }),
   font_size = 14,
 
@@ -22,4 +22,12 @@ return {
   window_close_confirmation = "NeverPrompt",
 
   audible_bell = "Disabled",
+
+  keys = {
+    {
+      key = 'Backspace',
+      mods = 'CTRL',
+      action = wezterm.action({ SendKey = { key = 'w', mods = 'CTRL' } }),
+    }
+  }
 }
