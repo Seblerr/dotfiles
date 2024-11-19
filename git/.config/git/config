@@ -37,7 +37,6 @@
 	untracked = red bold
 [alias]
 	a = add -u
-  A = add -A
   unstage = reset HEAD --
 	#############
 	b = branch
@@ -55,6 +54,8 @@
 	cp = cherry-pick
 	cpa = cherry-pick --abort
 	cpc = cherry-pick --continue
+  #############
+  rbc = rebase --continue
 	#############
 	d = diff
 	dt = difftool

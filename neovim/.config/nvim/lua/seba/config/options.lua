@@ -1,7 +1,7 @@
 -- [[ Setting options ]]
 local opt = vim.opt
 
-opt.hlsearch = false
+vim.g.have_nerd_font = true
 opt.number = true
 opt.relativenumber = true
 opt.mouse = 'a'
@@ -12,7 +12,6 @@ opt.list = true
 opt.listchars:append({ tab = '▸ ' })
 opt.listchars:append({ trail = '·' })
 opt.autowrite = true           -- Enable auto write
-opt.clipboard = "unnamedplus"  -- Sync with system clipboard
 opt.completeopt = "menu,menuone,noselect"
 opt.confirm = true             -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true          -- Enable highlighting of the current line
@@ -45,6 +44,9 @@ opt.undolevels = 10000
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5                -- Minimum window width
 opt.wrap = false                   -- Disable line wrap
+vim.schedule(function()
+  opt.clipboard = "unnamedplus"    -- Sync with system clipboard
+end)
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0

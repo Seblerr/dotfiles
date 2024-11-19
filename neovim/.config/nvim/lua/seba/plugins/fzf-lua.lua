@@ -14,6 +14,7 @@ return {
     { "<leader>fg", "<Cmd>FzfLua git_files<CR>",              desc = "FzfLua git files" },
     { "<leader>,",  "<Cmd>FzfLua buffers<CR>",                desc = "FzfLua buffers" },
     { "<leader>fp", "<Cmd>FzfLua files cwd=~/.dotfiles/<CR>", desc = "FzfLua files" },
+    { "<leader>?",  "<Cmd>FzfLua oldfiles<CR>",               desc = "FzfLua oldfiles" },
     { "<leader>gl", "<Cmd>FzfLua git_bcommits<CR>",           desc = "FzfLua git log (buffer)" },
     { "<leader>sg", "<Cmd>FzfLua grep<CR>",                   desc = "FzfLua grep" },
     { "<leader>sf", "<Cmd>FzfLua live_grep<CR>",              desc = "FzfLua live grep (fuzzy)" },
