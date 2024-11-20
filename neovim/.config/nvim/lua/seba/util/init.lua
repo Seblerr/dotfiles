@@ -28,16 +28,13 @@ function M.toggle(option, values)
   end
 end
 
-local diag_enabled = true
 function M.toggle_diagnostics()
-  diag_enabled = not diag_enabled
-  if diag_enabled then
-    vim.diagnostic.enable()
-    vim.notify("Enabled diagnostics", vim.log.levels.INFO)
-  else
-    vim.diagnostic.enable(false)
-    vim.notify("Disabled diagnostics", vim.log.levels.WARN)
+  if vim.b.diag_enabled == nil then
+    vim.b.diag_enabled = true
   end
+  vim.diagnostic.enable(not vim.b.diag_enabled, { bufnr = 0 })
+  vim.b.diag_enabled = not vim.b.diag_enabled
+  vim.notify("Diagnostics: " .. (vim.b.diag_enabled and "enabled" or "disabled"), vim.log.levels.INFO)
 end
 
 function M.toggle_inlay_hints()
