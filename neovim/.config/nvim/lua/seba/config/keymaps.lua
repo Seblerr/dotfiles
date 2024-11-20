@@ -64,15 +64,37 @@ map("v", ">", ">gv")
 map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- Toggle
-map("n", "<leader>us", function() util.toggle("spell") end, { desc = "Toggle Spelling" })
-map("n", "<leader>uw", function() util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-map("n", "<leader>ul", function()
+map("n", "<leader>ts", function() util.toggle("spell") end, { desc = "Toggle Spelling" })
+map("n", "<leader>tw", function() util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+map("n", "<leader>tl", function()
   util.toggle("relativenumber")
   util.toggle("number")
 end, { desc = "Toggle Line Numbers" })
-map("n", "<leader>ud", util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
-map("n", "<leader>ui", util.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
-map("n", "<leader>uf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
+map("n", "<leader>td", util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+map("n", "<leader>ti", util.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
+map("n", "<leader>tf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
+
+-- Toggle completion engine
+vim.b.completion_engine = "codeium"
+local function toggle_completion()
+  if vim.b.completion_engine ~= "nvim-cmp" then
+    require("cmp").setup.buffer({
+      enabled = true,
+      completion = {
+        autocomplete = { "InsertEnter", "TextChanged" },
+      }
+    })
+    require("neocodeium.commands").disable_buffer()
+    vim.notify("Enabled nvim-cmp", vim.log.levels.INFO)
+    vim.b.completion_engine = "nvim-cmp"
+  else
+    require("cmp").setup.buffer({ enabled = false })
+    require("neocodeium.commands").enable_buffer()
+    vim.notify("Enabled Codeium", vim.log.levels.INFO)
+    vim.b.completion_engine = "codeium"
+  end
+end
+map("n", "<leader>tc", function() toggle_completion() end, { desc = "Toggle completion engine in buffer" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
