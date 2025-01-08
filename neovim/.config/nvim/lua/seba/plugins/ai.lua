@@ -2,10 +2,6 @@ return {
   {
     "monkoose/neocodeium",
     opts = {
-      filter = function()
-        local cmp = require("cmp")
-        return not cmp.visible()
-      end,
       filetypes = {
         ["dap-repl"] = false,
         dapui_watches = false,
