@@ -79,6 +79,7 @@
 	p = pull
 	#############
   r = restore
+  rs = restore --staged
 	re = reset
 	rh = reset HEAD
 	reh = reset --hard
