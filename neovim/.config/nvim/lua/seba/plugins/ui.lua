@@ -1,16 +1,5 @@
 return {
   {
-    'akinsho/bufferline.nvim',
-    dependencies = 'echasnovski/mini.icons',
-    version = "*",
-    keys = {
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-    },
-    opts = {}
-  },
-
-  {
     'nathom/tmux.nvim',
     keys = { 'C-j', 'C-k', 'C-h', 'C-l' }
   },
