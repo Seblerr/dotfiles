@@ -3,7 +3,12 @@ return {
   dependencies = 'rafamadriz/friendly-snippets',
   version = '*',
   opts = {
-    keymap = { preset = 'default' },
+    keymap = {
+      preset = 'default',
+      cmdline = {
+        ["<Tab>"] = {}
+      }
+    },
     appearance = {
       nerd_font_variant = 'mono'
     },

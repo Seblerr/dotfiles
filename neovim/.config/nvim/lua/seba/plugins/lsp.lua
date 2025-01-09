@@ -21,6 +21,20 @@ return
         },
         root_dir = lspconfig.util.root_pattern("compile_commands.json", ".git")
       })
+      vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "Clangd specific keymaps",
+        callback = function(args)
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client ~= nil and client.name == "clangd" then
+            vim.keymap.set(
+              "n",
+              "<leader>ss",
+              "<cmd>ClangdSwitchSourceHeader<CR>",
+              { buffer = bufnr, desc = "Switch between source and header" })
+          end
+        end,
+      })
 
       lspconfig["lua_ls"].setup({
         capabilities = lsp_settings.capabilities,
@@ -96,38 +110,8 @@ return
   },
 
   {
-    "p00f/clangd_extensions.nvim",
-    ft = {
-      "c",
-      "cpp",
-    },
-    config = function()
-      local group = vim.api.nvim_create_augroup("clangd_extensions", {
-        clear = true,
-      })
-
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = group,
-        desc = "Clangd specific keymaps",
-        callback = function(args)
-          local bufnr = args.buf
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client ~= nil and client.name == "clangd" then
-            require("clangd_extensions").setup()
-            vim.keymap.set(
-              "n",
-              "<leader>ss",
-              "<cmd>ClangdSwitchSourceHeader<CR>",
-              { buffer = bufnr, desc = "Switch between source and header" })
-          end
-        end,
-      })
-    end,
-  },
-
-  {
     "mrcjkb/rustaceanvim",
-    version = "^3", -- Recommended
+    version = "^5", -- Recommended
     ft = { "rust" },
     init = function()
       vim.g.rustaceanvim = {

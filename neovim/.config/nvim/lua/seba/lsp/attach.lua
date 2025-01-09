@@ -30,11 +30,6 @@ local function lsp_keymaps(bufnr)
   nmap("<leader>Q", "<cmd>lua vim.diagnostic.setloclist()<CR>", 'Diagnostics quick-fix')
   nmap('<leader>ds', "<cmd>FzfLua lsp_document_symbols<cr>", 'Lsp document symbols')
   nmap('<leader>ws', "<cmd>FzfLua lsp_workspace_symbols<cr>", 'Lsp workspace symbols')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
 end
 
 M.on_attach = function(client, bufnr)

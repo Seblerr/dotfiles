@@ -48,4 +48,13 @@ return {
       }
     end,
   },
+
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+    },
+    keys = {
+      { "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" }
+    },
+  }
 }
