@@ -17,7 +17,12 @@ return {
         'markdown_inline',
         'xml',
         'rust',
-        'json'
+        'json',
+        'html',
+        'javascript',
+        'typescript',
+        'svelte',
+        'css'
       },
       highlight = {
         enable = true,

@@ -35,6 +35,8 @@ alias mkdir='mkdir -p'
 alias tmux='tmux -u'
 alias vim='nvim'
 alias v='nvim'
+alias g='git'
+alias n='ninja'
 
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -48,3 +50,4 @@ PROMPT_DIRTRIM=3
 
 # Fzf setup
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"

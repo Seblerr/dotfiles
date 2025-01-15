@@ -19,7 +19,9 @@ return {
         cpp = { "clang_format" },
         json = { "jq" },
         sh = { "shfmt" },
-        python = { "ruff_format" }
+        python = { "ruff_format" },
+        -- ts = { "prettier" },
+        -- js = { "prettier" }
       },
       formatters = {
         shfmt = {
