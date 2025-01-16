@@ -59,6 +59,21 @@ return
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        desc = "Clangd specific keymaps",
+        callback = function(args)
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client ~= nil and client.name == "clangd" then
+            vim.keymap.set(
+              "n",
+              "<leader>ss",
+              "<cmd>ClangdSwitchSourceHeader<CR>",
+              { buffer = bufnr, desc = "Switch between source and header" })
+          end
+        end,
+      })
     end
   },
 
