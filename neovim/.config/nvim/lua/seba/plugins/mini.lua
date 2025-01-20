@@ -12,25 +12,9 @@ return {
     opts = {}
   },
 
-  -- {
-  --   'echasnovski/mini.pick',
-  --   event = "VeryLazy",
-  --   version = false,
-  --   config = function()
-  --     require('mini.pick').setup()
-  --   end
-  -- },
-
   {
     'echasnovski/mini.move',
     event = { "BufReadPost", "BufNewFile" },
-    version = false,
-    opts = {},
-  },
-
-  {
-    'echasnovski/mini.pairs',
-    event = "InsertEnter",
     version = false,
     opts = {},
   },
