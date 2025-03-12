@@ -8,21 +8,12 @@ return {
           and vim.bo.buftype ~= 'prompt'
           and vim.b.completion ~= false
     end,
-    keymap = {
-      preset = 'default',
-      cmdline = {
-        ["<Tab>"] = {}
-      }
+    cmdline = {
+      enabled = false
     },
     appearance = {
       nerd_font_variant = 'mono'
     },
-    sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
-    },
-    completion = {
-      menu = { auto_show = function(ctx) return ctx.mode ~= 'cmdline' end }
-    }
   },
   opts_extend = { "sources.default" }
 }
