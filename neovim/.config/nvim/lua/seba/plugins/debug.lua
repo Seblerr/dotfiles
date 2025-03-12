@@ -30,10 +30,6 @@ return {
           end
         end
       },
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = {},
-      },
     },
     keys = {
       { "<leader>dc", function() require('dap').continue() end,          "Start/continue debug" },
