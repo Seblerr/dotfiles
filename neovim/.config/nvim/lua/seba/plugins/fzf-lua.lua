@@ -28,17 +28,43 @@ return {
 
   },
   config = function()
-    require("fzf-lua").setup({
-      'telescope',
+    local fzf = require("fzf-lua")
+    local actions = fzf.actions
+
+    fzf.setup({
+      "telescope",
+      fzf_colors = true,
+      fzf_opts = {
+        ["--no-scrollbar"] = true,
+      },
+      winopts = {
+        width = 0.8,
+        height = 0.8,
+        row = 0.5,
+        col = 0.5,
+        preview = {
+          scrollchars = { "┃", "" },
+        },
+      },
       files = {
-        formatter = "path.filename_first",
+        formatter = "path.dirname_first",
+        actions = {
+          ["alt-i"] = { actions.toggle_ignore },
+          ["alt-h"] = { actions.toggle_hidden },
+        }
       },
       buffers = {
-        formatter = "path.filename_first",
+        formatter = "path.dirname_first",
+      },
+      grep = {
+        actions = {
+          ["alt-i"] = { actions.toggle_ignore },
+          ["alt-h"] = { actions.toggle_hidden },
+        },
       },
       git = {
         files = {
-          formatter = "path.filename_first",
+          formatter = "path.dirname_first",
         }
       },
     })
