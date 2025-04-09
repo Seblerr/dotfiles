@@ -1,5 +1,11 @@
 return {
   {
+    'echasnovski/mini.statusline',
+    version = '*',
+    opts = {},
+  },
+
+  {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
     opts = {
