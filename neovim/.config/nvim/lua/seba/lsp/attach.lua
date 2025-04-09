@@ -19,17 +19,9 @@ local function lsp_keymaps(bufnr)
 
   nmap('<leader>rn', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>ca', vim.lsp.buf.code_action, 'Code action')
-
-  nmap('gd', "<cmd>FzfLua lsp_definitions<cr>", 'Lsp definitions')
-  nmap('gD', "<cmd>FzfLua lsp_document_symbols<cr>", 'Lsp document symbols')
-  nmap('gR', "<cmd>FzfLua lsp_finder<cr>", 'Lsp Finder')
-  nmap('gr', "<cmd>FzfLua lsp_references<cr>", 'Lsp references')
-  nmap('gI', "<cmd>FzfLua lsp_implementations<cr>", 'Lsp implementations')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Lsp type definitions')
-  nmap("<leader>cd", "<cmd>lua vim.diagnostic.open_float()<CR>", 'diagnostic open float')
-  nmap("<leader>Q", "<cmd>lua vim.diagnostic.setloclist()<CR>", 'Diagnostics quick-fix')
-  nmap('<leader>ds', "<cmd>FzfLua lsp_document_symbols<cr>", 'Lsp document symbols')
-  nmap('<leader>ws', "<cmd>FzfLua lsp_workspace_symbols<cr>", 'Lsp workspace symbols')
+  nmap("<leader>cd", vim.diagnostic.open_float, 'Diagnostic open float')
+  nmap("<leader>Q", vim.diagnostic.setloclist, 'Diagnostics quick-fix')
 end
 
 M.on_attach = function(client, bufnr)

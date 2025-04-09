@@ -6,6 +6,7 @@ return {
         ["dap-repl"] = false,
         dapui_watches = false,
         DressingInput = false,
+        snacks_picker_input = false,
       }
     },
     config = function(_, opts)
