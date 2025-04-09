@@ -1,6 +1,7 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = "OXY2DEV/markview.nvim",
     version = false,
     build = ':TSUpdate',
     event = { "BufReadPost", "BufNewFile" },

@@ -79,4 +79,14 @@ return {
     },
     opts = { use_default_keymaps = false, max_join_length = 150 },
   },
+
+
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = {
+      "saghen/blink.cmp"
+    },
+  },
+
 }
