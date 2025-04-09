@@ -20,6 +20,7 @@ return {
         json = { "jq" },
         sh = { "shfmt" },
         python = { "ruff_format" },
+        nix = { "nixfmt" },
         -- ts = { "prettier" },
         -- js = { "prettier" }
       },

@@ -25,12 +25,12 @@ COLOR_DIR=$'%F{197}'
 COLOR_GIT=$'%F{39}'
 setopt PROMPT_SUBST
 export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%~ ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} $ '
+export EDITOR='nvim'
 
 alias v='nvim'
 alias g='git'
 alias ls='ls --color=auto -hv'
 alias ll='ls -lAh'
-
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh --cmd cd)"
