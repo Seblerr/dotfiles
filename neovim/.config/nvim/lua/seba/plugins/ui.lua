@@ -4,20 +4,6 @@ return {
     keys = { 'C-j', 'C-k', 'C-h', 'C-l' }
   },
 
-  {
-    'stevearc/dressing.nvim',
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      select = {
-        fzf_lua = {
-          winopts = {
-            height = 0.5,
-            width = 0.5,
-          },
-        },
-      }
-    },
-  },
 
   {
     -- Set lualine as statusline
