@@ -41,6 +41,7 @@ return
         tailwindcss = {},
         svelte = {},
         html = {},
+        yamlls = {},
       }
     },
     config = function(_, opts)

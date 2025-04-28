@@ -21,6 +21,7 @@ return {
         sh = { "shfmt" },
         python = { "ruff_format" },
         nix = { "nixfmt" },
+        yaml = { "yamlfmt" },
         -- ts = { "prettier" },
         -- js = { "prettier" }
       },
