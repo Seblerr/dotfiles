@@ -1,7 +1,7 @@
 set $mod Mod4
 
 exec_always feh --bg-fill --randomize ~/Pictures/wallpapers
-exec --no-startup-id setxkbmap -option caps:escape
+exec_always --no-startup-id setxkbmap -option caps:escape
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
@@ -148,6 +148,7 @@ bindsym $mod+d focus child
 ############
 workspace_auto_back_and_forth yes
 
+bindsym $mod+x move workspace to output next
 bindsym $mod+Ctrl+Down workspace next
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Up workspace prev
