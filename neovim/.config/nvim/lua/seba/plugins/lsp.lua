@@ -2,7 +2,10 @@ return
 {
   {
     'neovim/nvim-lspconfig',
-    dependencies = { 'saghen/blink.cmp' },
+    dependencies = {
+      'saghen/blink.cmp',
+      { "SmiteshP/nvim-navic", opts = {} },
+    },
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       servers = {
@@ -69,7 +72,7 @@ return
           if client ~= nil and client.name == "clangd" then
             vim.keymap.set(
               "n",
-              "<leader>ss",
+              "<leader><Tab>",
               "<cmd>ClangdSwitchSourceHeader<CR>",
               { buffer = bufnr, desc = "Switch between source and header" })
           end

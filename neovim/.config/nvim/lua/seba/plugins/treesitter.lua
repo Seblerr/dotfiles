@@ -23,7 +23,8 @@ return {
         'javascript',
         'typescript',
         'svelte',
-        'css'
+        'css',
+        'regex'
       },
       highlight = {
         enable = true,

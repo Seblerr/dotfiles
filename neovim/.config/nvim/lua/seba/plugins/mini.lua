@@ -103,9 +103,16 @@ return {
       { "<leader>e", function()
         local mf = require('mini.files')
         if not mf.close() then
-          mf.open(vim.api.nvim_buf_get_name(0))
+          local buf = vim.api.nvim_get_current_buf()
+          if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+            local name = vim.api.nvim_buf_get_name(buf)
+            mf.open(name ~= "" and name or nil)
+          else
+            mf.open()
+          end
         end
       end, "MiniFiles open" },
+
       { "<leader>E", function()
         local mf = require('mini.files')
         if not mf.close() then

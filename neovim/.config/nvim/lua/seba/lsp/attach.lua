@@ -17,6 +17,11 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    local navic = require("nvim-navic")
+    navic.attach(client, bufnr)
+    vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+  end
   if client.name == 'ruff' then
     -- Disable hover for ruff
     client.server_capabilities.hoverProvider = false
