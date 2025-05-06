@@ -4,7 +4,14 @@ return
     'neovim/nvim-lspconfig',
     dependencies = {
       'saghen/blink.cmp',
-      { "SmiteshP/nvim-navic", opts = {} },
+      {
+        "SmiteshP/nvim-navic",
+        opts = {
+          highlight = true,
+          depth_limit = 5,
+          lazy_update_context = true,
+        }
+      },
     },
     event = { "BufReadPre", "BufNewFile" },
     opts = {
@@ -59,10 +66,30 @@ return
         lspconfig[server].setup(config)
       end
 
-      for name, icon in pairs(require("seba.util.icons").diagnostics) do
-        name = "DiagnosticSign" .. name
-        vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-      end
+
+      vim.diagnostic.config({
+        virtual_text = {
+          severity = {
+            min = vim.diagnostic.severity.WARN,
+            max = vim.diagnostic.severity.ERROR,
+          },
+        },
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.HINT] = '',
+          },
+          numhl = {
+            [vim.diagnostic.severity.WARN] = 'WarningMsg',
+            [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+            [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+            [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+
+          },
+        }
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "Clangd specific keymaps",
