@@ -7,12 +7,17 @@ setopt incappendhistory
 setopt autocd 
 setopt extendedglob
 
-bindkey "\e[A" history-beginning-search-backward
-bindkey "\e[B" history-beginning-search-forward
+export PATH="$HOME/.local/bin:$PATH"
 
 bindkey -e
 
-zstyle :compinstall filename '/home/$USER/.zshrc'
+bindkey "^[[3~" delete-char
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "\e[A" history-beginning-search-backward
+bindkey "\e[B" history-beginning-search-forward
+
+
 autoload -Uz compinit
 compinit
 
