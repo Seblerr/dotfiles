@@ -1,0 +1,14 @@
+theme = catppuccin-mocha
+font-size = 14
+copy-on-select = clipboard
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+window-decoration = false
+
+confirm-close-surface = false
+resize-overlay = never
+
+app-notifications = no-clipboard-copy
