@@ -2,7 +2,7 @@ return {
   {
     'echasnovski/mini.statusline',
     version = '*',
-    opts = {},
+    opts = {}
   },
 
   {
@@ -194,7 +194,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>do",
+        "<leader>df",
         function()
           require("mini.diff").toggle_overlay(0)
         end,
