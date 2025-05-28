@@ -1,0 +1,54 @@
+{
+  "layer": "top",
+
+  "modules-left": ["hyprland/workspaces", "custom/spotify"],
+  "modules-center": ["clock", "custom/weather"],
+  "modules-right": [
+    "temperature",
+    "wireplumber",
+    "tray",
+    "custom/power"
+  ],
+
+  "clock": {
+    "format-alt": "{:%a, %d. %b  %H:%M}"
+  },
+
+  "temperature": {
+    "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp3_input",
+    "format": "{temperatureC}°C "
+  },
+
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "on-click": "pavucontrol",
+    "format-icons": ["", "", ""]
+  },
+
+  "custom/weather": {
+    "format": "{}",
+    "format-alt": "{alt}: {}",
+    "format-alt-click": "click-right",
+    "interval": 3600,
+    "exec": "curl -s 'https://wttr.in/?format=1'",
+        //"return-type": "json",
+        //"exec": "~/.config/waybar/modules/weather.sh",
+        "exec-if": "ping wttr.in -c1"
+  },
+
+  "custom/power": {
+    "format": " 󰐥 ",
+    "tooltip": false,
+    "on-click": "wlogout"
+  },
+
+  "custom/spotify": {
+    "exec": "/usr/bin/python3 ~/.config/waybar/mediaplayer.py --player spotify",
+    "format": "{}  ",
+    "return-type": "json",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  }
+}
