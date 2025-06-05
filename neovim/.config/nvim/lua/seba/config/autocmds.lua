@@ -22,6 +22,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("wrap_spell"),
+  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = augroup("json_conceal"),
+  pattern = { "json", "jsonc", "json5" },
+  callback = function()
+    vim.opt_local.conceallevel = 0
+  end,
+})
+
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
@@ -40,6 +59,9 @@ vim.api.nvim_create_autocmd("FileType", {
     "checkhealth",
     "neotest-summary",
     "neotest-output-panel",
+    "dap-view",
+    "dap-view-term",
+    "dap-float"
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
