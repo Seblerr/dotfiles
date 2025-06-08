@@ -1,22 +1,22 @@
 @import "mocha.css";
 
 * {
-    font-family: "Fira Sans Semibold";
-    font-size: 14px;  /* Slightly smaller font size */
-    font-weight: 900;
-    border: none;
-    margin: 0;
-    padding: 0;
-    transition-property: background-color;
-    transition-duration: 0.5s;
+  font-family: "Fira Sans Semibold";
+  font-size: 14px;
+  font-weight: 900;
+  border: none;
+  margin: 0;
+  padding: 0;
+  transition-property: background-color;
+  transition-duration: 0.5s;
 }
 
 #waybar {
-    background-color: @base;
-    color: @text;
-    transition-property: background-color;
-    transition-duration: 0.5s;
-    margin: 0px 0px;
+  background-color: @transparentbase;
+  color: @text;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  margin: 0px 0px;
 }
 
 window#waybar.hidden {
@@ -24,35 +24,25 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-    padding: 3px 5px;  /* Adjusted padding to reduce height */
-    margin: 3px 3px;    /* Reduced margin slightly */
-    color: @foreground;
-    background-color: @surface1;
-    transition: all 0.3s ease-in-out;
-    font-size: 13px;  /* Slightly smaller font size */
+  padding: 3px 5px;
+  margin: 3px 3px;
+  color: @foreground;
+  background-color: @surface1;
+  transition: all 0.3s ease-in-out;
+  font-size: 13px;
 }
 
 #workspaces button.active {
-    color: @crust;
-    background: @flamingo;
+  color: @crust;
+  background: @flamingo;
 }
 
 #workspaces button:hover {
-    background: @surface1;
+  background: @surface1;
 }
 
 #workspaces button.urgent {
-    background-color: @red;
-}
-
-#window {
-    background-color: @base;
-    font-size: 15px;   /* Slightly smaller font size */
-    font-weight: 800;
-    color: @foreground;
-    padding: 3px 6px;  /* Reduced padding */
-    margin: 2px;
-    opacity: 1;
+  background-color: @red;
 }
 
 #clock,
@@ -82,114 +72,102 @@ window#waybar.hidden {
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight,
 #custom-weather.default {
-    background-color: @base;
-    padding: 6px;  /* Adjusted padding */
+  padding: 6px;
 }
 
 #custom-spotify {
-    background-color: @base;
-    margin-left: 25px;
-    padding: 0px 12px;
+  margin-left: 25px;
+  padding: 0px 12px;
 }
 
 #tray {
-    background-color: @base;
-    padding: 6px;  /* Adjusted padding */
-    margin: 0px 5px;
+  padding: 6px;
+  margin: 0px 5px;
 }
 
 #custom-power {
-    background-color: @base;
-    padding: 6px;
+  padding: 6px;
 }
 
 #custom-weather.severe {
-    color: #eb937d;
+  color: #eb937d;
 }
 
 #custom-weather.sunnyDay {
-    color: #c2ca76;
+  color: #c2ca76;
 }
 
 #custom-weather.clearNight {
-    color: #cad3f5;
+  color: #cad3f5;
 }
 
 #custom-weather.cloudyFoggyDay,
 #custom-weather.cloudyFoggyNight {
-    color: #c2ddda;
+  color: #c2ddda;
 }
 
 #custom-weather.rainyDay,
 #custom-weather.rainyNight {
-    color: #5aaca5;
+  color: #5aaca5;
 }
 
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight {
-    color: #d6e7e5;
+  color: #d6e7e5;
 }
 
 #custom-weather.default {
-    color: #dbd9d8;
+  color: #dbd9d8;
 }
 
 #clock {
-    color: @text;
+  color: @text;
 }
 
 label:focus {
-    background-color: @base;
+  background-color: @transparentbase;
 }
 
 #disk {
-    background-color: #964b00;
+  background-color: #964b00;
 }
 
 #bluetooth {
-    color: #707d9d;
+  color: #707d9d;
 }
 
 #bluetooth.disconnected {
-    color: #f53c3c;
+  color: #f53c3c;
 }
 
 #custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
-    min-width: 100px;
+  background-color: #66cc99;
+  color: #2a5c45;
+  min-width: 100px;
 }
 
 #custom-media.custom-spotify {
-    background-color: #66cc99;
+  background-color: #66cc99;
 }
 
 #custom-media.custom-vlc {
-    background-color: #ffa000;
-}
-
-#temperature {
-    background-color: @base;
-}
-
-#temperature.critical {
-    background-color: @red;
+  background-color: #ffa000;
 }
 
 #tray > .passive {
-    -gtk-icon-effect: dim;
+  -gtk-icon-effect: dim;
 }
 
 #tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
 }
 
 #idle_inhibitor {
-    background-color: #2d3436;
+  background-color: #2d3436;
 }
 
 #idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
+  background-color: #ecf0f1;
+  color: #2d3436;
 }
