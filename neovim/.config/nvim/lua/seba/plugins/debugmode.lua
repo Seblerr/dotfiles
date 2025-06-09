@@ -15,8 +15,7 @@ return {
         opts = {
           winbar = {
             sections = { "scopes", "watches", "breakpoints", "threads", "repl", "console" },
-            default_section = "scopes",
-            controls = { enabled = true }
+            default_section = "scopes"
           },
           windows = {
             position = "right",
@@ -35,6 +34,7 @@ return {
       local vscode = require("dap.ext.vscode")
       local widgets = require("dap.ui.widgets")
 
+      -- DAP Configs
       dap.adapters.cppdbg = {
         id = 'cppdbg',
         type = 'executable',
@@ -63,21 +63,17 @@ return {
         },
       }
 
-      local function load_launch_json()
-        local root = require('seba.util').get_git_root()
-        if not root then
-          vim.notify("Git root not found", vim.log.levels.WARN)
-          return
-        end
-        local path = root .. "/.vscode/launch.json"
-        if vim.fn.filereadable(path) == 1 then
-          vim.keymap.set('n', '<leader>du', function() require("dapui").toggle() end, { desc = "Dap UI" })
-          vscode.load_launchjs(path, { cppdbg = { "c", "cpp", "cc" } })
-          vim.notify("Loaded launch.json from " .. path, vim.log.levels.INFO)
-        else
-          vim.notify("launch.json not found at " .. path, vim.log.levels.WARN)
-        end
+      -- Icons
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "GitSignsChangeInlVisualine" })
+
+      for name, sign in pairs(require('seba.util.icons').dap) do
+        sign = type(sign) == "table" and sign or { sign }
+        vim.fn.sign_define(
+          "Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+        )
       end
+
 
       dap.listeners.before.attach["dap-view-config"] = function()
         dv.open()
@@ -142,11 +138,24 @@ return {
         },
       })
 
-      vim.api.nvim_create_user_command("LoadLaunchJson", function()
-        load_launch_json()
-      end, { desc = "Load .vscode/launch.json from project root" })
+      local function load_launch_json()
+        local root = require('seba.util').get_git_root()
+        if not root then
+          vim.notify("Git root not found", vim.log.levels.WARN)
+          return
+        end
+        local path = root .. "/.vscode/launch.json"
+        if vim.fn.filereadable(path) == 1 then
+          vim.keymap.set('n', '<leader>du', function() require("dapui").toggle() end, { desc = "Dap UI" })
+          vscode.load_launchjs(path, { cppdbg = { "c", "cpp", "cc" } })
+          vim.notify("Loaded launch.json from " .. path, vim.log.levels.INFO)
+        else
+          vim.notify("launch.json not found at " .. path, vim.log.levels.WARN)
+        end
+      end
       load_launch_json()
 
+      vim.keymap.set("n", "<leader>dl", load_launch_json, { desc = "Load launch.json" })
       vim.keymap.set("n", "<leader>dv", function() require("nvim-dap-virtual-text").toggle() end,
         { desc = "Toggle DAP virtual text" })
     end,
