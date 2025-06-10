@@ -42,6 +42,7 @@
 	b = branch
 	bd = branch -d
 	bdd = branch -D
+	cob = !git checkout $(git branch | fzf)
 	#############
 	c = commit
 	ca = commit -a
@@ -74,7 +75,6 @@
 	ms = merge --skip
 	#############
 	co = checkout
-	cob = checkout -b
 	#############
 	p = pull
 	#############
