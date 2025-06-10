@@ -64,7 +64,7 @@ return {
       }
 
       -- Icons
-      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "GitSignsChangeInlVisualine" })
+      vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "GitSignsChangeInline" })
 
       for name, sign in pairs(require('seba.util.icons').dap) do
         sign = type(sign) == "table" and sign or { sign }
