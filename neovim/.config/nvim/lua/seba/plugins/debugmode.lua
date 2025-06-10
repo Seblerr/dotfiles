@@ -100,6 +100,36 @@ return {
         require("mini.statusline").section_mode = original_mode
       end
 
+      -- Keybind helper
+      local debug_help_hydra = Hydra({
+        name = "Debug Help",
+        mode = "n",
+        body = "?",
+        config = {
+          color = "amaranth",
+          invoke_on_body = true,
+          hint = {
+            position = "bottom",
+            type = "window",
+          },
+        },
+        heads = {
+          { "<Esc>", nil, { exit = true, nowait = true } },
+          { "?",     nil, { exit = true, nowait = true } },
+          { "q",     nil, { exit = true, nowait = true } },
+        },
+        hint = [[
+  [ Debug Hydra Bindings ]
+  c: Continue     r: Run to cursor
+  L: Step over    I: Step in     O: Step out
+  t: Toggle BP    x: Clear BPs   X: Terminate
+  H: Hover        a: Watch expr  U: Toggle views
+  X: Terminate    J: Stack down  K: Stack up
+  R: REPL         S: Scopes      T: Threads
+  C: Console      B: Breakpoints q: Quit Hydra
+  ]],
+      })
+
       Hydra({
         config = {
           hint = false,
@@ -134,6 +164,7 @@ return {
           { "C", function() dv.jump_to_view("console") end,     { desc = false } },
           { "B", function() dv.jump_to_view("breakpoints") end, { desc = false } },
           { "U", function() dv.toggle(true) end,                { desc = false } },
+          { "?", function() debug_help_hydra:activate() end,    { desc = "show help" } },
           { "q", nil,                                           { exit = true, nowait = true, desc = false } },
         },
       })
