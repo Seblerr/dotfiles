@@ -104,7 +104,6 @@ return {
       local debug_help_hydra = Hydra({
         name = "Debug Help",
         mode = "n",
-        body = "?",
         config = {
           color = "amaranth",
           invoke_on_body = true,
@@ -177,7 +176,6 @@ return {
         end
         local path = root .. "/.vscode/launch.json"
         if vim.fn.filereadable(path) == 1 then
-          vim.keymap.set('n', '<leader>du', function() require("dapui").toggle() end, { desc = "Dap UI" })
           vscode.load_launchjs(path, { cppdbg = { "c", "cpp", "cc" } })
           vim.notify("Loaded launch.json from " .. path, vim.log.levels.INFO)
         else
