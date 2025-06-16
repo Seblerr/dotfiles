@@ -1,3 +1,31 @@
+local function lsp_keymaps(bufnr)
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  nmap('<leader>rn', vim.lsp.buf.rename, 'Rename')
+  nmap('<leader>ca', vim.lsp.buf.code_action, 'Code action')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Lsp type definitions')
+  nmap("<leader>cd", vim.diagnostic.open_float, 'Diagnostic open float')
+  nmap("<leader>Q", vim.diagnostic.setloclist, 'Diagnostics quick-fix')
+end
+
+local on_attach = function(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    local navic = require("nvim-navic")
+    navic.attach(client, bufnr)
+    vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+  end
+  if client.name == 'ruff' then
+    client.server_capabilities.hoverProvider = false
+  end
+  lsp_keymaps(bufnr)
+end
+
 return
 {
   {
@@ -25,14 +53,13 @@ return
           },
         },
         lua_ls = {
-          Lua = {
-            settings = {
+          settings = {
+            Lua = {
               workspace = { checkThirdParty = false },
               telemetry = { enable = false },
             }
           },
         },
-        bashls = {},
         basedpyright = {
           settings = {
             basedpyright = {
@@ -45,6 +72,7 @@ return
             },
           }
         },
+        bashls = {},
         ruff = {},
         lemminx = {},
         ts_ls = {},
@@ -55,41 +83,12 @@ return
       }
     },
     config = function(_, opts)
-      local lspconfig = require('lspconfig')
-
-      -- Get keybinds for LSP
-      local lsp_settings = require('seba.lsp.attach')
-
       for server, config in pairs(opts.servers or {}) do
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        config.on_attach = lsp_settings.on_attach
-        lspconfig[server].setup(config)
+        config.on_attach = on_attach
+
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
-
-
-      vim.diagnostic.config({
-        virtual_text = {
-          severity = {
-            min = vim.diagnostic.severity.WARN,
-            max = vim.diagnostic.severity.ERROR,
-          },
-        },
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '',
-            [vim.diagnostic.severity.WARN] = '',
-            [vim.diagnostic.severity.INFO] = '',
-            [vim.diagnostic.severity.HINT] = '',
-          },
-          numhl = {
-            [vim.diagnostic.severity.WARN] = 'WarningMsg',
-            [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
-            [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
-            [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
-
-          },
-        }
-      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "Clangd specific keymaps",
@@ -101,47 +100,37 @@ return
               "n",
               "<leader><Tab>",
               "<cmd>ClangdSwitchSourceHeader<CR>",
-              { buffer = bufnr, desc = "Switch between source and header" })
+              { buffer = bufnr, desc = "Switch between source and header" }
+            )
           end
         end,
       })
     end
   },
 
+
   {
     'williamboman/mason.nvim',
     cmd = "Mason",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup {
-          ensure_installed = {
-            "lua_ls",
-            "bashls",
-            "basedpyright",
-          } }
-      end
-    },
+    opts = {}
   },
 
   {
     "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
+    ft = "lua",
     opts = {},
   },
 
   {
     "mrcjkb/rustaceanvim",
-    version = "^5", -- Recommended
+    version = "^6",
     ft = { "rust" },
-    init = function()
+    config = function()
       vim.g.rustaceanvim = {
         server = {
           on_attach = function(client, bufnr)
-            require('seba.lsp.attach').on_attach(client, bufnr)
+            on_attach(client, bufnr)
           end,
-          capabilities = require('seba.lsp.attach').capabilities,
         },
       }
     end,

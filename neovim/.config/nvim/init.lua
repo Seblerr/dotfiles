@@ -20,6 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 require('seba.config.options')
 require('seba.config.keymaps')
 require('seba.config.autocmds')
+require('seba.config.diagnostics')
 
 require('lazy').setup({ import = "seba.plugins" },
   {
