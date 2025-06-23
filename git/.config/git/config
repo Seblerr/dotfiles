@@ -42,7 +42,7 @@
 	b = branch
 	bd = branch -d
 	bdd = branch -D
-	cob = !git checkout $(git branch | fzf)
+	cob = !git switch $(git branch | fzf)
 	#############
 	c = commit
 	ca = commit -a
