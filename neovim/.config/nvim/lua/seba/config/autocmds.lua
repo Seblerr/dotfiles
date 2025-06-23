@@ -48,6 +48,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "PlenaryTestPopup",
     "help",
+    "git",
     "lspinfo",
     "man",
     "notify",

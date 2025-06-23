@@ -20,8 +20,8 @@ map('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'Lsp type definition
 
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-map("n", "<leader>cd", vim.diagnostic.open_float, 'Diagnostic open float')
-map("n", "<leader>Q", vim.diagnostic.setloclist, 'Diagnostics quick-fix')
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = 'Diagnostic open float' })
+map("n", "<leader>Q", vim.diagnostic.setloclist, { desc = 'Diagnostics quick-fix' })
 
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

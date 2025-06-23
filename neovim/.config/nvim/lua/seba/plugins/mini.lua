@@ -161,8 +161,7 @@ return {
       },
     },
     config = function(_, opts)
-      local rhs = '<Cmd>lua MiniGit.show_at_cursor()<CR>'
-      vim.keymap.set({ 'n', 'x' }, '<leader>gs', rhs, { desc = 'Show at cursor' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gs', '<cmd>lua MiniGit.show_at_cursor()<cr>', { desc = 'Show at cursor' })
       vim.keymap.set({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
       vim.keymap.set({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
       vim.keymap.set({ 'n', 'x' }, '<leader>gb', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
@@ -194,7 +193,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>df",
+        "<leader>di",
         function()
           require("mini.diff").toggle_overlay(0)
         end,
