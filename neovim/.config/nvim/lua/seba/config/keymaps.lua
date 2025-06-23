@@ -13,12 +13,19 @@ map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
 map('i', '<C-c>', '<Esc>')
 
+-- LSP
+map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
+map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
+map('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'Lsp type definitions' })
+
+-- Diagnostics
+map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+map("n", "<leader>cd", vim.diagnostic.open_float, 'Diagnostic open float')
+map("n", "<leader>Q", vim.diagnostic.setloclist, 'Diagnostics quick-fix')
+
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Diagnostics
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -72,29 +79,6 @@ map("n", "<leader>tl", function()
 end, { desc = "Toggle Line Numbers" })
 map("n", "<leader>td", util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
 map("n", "<leader>ti", util.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
-map("n", "<leader>tf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
-
--- Toggle completion engine
-vim.b.completion_engine = "codeium"
-local function toggle_completion()
-  if vim.b.completion_engine ~= "nvim-cmp" then
-    require("cmp").setup.buffer({
-      enabled = true,
-      completion = {
-        autocomplete = { "InsertEnter", "TextChanged" },
-      }
-    })
-    require("neocodeium.commands").disable_buffer()
-    vim.notify("Enabled nvim-cmp", vim.log.levels.INFO)
-    vim.b.completion_engine = "nvim-cmp"
-  else
-    require("cmp").setup.buffer({ enabled = false })
-    require("neocodeium.commands").enable_buffer()
-    vim.notify("Enabled Codeium", vim.log.levels.INFO)
-    vim.b.completion_engine = "codeium"
-  end
-end
-map("n", "<leader>tc", function() toggle_completion() end, { desc = "Toggle completion engine in buffer" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })

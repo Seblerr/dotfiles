@@ -49,6 +49,8 @@ return {
       desc = "Toggle autoformat-on-save",
       bang = true,
     })
+
+    vim.keymap.set("n", "<leader>tf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
   end,
   init = function()
     -- If you want the formatexpr, here is the place to set it
