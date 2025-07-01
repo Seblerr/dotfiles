@@ -261,4 +261,10 @@ return {
       })
     end
   },
+
+  {
+    'echasnovski/mini.trailspace',
+    version = '*',
+    opts = {},
+  },
 }
