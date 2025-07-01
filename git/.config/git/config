@@ -59,6 +59,7 @@
   rbc = rebase --continue
 	#############
 	d = diff
+	ds = diff --staged
 	dt = difftool
 	#############
 	l = log --oneline
