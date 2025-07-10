@@ -62,7 +62,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-output-panel",
     "dap-view",
     "dap-view-term",
-    "dap-float"
+    "dap-float",
+    "grug-far"
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
