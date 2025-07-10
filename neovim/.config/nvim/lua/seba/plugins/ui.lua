@@ -7,12 +7,19 @@ return {
   {
     "folke/zen-mode.nvim",
     opts = {
-      window = {
-        width = 0.67,
-      }
     },
     keys = {
-      { "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode" }
+      {
+        "<leader>z",
+        function()
+          require("zen-mode").toggle({
+            window = {
+              width = .67 -- width will be 85% of the editor width
+            }
+          })
+        end,
+        desc = "ZenMode"
+      }
     },
   }
 }
