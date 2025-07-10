@@ -1,11 +1,11 @@
 [user]
-	name = Sebastian Nilsson
-	email = seblerr@gmail.com
+  name = Sebastian Nilsson
+  useConfigOnly = true
 [init]
-	defaultBranch = master
+  defaultBranch = master
 [core]
-	editor = nvim
-	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  editor = nvim
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [pull]
   rebase = true
 [push]
@@ -17,81 +17,81 @@
 [column]
   ui = auto
 [rerere]
-	enabled = 1
-	autoupdate = 1
+  enabled = 1
+  autoupdate = 1
 [color]
-	ui = auto
+  ui = auto
 [color "branch"]
-	current = yellow bold
-	local = green bold
-	remote = cyan bold
+  current = yellow bold
+  local = green bold
+  remote = cyan bold
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
 [color "status"]
-	added = green bold
-	changed = yellow bold
-	untracked = red bold
+  added = green bold
+  changed = yellow bold
+  untracked = red bold
 [alias]
-	a = add -u
+  a = add -u
   unstage = reset HEAD --
-	#############
-	b = branch
-	bd = branch -d
-	bdd = branch -D
-	cob = !git switch $(git branch | fzf)
-	#############
-	c = commit
-	ca = commit -a
-	cm = commit -m
-	cam = commit -am
-	cd = commit --amend
-	cdn = commit --amend --no-edit
-	cad = commit -a --amend
-	#############
-	cp = cherry-pick
-	cpa = cherry-pick --abort
-	cpc = cherry-pick --continue
+  #############
+  b = branch
+  bd = branch -d
+  bdd = branch -D
+  cob = !git switch $(git branch | fzf)
+  #############
+  c = commit
+  ca = commit -a
+  cm = commit -m
+  cam = commit -am
+  cd = commit --amend
+  cdn = commit --amend --no-edit
+  cad = commit -a --amend
+  #############
+  cp = cherry-pick
+  cpa = cherry-pick --abort
+  cpc = cherry-pick --continue
   #############
   rbc = rebase --continue
-	#############
-	d = diff
-	ds = diff --staged
-	dt = difftool
-	#############
-	l = log --oneline
-	lg = log --oneline --graph --decorate
+  #############
+  d = diff
+  ds = diff --staged
+  dt = difftool
+  #############
+  l = log --oneline
+  lg = log --oneline --graph --decorate
   lol = log --oneline --graph --decorate --pretty='tformat:%C(yellow)%h %C(green)%cd%C(reset) %s - %C(blue)%an %ad%C(auto)%d%C(reset)' --date='format:%y%m%d %H%M'
   last = log -1 HEAD
-	#############
-	ls = ls-files
-	lsf = !git ls-files | grep -i
-	#############
-	m = merge
-	ma = merge --abort
-	mc = merge --continue
-	ms = merge --skip
-	#############
-	co = checkout
-	#############
-	p = pull
-	#############
+  #############
+  ls = ls-files
+  lsf = !git ls-files | grep -i
+  #############
+  m = merge
+  ma = merge --abort
+  mc = merge --continue
+  ms = merge --skip
+  #############
+  co = checkout
+  #############
+  p = pull
+  #############
   r = restore
   rs = restore --staged
-	re = reset
-	rh = reset HEAD
-	reh = reset --hard
-	#############
-	st = status
+  re = reset
+  rh = reset HEAD
+  reh = reset --hard
   #############
-	blame = blame -w -C -C -C
+  st = status
+  #############
+  blame = blame -w -C -C -C
   root = rev-parse --show-toplevel
   fix = !${EDITOR} +/HEAD $(git diff --name-only --relative --diff-filter=U | uniq)
   #############
-	alias = !git config -l | grep alias | cut -c 7-
-	#############
-	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+  alias = !git config -l | grep alias | cut -c 7-
+  #############
+  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
