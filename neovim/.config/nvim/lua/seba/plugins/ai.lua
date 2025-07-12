@@ -1,6 +1,7 @@
 return {
   {
     "monkoose/neocodeium",
+    enabled = false,
     opts = {
       filetypes = {
         ["dap-repl"] = false,
@@ -34,4 +35,23 @@ return {
       neocodeium.setup(opts)
     end,
   },
+
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      strategies = {
+        chat = {
+          adapter = "gemini",
+        },
+        inline = {
+          adapter = "gemini",
+        },
+      },
+    },
+  },
+
 }

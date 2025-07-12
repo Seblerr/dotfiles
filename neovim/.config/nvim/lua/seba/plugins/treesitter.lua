@@ -1,10 +1,10 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     dependencies = "OXY2DEV/markview.nvim",
     version = false,
     build = ':TSUpdate',
-    event = { "BufReadPost", "BufNewFile" },
     opts = {
       ensure_installed = {
         'bash',
