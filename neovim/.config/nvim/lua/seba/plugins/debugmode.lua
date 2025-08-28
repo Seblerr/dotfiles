@@ -188,5 +188,16 @@ return {
       vim.keymap.set("n", "<leader>dv", function() require("nvim-dap-virtual-text").toggle() end,
         { desc = "Toggle DAP virtual text" })
     end,
+  },
+
+  {
+    "mfussenegger/nvim-dap-python",
+    dependencies = "mfussenegger/nvim-dap",
+    ft = "python",
+    keys = {
+      { "<leader>dpt", function() require("dap-python").test_method() end,     desc = "Debug Method",    ft = "python" },
+      { "<leader>dpc", function() require("dap-python").test_class() end,      desc = "Debug Class",     ft = "python" },
+      { "<leader>dps", function() require('dap-python').debug_selection() end, desc = "Debug Selection", ft = "python" }
+    }
   }
 }
