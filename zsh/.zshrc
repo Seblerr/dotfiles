@@ -2,12 +2,20 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
-setopt sharehistory 
+setopt sharehistory
 setopt incappendhistory
-setopt autocd 
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt autocd
 setopt extendedglob
 
+zshaddhistory() {
+  [[ $1 != (ls|ll|cd|pwd|exit) ]]
+}
+
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
 
 bindkey -e
 
@@ -17,9 +25,11 @@ bindkey "^[[1;5D" backward-word
 bindkey "\e[A" history-beginning-search-backward
 bindkey "\e[B" history-beginning-search-forward
 
-
 autoload -Uz compinit
 compinit
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select
 
 function parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
@@ -39,3 +49,6 @@ alias ll='ls -lAh'
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh --cmd cd)"
+[ -f "/home/sebastian/.ghcup/env" ] && . "/home/sebastian/.ghcup/env"
+
+source ~/.env
