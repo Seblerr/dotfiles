@@ -58,11 +58,11 @@ return
         bashls = {},
         ruff = {},
         lemminx = {},
-        ts_ls = {},
         tailwindcss = {},
         svelte = {},
         html = {},
         yamlls = {},
+        hls = {}
       }
     },
     config = function(_, opts)

@@ -15,15 +15,13 @@ return {
   config = function()
     require("conform").setup({
       formatters_by_ft = {
-        -- lua = { "stylua" },
         cpp = { "clang_format" },
         json = { "jq" },
         sh = { "shfmt" },
         python = { "ruff_format" },
         nix = { "nixfmt" },
         yaml = { "yamlfmt" },
-        -- ts = { "prettier" },
-        -- js = { "prettier" }
+        css = { "prettier" }
       },
       formatters = {
         shfmt = {
