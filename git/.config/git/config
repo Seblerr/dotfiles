@@ -5,7 +5,13 @@
   defaultBranch = master
 [core]
   editor = nvim
+  pager = delta
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  dark = true      # or light = true, or omit for auto-detection
 [pull]
   rebase = true
 [push]
@@ -13,7 +19,7 @@
 [rebase]
   autostash = true
 [merge]
-  conflictstyle = diff3
+  conflictstyle = zdiff3
 [column]
   ui = auto
 [rerere]
@@ -60,6 +66,7 @@
   #############
   d = diff
   ds = diff --staged
+  dc = diff origin/HEAD..HEAD
   dt = difftool
   #############
   l = log --oneline
