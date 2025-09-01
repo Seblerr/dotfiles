@@ -47,8 +47,9 @@ alias g='git'
 alias ls='ls --color=auto -hv'
 alias ll='ls -lAh'
 
-eval "$(fzf --zsh)"
-eval "$(zoxide init zsh --cmd cd)"
-[ -f "/home/sebastian/.ghcup/env" ] && . "/home/sebastian/.ghcup/env"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.ghcup/env ] && source ~/.ghcup/env
+[ -f ~/.env ] && source ~/.env
 
-source ~/.env
+command -v fzf >/dev/null && eval "$(fzf --zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
