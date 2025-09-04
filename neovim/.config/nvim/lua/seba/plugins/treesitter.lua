@@ -24,7 +24,8 @@ return {
         'typescript',
         'svelte',
         'css',
-        'regex'
+        'regex',
+        'yaml'
       },
       highlight = {
         enable = true,

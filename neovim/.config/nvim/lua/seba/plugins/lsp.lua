@@ -1,9 +1,4 @@
 local on_attach = function(client, bufnr)
-  if client.server_capabilities.documentSymbolProvider then
-    local navic = require("nvim-navic")
-    navic.attach(client, bufnr)
-    vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
-  end
   if client.name == 'ruff' then
     client.server_capabilities.hoverProvider = false
   end
@@ -15,14 +10,6 @@ return
     'neovim/nvim-lspconfig',
     dependencies = {
       'saghen/blink.cmp',
-      {
-        "SmiteshP/nvim-navic",
-        opts = {
-          highlight = true,
-          depth_limit = 5,
-          lazy_update_context = true,
-        }
-      },
     },
     event = { "BufReadPre", "BufNewFile" },
     opts = {
