@@ -5,25 +5,6 @@ return {
   },
 
   {
-    "folke/zen-mode.nvim",
-    opts = {
-    },
-    keys = {
-      {
-        "<leader>z",
-        function()
-          require("zen-mode").toggle({
-            window = {
-              width = .67 -- width will be 85% of the editor width
-            }
-          })
-        end,
-        desc = "ZenMode"
-      }
-    },
-  },
-
-  {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
