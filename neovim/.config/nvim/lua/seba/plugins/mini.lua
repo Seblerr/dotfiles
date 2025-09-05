@@ -1,12 +1,12 @@
 return {
   {
-    'echasnovski/mini.statusline',
+    'nvim-mini/mini.statusline',
     version = '*',
     opts = {}
   },
 
   {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     event = "VeryLazy",
     version = false,
@@ -25,20 +25,20 @@ return {
   },
 
   {
-    'echasnovski/mini.starter',
+    'nvim-mini/mini.starter',
     version = false,
     opts = {}
   },
 
   {
-    'echasnovski/mini.move',
+    'nvim-mini/mini.move',
     event = { "BufReadPost", "BufNewFile" },
     version = false,
     opts = {},
   },
 
   {
-    'echasnovski/mini.surround',
+    'nvim-mini/mini.surround',
     event = { "BufReadPost", "BufNewFile" },
     version = false,
     opts = {
@@ -55,7 +55,7 @@ return {
   },
 
   {
-    "echasnovski/mini.bufremove",
+    "nvim-mini/mini.bufremove",
     keys = {
       {
         "<leader>bd",
@@ -80,9 +80,9 @@ return {
   },
 
   {
-    'echasnovski/mini.files',
+    'nvim-mini/mini.files',
     version = false,
-    dependencies = 'echasnovski/mini.icons',
+    dependencies = 'nvim-mini/mini.icons',
     keys = {
       { "<leader>e", function()
         local mf = require('mini.files')
@@ -143,7 +143,7 @@ return {
   },
 
   {
-    'echasnovski/mini-git',
+    'nvim-mini/mini-git',
     event = "VeryLazy",
     version = false,
     main = 'mini.git',
@@ -181,7 +181,7 @@ return {
   },
 
   {
-    "echasnovski/mini.diff",
+    "nvim-mini/mini.diff",
     event = "VeryLazy",
     keys = {
       {
@@ -205,7 +205,7 @@ return {
   },
 
   {
-    'echasnovski/mini.notify',
+    'nvim-mini/mini.notify',
     version = '*',
     config = function()
       require('mini.notify').setup()
@@ -214,7 +214,7 @@ return {
   },
 
   {
-    'echasnovski/mini.icons',
+    'nvim-mini/mini.icons',
     version = false,
     config = function()
       require('mini.icons').setup()
@@ -223,7 +223,7 @@ return {
   },
 
   {
-    'echasnovski/mini.misc',
+    'nvim-mini/mini.misc',
     version = false,
     event = "VeryLazy",
     config = function()
@@ -235,7 +235,7 @@ return {
   },
 
   {
-    'echasnovski/mini.trailspace',
+    'nvim-mini/mini.trailspace',
     version = '*',
     opts = {},
   },
