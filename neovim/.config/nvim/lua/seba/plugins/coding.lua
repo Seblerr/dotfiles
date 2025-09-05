@@ -43,21 +43,6 @@ return {
   },
 
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-    priority = 49,
-    dependencies = {
-      "saghen/blink.cmp"
-    },
-    opts = {
-      preview = {
-        filetypes = { "markdown", "codecompanion" },
-        ignore_buftypes = {},
-      },
-    },
-  },
-
-  {
     'MagicDuck/grug-far.nvim',
     keys = {
       { "<leader>sr", function() require('grug-far').open() end,                                                     desc = "Grug - search and replace" },

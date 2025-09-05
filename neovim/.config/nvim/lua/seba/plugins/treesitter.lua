@@ -2,7 +2,6 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
-    dependencies = "OXY2DEV/markview.nvim",
     version = false,
     build = ':TSUpdate',
     opts = {
@@ -25,7 +24,8 @@ return {
         'svelte',
         'css',
         'regex',
-        'yaml'
+        'yaml',
+        'haskell'
       },
       highlight = {
         enable = true,
