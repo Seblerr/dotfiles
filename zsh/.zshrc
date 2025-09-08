@@ -53,3 +53,11 @@ alias ll='ls -lAh'
 
 command -v fzf >/dev/null && eval "$(fzf --zsh)"
 command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
+
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
