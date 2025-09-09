@@ -5,13 +5,8 @@
   defaultBranch = master
 [core]
   editor = nvim
-  pager = delta
+  pager = less -FX
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-[interactive]
-  diffFilter = delta --color-only
-[delta]
-  navigate = true  # use n and N to move between diff sections
-  dark = true      # or light = true, or omit for auto-detection
 [pull]
   rebase = true
 [push]
