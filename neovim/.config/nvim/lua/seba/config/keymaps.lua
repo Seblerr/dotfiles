@@ -14,9 +14,18 @@ map('n', '<leader>cp', ':cp<CR>')
 map('i', '<C-c>', '<Esc>')
 
 -- LSP
+-- First remove default binds
+vim.keymap.del({ 'n', 'x' }, 'gra')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'gri')
+
+map('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP declaration' })
+map('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'LSP type definition' })
+map('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP implementation' })
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
 map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
-map('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'Lsp type definitions' })
 
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })

@@ -1,16 +1,48 @@
 return {
   {
-    'nvim-mini/mini.statusline',
-    version = '*',
-    opts = {}
-  },
-
-  {
-    'nvim-mini/mini.ai',
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    event = "VeryLazy",
+    'nvim-mini/mini.nvim',
     version = false,
+    keys = {
+      { "<leader>bd", function() MiniBufremove.delete() end,     desc = "Remove buffer" },
+      { "<leader>di", function() MiniDiff.toggle_overlay(0) end, desc = "Remove buffer" },
+    },
     config = function()
+      require("mini.statusline").setup()
+      require("mini.starter").setup()
+      require("mini.move").setup()
+      require("mini.bufremove").setup()
+      require("mini.icons").setup()
+      require("mini.notify").setup()
+      require("mini.misc").setup()
+      require("mini.trailspace").setup()
+      require("mini.visits").setup()
+      require("mini.extra").setup()
+      require("mini.jump").setup()
+      require("mini.splitjoin").setup()
+
+      require("mini.diff").setup({
+        view = {
+          style = "sign",
+          signs = {
+            add = "▎",
+            change = "▎",
+            delete = "",
+          },
+        }
+      })
+
+      require("mini.surround").setup({
+        mappings = {
+          add = 'gsa',            -- Add surrounding in Normal and Visual modes
+          delete = 'gsd',         -- Delete surrounding
+          find = 'gsf',           -- Find surrounding (to the right)
+          find_left = 'gsF',      -- Find surrounding (to the left)
+          highlight = 'gsh',      -- Highlight surrounding
+          replace = 'gsr',        -- Replace surrounding
+          update_n_lines = 'gsn', -- Update `n_lines`
+        }
+      })
+
       local spec_treesitter = require('mini.ai').gen_spec.treesitter
       require('mini.ai').setup({
         custom_textobjects = {
@@ -21,62 +53,9 @@ return {
           })
         }
       })
+
+      MiniMisc.setup_restore_cursor()
     end
-  },
-
-  {
-    'nvim-mini/mini.starter',
-    version = false,
-    opts = {}
-  },
-
-  {
-    'nvim-mini/mini.move',
-    event = { "BufReadPost", "BufNewFile" },
-    version = false,
-    opts = {},
-  },
-
-  {
-    'nvim-mini/mini.surround',
-    event = { "BufReadPost", "BufNewFile" },
-    version = false,
-    opts = {
-      mappings = {
-        add = 'gsa',            -- Add surrounding in Normal and Visual modes
-        delete = 'gsd',         -- Delete surrounding
-        find = 'gsf',           -- Find surrounding (to the right)
-        find_left = 'gsF',      -- Find surrounding (to the left)
-        highlight = 'gsh',      -- Highlight surrounding
-        replace = 'gsr',        -- Replace surrounding
-        update_n_lines = 'gsn', -- Update `n_lines`
-      }
-    }
-  },
-
-  {
-    "nvim-mini/mini.bufremove",
-    keys = {
-      {
-        "<leader>bd",
-        function()
-          local bd = require("mini.bufremove").delete
-          if vim.bo.modified then
-            local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-            if choice == 1 then -- Yes
-              vim.cmd.write()
-              bd(0)
-            elseif choice == 2 then -- No
-              bd(0, true)
-            end
-          else
-            bd(0)
-          end
-        end,
-        desc = "Delete Buffer",
-      },
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
-    }
   },
 
   {
@@ -131,13 +110,6 @@ return {
         end,
       })
 
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "MiniFilesActionRename",
-        callback = function(event)
-          Snacks.rename.on_rename_file(event.data.from, event.data.to)
-        end,
-      })
-
       require('mini.files').setup()
     end
   },
@@ -181,62 +153,55 @@ return {
   },
 
   {
-    "nvim-mini/mini.diff",
-    event = "VeryLazy",
+    'nvim-mini/mini.pick',
+    version = false,
+    opts = {
+      mappings = {
+        to_quickfix = {
+          char = "<c-q>",
+          func = function()
+            local items = MiniPick.get_picker_items() or {}
+            MiniPick.default_choose_marked(items)
+            MiniPick.stop()
+          end,
+        },
+      }
+    },
     keys = {
       {
-        "<leader>di",
+        "<leader>fc",
         function()
-          require("mini.diff").toggle_overlay(0)
+          MiniPick.builtin.cli(
+            {
+              command = { "rg", "--files", "--hidden", "--glob=!.git/" }
+            },
+            { source = { cwd = "~/.dotfiles" } }
+          )
         end,
-        desc = "Toggle mini.diff overlay",
+        desc = "Pick dotfiles",
       },
+      { "<leader><leader>", "<cmd>Pick files<cr>",                        desc = "Search Files" },
+      { "<leader>ff",       "<cmd>Pick files<cr>",                        desc = "Search Files" },
+      { "<leader>fg",       "<cmd>Pick git_files<cr>",                    desc = "Git files" },
+      { "<leader>fr",       "<cmd>Pick visit_paths<cr>",                  desc = "Previous files" },
+      { "<leader>,",        "<cmd>Pick buffers<cr>",                      desc = "Pick buffers" },
+      { "<leader>sg",       "<cmd>Pick grep<cr>",                         desc = "Pick grep" },
+      { "<leader>sw",       "<cmd>Pick grep pattern='<cword>'<cr>",       desc = "Grep current word" },
+      { "<leader>sf",       "<cmd>Pick grep_live<cr>",                    desc = "Live Grep" },
+      { "<leader>sk",       "<cmd>Pick keymaps<cr>",                      desc = "[S]earch [K]eymaps" },
+      { "<leader>sh",       "<cmd>Pick help<cr>",                         desc = "[S]earch [H]elp" },
+      { "<leader>sm",       "<cmd>Pick marks<cr>",                        desc = "[S]earch [M]arks" },
+      { "<leader>sd",       "<cmd>Pick diagnostic<cr>",                   desc = "[S]earch [D]iagnostics" },
+      { "<leader>sR",       "<cmd>Pick resume<cr>",                       desc = "[S]earch [R]esume" },
+      { "<leader>gl",       "<cmd>Pick git_commits<cr>",                  desc = "Git commits" },
+      { "gr",               "<cmd>Pick lsp scope='references'<cr>",       desc = "LSP references" },
+      { "gd",               "<cmd>Pick lsp scope='definition'<cr>",       desc = "LSP definition" },
+      { "<leader>ss",       "<cmd>Pick lsp scope='document_symbol'<cr>",  desc = "LSP document symbols" },
+      { "<leader>sS",       "<cmd>Pick lsp scope='workspace_symbol'<cr>", desc = "LSP workspace symbols" },
     },
-    opts = {
-      view = {
-        style = "sign",
-        signs = {
-          add = "▎",
-          change = "▎",
-          delete = "",
-        },
-      },
-    },
-  },
-
-  {
-    'nvim-mini/mini.notify',
-    version = '*',
-    config = function()
-      require('mini.notify').setup()
-      vim.notify = require('mini.notify').make_notify()
+    config = function(_, opts)
+      require("mini.pick").setup(opts)
+      vim.ui.select = require("mini.pick").ui_select
     end
-  },
-
-  {
-    'nvim-mini/mini.icons',
-    version = false,
-    config = function()
-      require('mini.icons').setup()
-      MiniIcons.mock_nvim_web_devicons()
-    end
-  },
-
-  {
-    'nvim-mini/mini.misc',
-    version = false,
-    event = "VeryLazy",
-    config = function()
-      require('mini.misc').setup({
-        make_global = { "put", "put_text", "zoom" }
-      })
-      MiniMisc.setup_restore_cursor()
-    end
-  },
-
-  {
-    'nvim-mini/mini.trailspace',
-    version = '*',
-    opts = {},
-  },
+  }
 }
