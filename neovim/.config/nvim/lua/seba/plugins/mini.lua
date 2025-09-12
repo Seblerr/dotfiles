@@ -2,10 +2,6 @@ return {
   {
     'nvim-mini/mini.nvim',
     version = false,
-    keys = {
-      { "<leader>bd", function() MiniBufremove.delete() end,     desc = "Remove buffer" },
-      { "<leader>di", function() MiniDiff.toggle_overlay(0) end, desc = "Remove buffer" },
-    },
     config = function()
       require("mini.statusline").setup()
       require("mini.starter").setup()
@@ -54,6 +50,8 @@ return {
         }
       })
 
+      vim.keymap.set('n', "<leader>bd", function() MiniBufremove.delete() end, { desc = "Remove buffer" })
+      vim.keymap.set('n', "<leader>di", function() MiniDiff.toggle_overlay(0) end, { desc = "Remove buffer" })
       MiniMisc.setup_restore_cursor()
     end
   },

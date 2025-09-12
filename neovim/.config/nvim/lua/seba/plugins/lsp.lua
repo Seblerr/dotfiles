@@ -90,19 +90,4 @@ return
     ft = "lua",
     opts = {},
   },
-
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^6",
-    ft = { "rust" },
-    config = function()
-      vim.g.rustaceanvim = {
-        server = {
-          on_attach = function(client, bufnr)
-            on_attach(client, bufnr)
-          end,
-        },
-      }
-    end,
-  },
 }
