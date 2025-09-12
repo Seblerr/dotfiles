@@ -1,6 +1,7 @@
 return {
   {
     'nvim-mini/mini.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     version = false,
     config = function()
       require("mini.statusline").setup()
