@@ -51,5 +51,28 @@ return {
       { "<leader>rw", function() require('grug-far').with_visual_selection() end,                                    mode = { "x" },                    desc = "Grug - replace visual selection" }
     },
     opts = {}
+  },
+
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+    },
+    event = "LspAttach",
+    opts = {
+      picker = {
+        "buffer",
+        opts = {
+          hotkeys = true,
+          auto_preview = true,
+        },
+      },
+    },
+    config = function(_, opts)
+      require("tiny-code-action").setup(opts)
+      vim.keymap.set({ "n", "x" }, "<leader>ca", function()
+        require("tiny-code-action").code_action({})
+      end, { noremap = true, silent = true })
+    end
   }
 }
