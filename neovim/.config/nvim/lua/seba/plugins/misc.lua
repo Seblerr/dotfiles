@@ -14,12 +14,6 @@ return {
     opts = {},
   },
 
-  {
-    "folke/ts-comments.nvim",
-    opts = {},
-    event = "VeryLazy",
-  },
-
   -- {
   --   "folke/flash.nvim",
   --   opts = {

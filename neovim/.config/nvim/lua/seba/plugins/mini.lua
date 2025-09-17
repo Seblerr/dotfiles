@@ -16,6 +16,7 @@ return {
       require("mini.extra").setup()
       require("mini.jump").setup()
       require("mini.splitjoin").setup()
+      require("mini.comment").setup()
 
       require("mini.diff").setup({
         view = {
