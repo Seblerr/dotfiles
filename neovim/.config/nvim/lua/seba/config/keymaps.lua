@@ -11,10 +11,9 @@ map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
-map('i', '<C-c>', '<Esc>')
 
--- LSP
--- First remove default binds
+map('n', '<leader>ba', '<Cmd>b#<CR>', {desc = 'Alternate buffer'})
+
 vim.keymap.del({ 'n', 'x' }, 'gra')
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'grn')

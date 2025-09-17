@@ -4,6 +4,14 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     version = false,
     config = function()
+      require("mini.basics").setup({
+        options = {
+          extra_ui = true
+        },
+        mappings = {
+          move_with_alt = true
+        }
+      })
       require("mini.statusline").setup()
       require("mini.starter").setup()
       require("mini.move").setup()
