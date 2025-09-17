@@ -37,28 +37,25 @@ return {
         }
       })
 
-      require("mini.surround").setup({
-        mappings = {
-          add = 'gsa',            -- Add surrounding in Normal and Visual modes
-          delete = 'gsd',         -- Delete surrounding
-          find = 'gsf',           -- Find surrounding (to the right)
-          find_left = 'gsF',      -- Find surrounding (to the left)
-          highlight = 'gsh',      -- Highlight surrounding
-          replace = 'gsr',        -- Replace surrounding
-          update_n_lines = 'gsn', -- Update `n_lines`
+      require("mini.surround").setup({})
+      vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
+
+      local ai = require('mini.ai')
+      require('mini.ai').setup({
+        custom_textobjects = {
+          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+          L = MiniExtra.gen_ai_spec.line(),
+          B = MiniExtra.gen_ai_spec.buffer()
         }
       })
 
-      local spec_treesitter = require('mini.ai').gen_spec.treesitter
-      require('mini.ai').setup({
-        custom_textobjects = {
-          f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
-          o = spec_treesitter({
-            a = { '@conditional.outer', '@loop.outer' },
-            i = { '@conditional.inner', '@loop.inner' },
-          })
-        }
+      local jump2d = require('mini.jump2d')
+      jump2d.setup({
+        spotter = jump2d.gen_spotter.pattern('[^%s%p]+'),
+        labels = 'asdfghjkl;',
+        view = { dim = true, n_steps_ahead = 2 },
       })
+      vim.keymap.set({ 'n', 'x', 'o' }, 'sj', function() MiniJump2d.start(MiniJump2d.builtin_opts.single_character) end)
 
       vim.keymap.set('n', "<leader>bd", function() MiniBufremove.delete() end, { desc = "Remove buffer" })
       vim.keymap.set('n', "<leader>di", function() MiniDiff.toggle_overlay(0) end, { desc = "Remove buffer" })
@@ -188,24 +185,25 @@ return {
         end,
         desc = "Pick dotfiles",
       },
-      { "<leader><leader>", "<cmd>Pick files<cr>",                        desc = "Search Files" },
-      { "<leader>ff",       "<cmd>Pick files<cr>",                        desc = "Search Files" },
-      { "<leader>fg",       "<cmd>Pick git_files<cr>",                    desc = "Git files" },
-      { "<leader>fr",       "<cmd>Pick visit_paths<cr>",                  desc = "Previous files" },
-      { "<leader>,",        "<cmd>Pick buffers<cr>",                      desc = "Pick buffers" },
-      { "<leader>sg",       "<cmd>Pick grep<cr>",                         desc = "Pick grep" },
-      { "<leader>sw",       "<cmd>Pick grep pattern='<cword>'<cr>",       desc = "Grep current word" },
-      { "<leader>sf",       "<cmd>Pick grep_live<cr>",                    desc = "Live Grep" },
-      { "<leader>sk",       "<cmd>Pick keymaps<cr>",                      desc = "[S]earch [K]eymaps" },
-      { "<leader>sh",       "<cmd>Pick help<cr>",                         desc = "[S]earch [H]elp" },
-      { "<leader>sm",       "<cmd>Pick marks<cr>",                        desc = "[S]earch [M]arks" },
-      { "<leader>sd",       "<cmd>Pick diagnostic<cr>",                   desc = "[S]earch [D]iagnostics" },
-      { "<leader>sR",       "<cmd>Pick resume<cr>",                       desc = "[S]earch [R]esume" },
-      { "<leader>gl",       "<cmd>Pick git_commits<cr>",                  desc = "Git commits" },
-      { "gr",               "<cmd>Pick lsp scope='references'<cr>",       desc = "LSP references" },
-      { "gd",               "<cmd>Pick lsp scope='definition'<cr>",       desc = "LSP definition" },
-      { "<leader>ss",       "<cmd>Pick lsp scope='document_symbol'<cr>",  desc = "LSP document symbols" },
-      { "<leader>sS",       "<cmd>Pick lsp scope='workspace_symbol'<cr>", desc = "LSP workspace symbols" },
+      { "<leader><leader>", "<cmd>Pick files<cr>",                                         desc = "Search Files" },
+      { "<leader>ff",       "<cmd>Pick files<cr>",                                         desc = "Search Files" },
+      { "<leader>fg",       "<cmd>Pick git_files<cr>",                                     desc = "Git files" },
+      { "<leader>fr",       "<cmd>Pick visit_paths<cr>",                                   desc = "Previous files" },
+      { "<leader>,",        "<cmd>Pick buffers<cr>",                                       desc = "Pick buffers" },
+      { ",",                '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', desc = "Pick current buffer" },
+      { "<leader>sg",       "<cmd>Pick grep<cr>",                                          desc = "Pick grep" },
+      { "<leader>sw",       "<cmd>Pick grep pattern='<cword>'<cr>",                        desc = "Pick grep current word" },
+      { "<leader>sf",       "<cmd>Pick grep_live<cr>",                                     desc = "Live Grep" },
+      { "<leader>sk",       "<cmd>Pick keymaps<cr>",                                       desc = "[S]earch [K]eymaps" },
+      { "<leader>sh",       "<cmd>Pick help<cr>",                                          desc = "[S]earch [H]elp" },
+      { "<leader>sm",       "<cmd>Pick marks<cr>",                                         desc = "[S]earch [M]arks" },
+      { "<leader>sd",       "<cmd>Pick diagnostic<cr>",                                    desc = "[S]earch [D]iagnostics" },
+      { "<leader>sR",       "<cmd>Pick resume<cr>",                                        desc = "[S]earch [R]esume" },
+      { "<leader>gl",       "<cmd>Pick git_commits<cr>",                                   desc = "Git commits" },
+      { "gr",               "<cmd>Pick lsp scope='references'<cr>",                        desc = "LSP references" },
+      { "gd",               "<cmd>Pick lsp scope='definition'<cr>",                        desc = "LSP definition" },
+      { "<leader>ss",       "<cmd>Pick lsp scope='document_symbol'<cr>",                   desc = "LSP document symbols" },
+      { "<leader>sS",       "<cmd>Pick lsp scope='workspace_symbol'<cr>",                  desc = "LSP workspace symbols" },
     },
     config = function(_, opts)
       require("mini.pick").setup(opts)

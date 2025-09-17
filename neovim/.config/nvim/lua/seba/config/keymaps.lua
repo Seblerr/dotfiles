@@ -24,7 +24,7 @@ map('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP declaration' })
 map('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'LSP type definition' })
 map('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP implementation' })
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
-map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
+-- map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
 
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
