@@ -49,7 +49,7 @@ alias ll='ls -lAh'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.ghcup/env ] && source ~/.ghcup/env
-[ -f ~/.env ] && source ~/.env
+[ -f ~/.env ] && set -a && source ~/.env && set +a
 
 command -v fzf >/dev/null && eval "$(fzf --zsh)"
 command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
