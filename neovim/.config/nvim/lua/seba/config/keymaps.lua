@@ -12,7 +12,7 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
 
-map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
+map('n', '<TAB>', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 
 vim.keymap.del({ 'n', 'x' }, 'gra')
 vim.keymap.del('n', 'grr')
