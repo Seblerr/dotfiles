@@ -49,10 +49,12 @@ return
         svelte = {},
         html = {},
         yamlls = {},
-        hls = {}
+        hls = {},
+        copilot = {}
       }
     },
     config = function(_, opts)
+      vim.lsp.inline_completion.enable()
       for server, config in pairs(opts.servers or {}) do
         config.on_attach = on_attach
 
