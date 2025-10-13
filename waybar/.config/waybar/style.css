@@ -23,26 +23,38 @@ window#waybar.hidden {
   opacity: 0.2;
 }
 
+#workspaces {
+  margin: 0 5px;
+}
+
 #workspaces button {
-  padding: 3px 5px;
-  margin: 3px 3px;
-  color: @foreground;
-  background-color: @surface1;
-  transition: all 0.3s ease-in-out;
-  font-size: 13px;
+  padding: 2px 3px;
+  margin: 2px 3px;
+  font-weight: 500;
+  font-size: 11px;
+  color: @text;
+  background-color: @surface0;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 #workspaces button.active {
   color: @crust;
-  background: @flamingo;
+  background-color: @flamingo;
+  border-color: @mauve;
 }
 
 #workspaces button:hover {
-  background: @surface1;
+  background-color: @surface1;
+  border-color: @overlay0;
 }
 
 #workspaces button.urgent {
   background-color: @red;
+  color: @crust;
+  border-color: @red;
 }
 
 #clock,

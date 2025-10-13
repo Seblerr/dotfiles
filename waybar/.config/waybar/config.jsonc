@@ -1,7 +1,7 @@
 {
   "layer": "top",
 
-  "modules-left": ["hyprland/workspaces", "custom/spotify"],
+  "modules-left": ["hyprland/workspaces", "niri/workspaces", "custom/spotify"],
   "modules-center": ["clock", "custom/weather"],
   "modules-right": [
     "temperature",
@@ -9,6 +9,10 @@
     "tray",
     "custom/power"
   ],
+
+  "niri/workspaces" : {
+    "format": "{index}"
+  },
 
   "clock": {
     "format-alt": "{:%a, %d. %b  %H:%M}"
