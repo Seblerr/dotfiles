@@ -41,9 +41,8 @@
   unstage = reset HEAD --
   #############
   b = branch
-  bd = branch -d
-  bdd = branch -D
   cob = !git switch $(git branch | fzf)
+  bd = !git branch -D $(git branch | fzf)
   #############
   c = commit
   ca = commit -a
