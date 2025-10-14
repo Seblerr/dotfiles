@@ -150,13 +150,12 @@ window-rule {
 }
 
 binds {
-    // shows a list of important hotkeys.
-    Mod+Shift+Escape { show-hotkey-overlay; }
-
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+Space { spawn "rofi" "-show" "drun"; }
-    Mod+B hotkey-overlay-title="Open Browser: firefox" { spawn-sh "firefox"; }
-    // Super+Ctrl+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+B hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
+    Mod+E { spawn-sh "ghostty -e yazi"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+Shift+S  {  spawn-sh "$HOME/.config/hypr/scripts/screenshot_area.sh"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
