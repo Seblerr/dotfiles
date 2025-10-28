@@ -12,7 +12,7 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
 
-map('n', '<TAB>', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
+map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 
 vim.keymap.del({ 'n', 'x' }, 'gra')
 vim.keymap.del('n', 'grr')
@@ -24,6 +24,7 @@ map('n', 'gD', vim.lsp.buf.declaration, { desc = 'LSP declaration' })
 map('n', '<leader>D', vim.lsp.buf.type_definition, { desc = 'LSP type definition' })
 map('n', 'gi', vim.lsp.buf.implementation, { desc = 'LSP implementation' })
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
+map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Apply fix' })
 
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })

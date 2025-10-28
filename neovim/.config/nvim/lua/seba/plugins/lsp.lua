@@ -80,6 +80,11 @@ return
     end
   },
 
+  {
+    'p00f/clangd_extensions.nvim',
+    ft = { "c", "cpp"},
+    opts = {}
+  },
 
   {
     'williamboman/mason.nvim',

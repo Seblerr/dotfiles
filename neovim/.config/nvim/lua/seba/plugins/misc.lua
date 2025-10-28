@@ -10,7 +10,7 @@ return {
     -- ft = { "markdown", "codecompanion" },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
-      'nvim-mini/mini.icons',
+      'nvim-mini/mini.nvim',
     },
     opts = {},
   },

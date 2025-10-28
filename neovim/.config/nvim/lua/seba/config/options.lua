@@ -48,6 +48,8 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5                -- Minimum window width
 opt.wrap = false                   -- Disable line wrap
 opt.winborder = "rounded"
+opt.exrc = true
+opt.secure = true
 vim.schedule(function()
   opt.clipboard = "unnamedplus" -- Sync with system clipboard
 end)
