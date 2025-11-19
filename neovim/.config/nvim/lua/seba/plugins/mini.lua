@@ -157,57 +157,58 @@ return {
 
   },
 
-  {
-    'nvim-mini/mini.pick',
-    version = false,
-    opts = {
-      mappings = {
-        to_quickfix = {
-          char = "<c-q>",
-          func = function()
-            local items = MiniPick.get_picker_items() or {}
-            MiniPick.default_choose_marked(items)
-            MiniPick.stop()
-          end,
-        },
-      }
-    },
-    keys = {
-      {
-        "<leader>fc",
-        function()
-          MiniPick.builtin.cli(
-            {
-              command = { "rg", "--files", "--hidden", "--glob=!.git/" }
-            },
-            { source = { cwd = "~/.dotfiles" } }
-          )
-        end,
-        desc = "Pick dotfiles",
-      },
-      { "<leader><leader>", "<cmd>Pick files<cr>",                                         desc = "Search Files" },
-      { "<leader>ff",       "<cmd>Pick files<cr>",                                         desc = "Search Files" },
-      { "<leader>fg",       "<cmd>Pick git_files<cr>",                                     desc = "Git files" },
-      { "<leader>fr",       "<cmd>Pick visit_paths<cr>",                                   desc = "Previous files" },
-      { "<leader>,",        "<cmd>Pick buffers<cr>",                                       desc = "Pick buffers" },
-      { ",",                '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', desc = "Pick current buffer" },
-      { "<leader>sg",       "<cmd>Pick grep<cr>",                                          desc = "Pick grep" },
-      { "<leader>sw",       "<cmd>Pick grep pattern='<cword>'<cr>",                        desc = "Pick grep current word" },
-      { "<leader>sf",       "<cmd>Pick grep_live<cr>",                                     desc = "Live Grep" },
-      { "<leader>sk",       "<cmd>Pick keymaps<cr>",                                       desc = "[S]earch [K]eymaps" },
-      { "<leader>sh",       "<cmd>Pick help<cr>",                                          desc = "[S]earch [H]elp" },
-      { "<leader>sm",       "<cmd>Pick marks<cr>",                                         desc = "[S]earch [M]arks" },
-      { "<leader>sd",       "<cmd>Pick diagnostic<cr>",                                    desc = "[S]earch [D]iagnostics" },
-      { "<leader>sR",       "<cmd>Pick resume<cr>",                                        desc = "[S]earch [R]esume" },
-      { "<leader>gl",       "<cmd>Pick git_commits<cr>",                                   desc = "Git commits" },
-      { "gr",               "<cmd>Pick lsp scope='references'<cr>",                        desc = "LSP references" },
-      { "gd",               "<cmd>Pick lsp scope='definition'<cr>",                        desc = "LSP definition" },
-      { "<leader>ss",       "<cmd>Pick lsp scope='document_symbol'<cr>",                   desc = "LSP document symbols" },
-      { "<leader>sS",       "<cmd>Pick lsp scope='workspace_symbol'<cr>",                  desc = "LSP workspace symbols" },
-    },
-    config = function(_, opts)
-      require("mini.pick").setup(opts)
-      vim.ui.select = require("mini.pick").ui_select
-    end
-  }
+  -- {
+  --   'nvim-mini/mini.pick',
+  --   version = false,
+  --   opts = {
+  --     mappings = {
+  --       to_quickfix = {
+  --         char = "<c-q>",
+  --         func = function()
+  --           local items = MiniPick.get_picker_items() or {}
+  --           MiniPick.default_choose_marked(items)
+  --           MiniPick.stop()
+  --         end,
+  --       },
+  --     }
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>fc",
+  --       function()
+  --         MiniPick.builtin.cli(
+  --           {
+  --             command = { "rg", "--files", "--hidden", "--glob=!.git/" }
+  --           },
+  --           { source = { cwd = "~/.dotfiles" } }
+  --         )
+  --       end,
+  --       desc = "Pick dotfiles",
+  --     },
+  --     { "<leader><leader>", "<cmd>Pick files<cr>",                                         desc = "Search Files" },
+  --     { "<leader>ff",       "<cmd>Pick files<cr>",                                         desc = "Search Files" },
+  --     { "<leader>fg",       "<cmd>Pick git_files<cr>",                                     desc = "Git files" },
+  --     { "<leader>fn",       function() require("mini.pick").builtin.files({}, { source = { cwd = vim.fn.expand("~/notes") } }) end, desc = "Find notes" },
+  --     { "<leader>fr",       "<cmd>Pick visit_paths<cr>",                                   desc = "Previous files" },
+  --     { "<leader>,",        "<cmd>Pick buffers<cr>",                                       desc = "Pick buffers" },
+  --     { ",",                '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', desc = "Pick current buffer" },
+  --     { "<leader>sg",       "<cmd>Pick grep<cr>",                                          desc = "Pick grep" },
+  --     { "<leader>sw",       "<cmd>Pick grep pattern='<cword>'<cr>",                        desc = "Pick grep current word" },
+  --     { "<leader>sf",       "<cmd>Pick grep_live<cr>",                                     desc = "Live Grep" },
+  --     { "<leader>sk",       "<cmd>Pick keymaps<cr>",                                       desc = "[S]earch [K]eymaps" },
+  --     { "<leader>sh",       "<cmd>Pick help<cr>",                                          desc = "[S]earch [H]elp" },
+  --     { "<leader>sm",       "<cmd>Pick marks<cr>",                                         desc = "[S]earch [M]arks" },
+  --     { "<leader>sd",       "<cmd>Pick diagnostic<cr>",                                    desc = "[S]earch [D]iagnostics" },
+  --     { "<leader>sR",       "<cmd>Pick resume<cr>",                                        desc = "[S]earch [R]esume" },
+  --     { "<leader>gl",       "<cmd>Pick git_commits<cr>",                                   desc = "Git commits" },
+  --     { "gr",               "<cmd>Pick lsp scope='references'<cr>",                        desc = "LSP references" },
+  --     { "gd",               "<cmd>Pick lsp scope='definition'<cr>",                        desc = "LSP definition" },
+  --     { "<leader>ss",       "<cmd>Pick lsp scope='document_symbol'<cr>",                   desc = "LSP document symbols" },
+  --     { "<leader>sS",       "<cmd>Pick lsp scope='workspace_symbol'<cr>",                  desc = "LSP workspace symbols" },
+  --   },
+  --   config = function(_, opts)
+  --     require("mini.pick").setup(opts)
+  --     vim.ui.select = require("mini.pick").ui_select
+  --   end
+  -- }
 }
