@@ -61,3 +61,11 @@ function y() {
   [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
   rm -f -- "$tmp"
 }
+
+# Refresh history before fzf
+fzf-history-widget-with-reload() {
+  fc -R
+  fzf-history-widget
+}
+zle -N fzf-history-widget-with-reload
+bindkey '^R' fzf-history-widget-with-reload
