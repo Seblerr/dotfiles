@@ -18,18 +18,6 @@ return {
       nerd_font_variant = 'mono'
     },
     fuzzy = { implementation = "prefer_rust_with_warning" },
-    keymap = {
-      ["<Tab>"] = {
-        "snippet_forward",
-        function() -- sidekick next edit suggestion
-          return require("sidekick").nes_jump_or_apply()
-        end,
-        function() -- if you are using Neovim's native inline completions
-          return vim.lsp.inline_completion.get()
-        end,
-        "fallback",
-      },
-    },
   },
   opts_extend = { "sources.default" }
 }
