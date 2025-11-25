@@ -39,6 +39,15 @@ return {
     { "<leader>sk", "<Cmd>FzfLua keymaps<CR>",                desc = "Search keymaps" },
     { "<leader>sh", "<Cmd>FzfLua helptags<CR>",               desc = "Search help" },
     { "<leader>gl", "<Cmd>FzfLua git_bcommits<CR>",           desc = "FzfLua git log (buffer)" },
+    { "gr",         "<cmd>FzfLua lsp_references<cr>",                        desc = "LSP references" },
+    { "gd",         "<cmd>FzfLua lsp_definitions<cr>",                        desc = "LSP definition" },
+    { "gD",         "<cmd>FzfLua lsp_declarations<cr>",                        desc = "LSP declarations" },
+    { "<leader>D",  "<cmd>FzfLua typedefs<cr>",                        desc = "LSP type definition" },
+    { "gi",         "<cmd>FzfLua lsp_implementations<cr>",                  desc = "LSP implementations" },
+    { "ga",         "<cmd>FzfLua lsp_finder<cr>",                  desc = "LSP finder (all)" },
+    { "<leader>ca", "<cmd>FzfLua lsp_code_actions<cr>",                   desc = "LSP document symbols" },
+    { "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>",                   desc = "LSP document symbols" },
+    { "<leader>sS", "<cmd>FzfLua lsp_workspace_symbols<cr>",                  desc = "LSP workspace symbols" },
   },
   config = function()
     local fzf = require("fzf-lua")
@@ -56,7 +65,6 @@ return {
         },
       },
       winopts = {
-        width = 0.5,
         backdrop = 80,
         border = "rounded",
         preview = {
@@ -72,23 +80,27 @@ return {
           syntax_limit_b = 1024 * 100,
         }
       },
+      defaults = {
+        file_icons = "mini"
+      },
       files = {
         formatter = "path.dirname_first",
         actions = {
-          ["alt-i"] = { actions.toggle_ignore },
-          ["alt-h"] = { actions.toggle_hidden },
+          ["ctrl-i"] = actions.toggle_ignore,
+          ["ctrl-h"] = actions.toggle_hidden
         }
       },
       buffers = {
         formatter = "path.filename_first",
       },
       grep = {
+        hidden = true,
         rg_glob = true, -- enable glob parsing
         glob_flag = "--iglob", -- case insensitive globs
         glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
         actions = {
-          ["alt-i"] = { actions.toggle_ignore },
-          ["alt-h"] = { actions.toggle_hidden },
+          ["ctrl-i"] = actions.toggle_ignore,
+          ["ctrl-h"] = actions.toggle_hidden
         },
       },
       git = {
