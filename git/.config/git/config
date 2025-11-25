@@ -56,6 +56,7 @@
   cpa = cherry-pick --abort
   cpc = cherry-pick --continue
   #############
+  rb = rebase
   rbc = rebase --continue
   #############
   d = diff
@@ -79,6 +80,7 @@
   co = checkout
   #############
   p = pull
+  pushf = push --force-with-lease
   #############
   r = restore
   rs = restore --staged
