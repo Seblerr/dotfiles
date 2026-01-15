@@ -25,6 +25,7 @@ return {
       require("mini.jump").setup()
       require("mini.splitjoin").setup()
       require("mini.comment").setup()
+      require("mini.cmdline").setup({autocomplete = { enable = false }})
 
       require("mini.diff").setup({
         view = {
