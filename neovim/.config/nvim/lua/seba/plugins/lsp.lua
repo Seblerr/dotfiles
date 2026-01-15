@@ -30,31 +30,28 @@ return
             }
           },
         },
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              -- Using Ruff's import organizer
-              disableOrganizeImports = true,
-              analysis = {
-                -- Ignore all files for analysis to exclusively use Ruff for linting
-                ignore = { '*' },
-              },
-            },
-          }
-        },
         bashls = {},
         ruff = {},
         lemminx = {},
         tailwindcss = {},
         svelte = {},
         html = {},
-        yamlls = {},
+        yamlls = {
+          settings = {
+            yaml = {
+              customTags = {
+                "!reference sequence"
+              }
+            }
+          }
+        },
         hls = {},
-        copilot = {}
+        copilot = {},
+        ty = {},
       }
     },
     config = function(_, opts)
-      vim.lsp.inline_completion.enable()
+      -- vim.lsp.inline_completion.enable()
       for server, config in pairs(opts.servers or {}) do
         config.on_attach = on_attach
 
@@ -82,7 +79,7 @@ return
 
   {
     'p00f/clangd_extensions.nvim',
-    ft = { "c", "cpp"},
+    ft = { "c", "cpp" },
     opts = {}
   },
 
