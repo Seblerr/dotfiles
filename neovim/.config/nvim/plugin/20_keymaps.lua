@@ -25,6 +25,12 @@ map('n', '<leader>cn', ':cn<CR>', { desc = 'Next quickfix' })
 map('n', '<leader>cp', ':cp<CR>', { desc = 'Previous quickfix' })
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 
+vim.keymap.del({ 'n', 'x' }, 'gra')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'gri')
+
 -- Yank current path
 map('n', '<leader>yp', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
