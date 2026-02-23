@@ -120,11 +120,11 @@ return {
         hint = [[
   [ Debug Hydra Bindings ]
   c: Continue     r: Run to cursor
-  L: Step over    I: Step in     O: Step out
-  t: Toggle BP    x: Clear BPs   X: Terminate
-  H: Hover        a: Watch expr  U: Toggle views
-  X: Terminate    J: Stack down  K: Stack up
-  R: REPL         S: Scopes      T: Threads
+  H: Step back    L: Step over   I: Step in
+  O: Step out     t: Toggle BP   x: Clear BPs
+  a: Watch expr   U: Toggle views X: Terminate
+  J: Stack up     K: Stack down
+  R: REPL         S: Scopes      T: Threads    W: Watches
   C: Console      B: Breakpoints q: Quit Hydra
   ]],
       })
@@ -146,10 +146,11 @@ return {
         heads = {
           { "c", dap.continue,                                  { desc = false } },
           { "r", dap.run_to_cursor,                             { desc = false } },
+          { "H", dap.step_back,                                 { desc = false } },
           { "L", dap.step_over,                                 { desc = false } },
           { "I", dap.step_into,                                 { desc = false } },
           { "O", dap.step_out,                                  { desc = false } },
-          { "H", widgets.hover,                                 { desc = false } },
+          -- { "H", widgets.hover,                                 { desc = false } },
           { "J", dap.up,                                        { desc = false } },
           { "K", dap.down,                                      { desc = false } },
           { "t", dap.toggle_breakpoint,                         { desc = false } },
@@ -178,8 +179,6 @@ return {
         if vim.fn.filereadable(path) == 1 then
           vscode.load_launchjs(path, { cppdbg = { "c", "cpp", "cc" } })
           vim.notify("Loaded launch.json from " .. path, vim.log.levels.INFO)
-        else
-          vim.notify("launch.json not found at " .. path, vim.log.levels.WARN)
         end
       end
       load_launch_json()
@@ -194,10 +193,44 @@ return {
     "mfussenegger/nvim-dap-python",
     dependencies = "mfussenegger/nvim-dap",
     ft = "python",
+    config = function()
+      require("dap-python").setup("uv")
+
+      -- Inject project env vars (vim.g.dap_python_env) into all Python DAP launches.
+      -- Projects set this global in .nvim.lua (exrc).
+      local dap = require("dap")
+      local original_dap_run = dap.run
+      ---@diagnostic disable-next-line: duplicate-set-field
+      dap.run = function(config, opts)
+        if config.type == "python" then
+          if vim.g.dap_python_env then
+            config.env = vim.tbl_extend("keep", config.env or {}, vim.g.dap_python_env)
+          end
+          if config.module == "pytest" then
+            config.console = config.console or "integratedTerminal"
+          end
+        end
+        return original_dap_run(config, opts)
+      end
+    end,
     keys = {
       { "<leader>dpt", function() require("dap-python").test_method() end,     desc = "Debug Method",    ft = "python" },
       { "<leader>dpc", function() require("dap-python").test_class() end,      desc = "Debug Class",     ft = "python" },
-      { "<leader>dps", function() require('dap-python').debug_selection() end, desc = "Debug Selection", ft = "python" }
+      { "<leader>dps", function() require('dap-python').debug_selection() end, desc = "Debug Selection", ft = "python" },
+      {
+        "<leader>dpf",
+        function()
+          require("dap").run({
+            type = "python",
+            request = "launch",
+            name = "Pytest: Current File",
+            module = "pytest",
+            args = { vim.fn.expand("%:p") },
+          })
+        end,
+        desc = "Debug File",
+        ft = "python",
+      }
     }
   }
 }
