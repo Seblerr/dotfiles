@@ -14,7 +14,9 @@
 [rebase]
   autostash = true
 [merge]
-  conflictstyle = zdiff3
+  ff = false
+  conflictstyle = diff3
+  tool = codediff
 [column]
   ui = auto
 [rerere]
@@ -92,9 +94,11 @@
   #############
   blame = blame -w -C -C -C
   root = rev-parse --show-toplevel
-  fix = !${EDITOR} +/HEAD $(git diff --name-only --relative --diff-filter=U | uniq)
+  fix = !nvim -q <(git diff --check --relative)
   #############
   alias = !git config -l | grep alias | cut -c 7-
   #############
   ours = "!f() { git checkout --ours $@ && git add $@; }; f"
   theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+[mergetool "codediff"]
+  cmd = nvim \"$MERGED\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
