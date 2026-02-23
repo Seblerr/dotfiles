@@ -1,7 +1,6 @@
 -- [[ Setting options ]]
 local opt = vim.opt
 
-vim.g.have_nerd_font = true
 opt.number = true
 opt.relativenumber = true
 opt.mouse = 'a'
@@ -16,7 +15,6 @@ opt.completeopt = "menu,menuone,noselect"
 opt.confirm = true             -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true          -- Enable highlighting of the current line
 opt.expandtab = true           -- Use spaces instead of tabs
-opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepprg = "rg --vimgrep"
 opt.grepformat = "%f:%l:%c:%m"
 opt.ignorecase = true      -- Ignore case
@@ -25,7 +23,6 @@ opt.foldlevel = 99
 opt.laststatus = 3
 opt.pumblend = 10     -- Popup blend
 opt.pumheight = 10    -- Maximum number of entries in a popup
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2    -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true })
@@ -62,3 +59,28 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
+
+-- [[ Diagnostics ]]
+vim.diagnostic.config({
+  update_in_insert = false,
+  virtual_text = {
+    severity = {
+      min = vim.diagnostic.severity.WARN,
+      max = vim.diagnostic.severity.ERROR,
+    },
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+    numhl = {
+      [vim.diagnostic.severity.WARN] = 'WarningMsg',
+      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+    }
+  }
+})

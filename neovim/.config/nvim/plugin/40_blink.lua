@@ -1,8 +1,7 @@
-return {
-  'saghen/blink.cmp',
-  dependencies = 'rafamadriz/friendly-snippets',
-  version = '*',
-  opts = {
+Config.now_if_args(function()
+  vim.pack.add({ { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('*') } })
+  vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' })
+  require('blink.cmp').setup({
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
@@ -18,6 +17,5 @@ return {
       nerd_font_variant = 'mono'
     },
     fuzzy = { implementation = "prefer_rust_with_warning" },
-  },
-  opts_extend = { "sources.default" }
-}
+  })
+end)
