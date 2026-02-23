@@ -1,11 +1,28 @@
 -- [[ Keymaps ]]
 local map = vim.keymap.set
 
+-- Leader group descriptions (used by mini.clue in 30_mini.lua)
+Config.leader_group_clues = {
+  { mode = 'n', keys = '<Leader>a', desc = '+AI' },
+  { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
+  { mode = 'n', keys = '<Leader>c', desc = '+Code' },
+  { mode = 'n', keys = '<Leader>d', desc = '+Debug' },
+  { mode = 'n', keys = '<Leader>f', desc = '+Find' },
+  { mode = 'n', keys = '<Leader>g', desc = '+Git' },
+  { mode = 'n', keys = '<Leader>s', desc = '+Search' },
+  { mode = 'n', keys = '<Leader>t', desc = '+Toggle' },
+  { mode = 'n', keys = '<Leader>w', desc = '+Window' },
+  { mode = 'n', keys = '<Leader>y', desc = '+Yank' },
+  { mode = 'x', keys = '<Leader>a', desc = '+AI' },
+  { mode = 'x', keys = '<Leader>g', desc = '+Git' },
+  { mode = 'x', keys = '<Leader>s', desc = '+Search' },
+}
+
 map({ 'n', 'v' }, '<Space>', '<Nop>')
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
-map('n', '<leader>cn', ':cn<CR>')
-map('n', '<leader>cp', ':cp<CR>')
+map('n', '<leader>cn', ':cn<CR>', { desc = 'Next quickfix' })
+map('n', '<leader>cp', ':cp<CR>', { desc = 'Previous quickfix' })
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 
 -- Yank current path

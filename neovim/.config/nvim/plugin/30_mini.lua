@@ -31,6 +31,8 @@ Config.later(function()
   require("mini.splitjoin").setup()
   require("mini.comment").setup()
   require("mini.cursorword").setup()
+  require("mini.bracketed").setup()
+  require("mini.indentscope").setup()
 
   require("mini.diff").setup({
     view = {
@@ -41,6 +43,18 @@ Config.later(function()
         delete = "",
       },
     }
+  })
+
+  local hipatterns = require('mini.hipatterns')
+  local hi_words = MiniExtra.gen_highlighter.words
+  hipatterns.setup({
+    highlighters = {
+      fixme = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'MiniHipatternsFixme'),
+      hack  = hi_words({ 'HACK', 'Hack', 'hack' }, 'MiniHipatternsHack'),
+      todo  = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
+      note  = hi_words({ 'NOTE', 'Note', 'note' }, 'MiniHipatternsNote'),
+      hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
   })
 
   require("mini.surround").setup({})
@@ -70,6 +84,35 @@ Config.later(function()
 
   vim.keymap.set('n', "<leader>bd", function() MiniBufremove.delete() end, { desc = "Remove buffer" })
   vim.keymap.set('n', "<leader>di", function() MiniDiff.toggle_overlay(0) end, { desc = "Toggle diff overlay" })
+
+  -- mini.clue: show available keybindings after prefix key
+  local miniclue = require('mini.clue')
+  miniclue.setup({
+    clues = {
+      Config.leader_group_clues,
+      miniclue.gen_clues.builtin_completion(),
+      miniclue.gen_clues.g(),
+      miniclue.gen_clues.marks(),
+      miniclue.gen_clues.registers(),
+      miniclue.gen_clues.square_brackets(),
+      miniclue.gen_clues.windows({ submode_resize = true }),
+      miniclue.gen_clues.z(),
+    },
+    triggers = {
+      { mode = { 'n', 'x' }, keys = '<Leader>' },
+      { mode = { 'n', 'x' }, keys = '[' },
+      { mode = { 'n', 'x' }, keys = ']' },
+      { mode = 'i',          keys = '<C-x>' },
+      { mode = { 'n', 'x' }, keys = 'g' },
+      { mode = { 'n', 'x' }, keys = "'" },
+      { mode = { 'n', 'x' }, keys = '`' },
+      { mode = { 'n', 'x' }, keys = '"' },
+      { mode = { 'i', 'c' }, keys = '<C-r>' },
+      { mode = 'n',          keys = '<C-w>' },
+      { mode = { 'n', 'x' }, keys = 's' },
+      { mode = { 'n', 'x' }, keys = 'z' },
+    },
+  })
 end)
 
 -- mini.files (standalone repo)
