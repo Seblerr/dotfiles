@@ -2,11 +2,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Disable native plugins
-for _, name in ipairs({ 'gzip', 'netrwPlugin', 'tarPlugin', 'tohtml', 'tutor', 'zipPlugin' }) do
-  vim.g['loaded_' .. name] = 1
-end
-
 -- Plugin manager: vim.pack (built-in)
 _G.Config = {}
 

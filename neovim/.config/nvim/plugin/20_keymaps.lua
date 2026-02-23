@@ -1,29 +1,21 @@
 -- [[ Keymaps ]]
-local function map(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.silent = opts.silent ~= false
-  vim.keymap.set(mode, lhs, rhs, opts)
-end
+local map = vim.keymap.set
 
-map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+map({ 'n', 'v' }, '<Space>', '<Nop>')
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>')
 map('n', '<leader>cp', ':cp<CR>')
-
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 
-
-
 -- Yank current path
-vim.keymap.set('n', '<leader>yp', function()
+map('n', '<leader>yp', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
 end, { desc = 'Yank file path' })
 
 -- Diagnostics
-map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = 'Diagnostic open float' })
-map("n", "<leader>Q", vim.diagnostic.setloclist, { desc = 'Diagnostics quick-fix' })
 
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -132,24 +124,17 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
-    "PlenaryTestPopup",
     "help",
     "git",
     "lspinfo",
     "man",
     "notify",
     "qf",
-    "spectre_panel",
     "startuptime",
-    "tsplayground",
-    "neotest-output",
     "checkhealth",
-    "neotest-summary",
-    "neotest-output-panel",
     "dap-view",
     "dap-view-term",
     "dap-float",
-    "grug-far"
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false

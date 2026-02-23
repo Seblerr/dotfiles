@@ -1,7 +1,6 @@
 -- [[ Setting options ]]
 local opt = vim.opt
 
-vim.g.have_nerd_font = true
 opt.number = true
 opt.relativenumber = true
 opt.mouse = 'a'
@@ -16,7 +15,6 @@ opt.completeopt = "menu,menuone,noselect"
 opt.confirm = true             -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true          -- Enable highlighting of the current line
 opt.expandtab = true           -- Use spaces instead of tabs
-opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepprg = "rg --vimgrep"
 opt.grepformat = "%f:%l:%c:%m"
 opt.ignorecase = true      -- Ignore case
@@ -25,7 +23,6 @@ opt.foldlevel = 99
 opt.laststatus = 3
 opt.pumblend = 10     -- Popup blend
 opt.pumheight = 10    -- Maximum number of entries in a popup
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2    -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true })
