@@ -12,7 +12,6 @@ Config.now_if_args(function()
     'html',
     'yamlls',
     'hls',
-    'copilot',
     'ty',
   }
 

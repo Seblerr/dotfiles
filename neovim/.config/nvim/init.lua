@@ -46,6 +46,7 @@ Config.toggle = function(option, values)
     else
       vim.opt_local[option] = values[1]
     end
+    return
   end
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if vim.opt_local[option]:get() then
