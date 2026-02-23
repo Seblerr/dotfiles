@@ -41,6 +41,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- Follow symlinks
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   callback = function()
+--     local resolved = vim.fn.resolve(vim.fn.expand("%:p"))
+--     if resolved ~= vim.fn.expand("%:p") then
+--       vim.cmd("file " .. vim.fn.fnameescape(resolved))
+--     end
+--   end,
+-- })
+
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {

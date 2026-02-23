@@ -25,7 +25,8 @@ return {
       require("mini.jump").setup()
       require("mini.splitjoin").setup()
       require("mini.comment").setup()
-      require("mini.cmdline").setup({autocomplete = { enable = false }})
+      require("mini.cursorword").setup()
+      require("mini.cmdline").setup({ autocomplete = { enable = false } })
 
       require("mini.diff").setup({
         view = {
@@ -43,10 +44,15 @@ return {
 
       local ai = require('mini.ai')
       require('mini.ai').setup({
+        n_lines = 500,
         custom_textobjects = {
           f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
           L = MiniExtra.gen_ai_spec.line(),
-          B = MiniExtra.gen_ai_spec.buffer()
+          B = MiniExtra.gen_ai_spec.buffer(),
+          l = ai.gen_spec.treesitter({
+            a = { '@loop.outer', '@conditional.outer' },
+            i = { '@loop.inner', '@conditional.inner' },
+          }),
         }
       })
 
@@ -131,11 +137,10 @@ return {
       },
     },
     config = function(_, opts)
-      vim.keymap.set({ 'n', 'x' }, '<leader>gs', '<cmd>lua MiniGit.show_at_cursor()<cr>', { desc = 'Show at cursor' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gh', '<cmd>lua MiniGit.show_at_cursor()<cr>', { desc = 'Show at cursor' })
       vim.keymap.set({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
       vim.keymap.set({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
       vim.keymap.set({ 'n', 'x' }, '<leader>gb', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
-      vim.keymap.set({ 'n', 'x' }, '<leader>gd', '<cmd>vertical Git diff -- %<cr>', { desc = 'Git diff buffer' })
 
       local align_blame = function(au_data)
         if au_data.data.git_subcommand ~= 'blame' then return end

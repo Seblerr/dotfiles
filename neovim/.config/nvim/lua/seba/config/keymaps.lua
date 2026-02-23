@@ -22,6 +22,11 @@ vim.keymap.del('n', 'gri')
 
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
 
+-- Yank current path
+vim.keymap.set('n', '<leader>yp', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Yank file path' })
+
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = 'Diagnostic open float' })
