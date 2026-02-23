@@ -20,6 +20,8 @@ Config.now_if_args(function()
     vim.lsp.enable(server)
   end
 
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { silent = true, desc = 'Rename' })
+
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "Clangd specific keymaps",
     callback = function(args)

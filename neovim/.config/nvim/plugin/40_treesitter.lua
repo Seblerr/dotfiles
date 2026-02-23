@@ -9,7 +9,7 @@ Config.now_if_args(function()
   end, 'Run :TSUpdate after nvim-treesitter changes')
 
   require('nvim-treesitter.install').compilers = { "clang", "gcc" }
-  require("nvim-treesitter.configs").setup({
+  require("nvim-treesitter.config").setup({
     ensure_installed = {
       'bash',
       'c',

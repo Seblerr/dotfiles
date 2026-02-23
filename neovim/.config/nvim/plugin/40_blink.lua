@@ -1,8 +1,6 @@
 Config.now_if_args(function()
-  vim.pack.add({
-    'https://github.com/saghen/blink.cmp',
-    'https://github.com/rafamadriz/friendly-snippets',
-  })
+  vim.pack.add({ { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('*') } })
+  vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' })
   require('blink.cmp').setup({
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },

@@ -13,7 +13,7 @@ map('n', '<leader>cp', ':cp<CR>')
 
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 
-map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
+
 
 -- Yank current path
 vim.keymap.set('n', '<leader>yp', function()
