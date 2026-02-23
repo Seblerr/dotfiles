@@ -7,12 +7,25 @@ return {
 
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    -- ft = { "markdown", "codecompanion" },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'nvim-mini/mini.nvim',
     },
     opts = {},
+  },
+
+  {
+    "esmuellert/codediff.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+    config = function(_, opts)
+      vim.keymap.set({ 'n', 'x' }, '<leader>gs', '<cmd>CodeDiff<cr>', { desc = 'CodeDiff git status' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gd', '<cmd>CodeDiff file HEAD<cr>', { desc = 'CodeDiff git diff' })
+      vim.keymap.set({ 'n', 'x' }, '<leader>gm', '<cmd>CodeDiff file master<cr>',
+        { desc = 'CodeDiff git diff against master' })
+
+      require('codediff').setup(opts)
+    end
   },
 
   -- {
