@@ -179,7 +179,10 @@ Config.later(function()
 end)
 
 Config.on_filetype('python', function()
-  vim.pack.add({ 'https://github.com/mfussenegger/nvim-dap-python' })
+  vim.pack.add({
+    'https://github.com/mfussenegger/nvim-dap',
+    'https://github.com/mfussenegger/nvim-dap-python',
+  })
 
   require("dap-python").setup("uv")
 
