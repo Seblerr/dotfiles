@@ -10,8 +10,8 @@
       "src": "https://github.com/catppuccin/nvim"
     },
     "codediff.nvim": {
-      "rev": "0a2f5d71cdf2e8e0ca37acb604cf7cb09998b045",
-      "src": "https://github.com/seblerr/codediff.nvim"
+      "rev": "783258e587bd1bc2bba4d617d648e7424d594107",
+      "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
       "rev": "e969e302bced7ffb9a0a0323629f31feb0ca35a6",
@@ -22,7 +22,7 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "76ddd6b56875bf4f6fd13848728207e738bb75a3",
+      "rev": "72ec224172eea757eab6b349775ad5bada7521d7",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "hydra.nvim": {

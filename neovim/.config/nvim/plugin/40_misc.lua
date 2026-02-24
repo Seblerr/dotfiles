@@ -8,7 +8,7 @@ Config.later(function()
 
   -- codediff
   vim.pack.add({
-    'https://github.com/seblerr/codediff.nvim',
+    'https://github.com/esmuellert/codediff.nvim',
   })
   require('codediff').setup({})
   vim.keymap.set({ 'n', 'x' }, '<leader>gs', '<cmd>CodeDiff<cr>', { desc = 'CodeDiff git status' })
