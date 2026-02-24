@@ -94,11 +94,6 @@ map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
--- TMUX
-map('n', '<C-h>', [[<cmd>lua require('tmux').move_left()<cr>]], { silent = true })
-map('n', '<C-l>', [[<cmd>lua require('tmux').move_right()<cr>]], { silent = true })
-map('n', '<C-k>', [[<cmd>lua require('tmux').move_up()<cr>]], { silent = true })
-map('n', '<C-j>', [[<cmd>lua require('tmux').move_down()<cr>]], { silent = true })
 
 -- [[ Autocmds ]]
 vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])

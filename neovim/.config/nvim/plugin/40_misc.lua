@@ -13,6 +13,11 @@ end)
 Config.later(function()
   -- tmux.nvim
   vim.pack.add({ 'https://github.com/nathom/tmux.nvim' })
+  local tmux = require('tmux')
+  vim.keymap.set('n', '<C-h>', tmux.move_left, { silent = true })
+  vim.keymap.set('n', '<C-l>', tmux.move_right, { silent = true })
+  vim.keymap.set('n', '<C-k>', tmux.move_up, { silent = true })
+  vim.keymap.set('n', '<C-j>', tmux.move_down, { silent = true })
 
   -- render-markdown
   vim.pack.add({ 'https://github.com/MeanderingProgrammer/render-markdown.nvim' })
