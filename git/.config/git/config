@@ -100,5 +100,6 @@
   #############
   ours = "!f() { git checkout --ours $@ && git add $@; }; f"
   theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+  rbi = "!f() { git fetch origin && git rebase -i origin/master; }; f"
 [mergetool "codediff"]
   cmd = nvim \"$MERGED\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
