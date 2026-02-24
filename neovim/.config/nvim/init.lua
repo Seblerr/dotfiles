@@ -1,6 +1,7 @@
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.o.exrc = true
 
 -- Plugin manager: vim.pack (built-in)
 _G.Config = {}

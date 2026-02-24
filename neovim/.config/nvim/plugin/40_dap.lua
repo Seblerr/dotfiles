@@ -184,7 +184,7 @@ Config.on_filetype('python', function()
     'https://github.com/mfussenegger/nvim-dap-python',
   })
 
-  require("dap-python").setup("uv")
+  require("dap-python").setup("python3")
 
   -- Inject project env vars (vim.g.dap_python_env) into all Python DAP launches.
   -- Projects set this global in .nvim.lua (exrc).
