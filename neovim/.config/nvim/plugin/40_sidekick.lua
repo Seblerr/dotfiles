@@ -13,11 +13,21 @@ Config.later(function()
     },
   })
 
-  vim.keymap.set('n', '<leader>aa', function() require("sidekick.cli").toggle() end, { desc = "Sidekick Toggle CLI" })
-  vim.keymap.set('n', '<leader>as', function() require("sidekick.cli").select({ filter = { installed = true } }) end, { desc = "Select CLI" })
-  vim.keymap.set({ 'x', 'n' }, '<leader>at', function() require("sidekick.cli").send({ msg = "{this}" }) end, { desc = "Send This" })
-  vim.keymap.set('x', '<leader>av', function() require("sidekick.cli").send({ msg = "{selection}" }) end, { desc = "Send Visual Selection" })
-  vim.keymap.set({ 'n', 'x' }, '<leader>ap', function() require("sidekick.cli").prompt() end, { desc = "Sidekick Select Prompt" })
-  vim.keymap.set({ 'n', 'x', 'i', 't' }, '<c-,>', function() require("sidekick.cli").focus() end, { desc = "Sidekick Switch Focus" })
-  vim.keymap.set('n', '<leader>aq', function() require("sidekick.cli").toggle({ name = "amazon_q", focus = true }) end, { desc = "Sidekick Toggle Claude" })
+  local cli = require("sidekick.cli")
+
+  -- Toggle & navigation
+  vim.keymap.set('n', '<leader>aa', cli.toggle, { desc = "AI toggle" })
+  vim.keymap.set('n', '<leader>as', function() cli.select({ filter = { installed = true } }) end, { desc = "AI select CLI" })
+  vim.keymap.set({ 'n', 'x', 'i', 't' }, '<c-,>', cli.focus, { desc = "AI switch focus" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>ap', cli.prompt, { desc = "AI select prompt" })
+
+  -- Send context
+  vim.keymap.set({ 'n', 'x' }, '<leader>al', function() cli.send({ msg = "{line}" }) end, { desc = "AI send line" })
+  vim.keymap.set('x', '<leader>av', function() cli.send({ msg = "{selection}" }) end, { desc = "AI send selection" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>af', function() cli.send({ msg = "{function}" }) end, { desc = "AI send function" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>ac', function() cli.send({ msg = "{class}" }) end, { desc = "AI send class" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>at', function() cli.send({ msg = "{this}" }) end, { desc = "AI send this" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>ab', function() cli.send({ msg = "{file}" }) end, { desc = "AI send buffer" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>ad', function() cli.send({ msg = "{diagnostics}" }) end, { desc = "AI send diagnostics" })
+  vim.keymap.set({ 'n', 'x' }, '<leader>aq', function() cli.send({ msg = "{quickfix}" }) end, { desc = "AI send quickfix" })
 end)

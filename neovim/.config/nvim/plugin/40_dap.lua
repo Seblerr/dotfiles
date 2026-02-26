@@ -9,7 +9,6 @@ Config.later(function()
   local dap = require("dap")
   local dv = require("dap-view")
   local Hydra = require("hydra")
-  local vscode = require("dap.ext.vscode")
 
   require("nvim-dap-virtual-text").setup({})
 
@@ -159,22 +158,7 @@ Config.later(function()
     },
   })
 
-  local function load_launch_json()
-    local root = Config.get_git_root()
-    if not root then
-      vim.notify("Git root not found", vim.log.levels.WARN)
-      return
-    end
-    local path = root .. "/.vscode/launch.json"
-    if vim.fn.filereadable(path) == 1 then
-      vscode.load_launchjs(path, { cppdbg = { "c", "cpp", "cc" } })
-      vim.notify("Loaded launch.json from " .. path, vim.log.levels.INFO)
-    end
-  end
-  load_launch_json()
-
-  vim.keymap.set("n", "<leader>dl", load_launch_json, { desc = "Load launch.json" })
-  vim.keymap.set("n", "<leader>dv", function() require("nvim-dap-virtual-text").toggle() end,
+  vim.keymap.set("n", "<leader>tv", function() require("nvim-dap-virtual-text").toggle() end,
     { desc = "Toggle DAP virtual text" })
 end)
 

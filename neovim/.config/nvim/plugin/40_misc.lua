@@ -4,10 +4,23 @@ Config.now_if_args(function()
     'https://github.com/esmuellert/codediff.nvim',
   })
   require('codediff').setup({})
+
+  local function main_branch()
+    local result = vim.system({ 'git', 'rev-parse', '--verify', '--quiet', 'origin/main' }):wait()
+    return result.code == 0 and 'main' or 'master'
+  end
+
   vim.keymap.set({ 'n', 'x' }, '<leader>gs', '<cmd>CodeDiff<cr>', { desc = 'CodeDiff git status' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gd', '<cmd>CodeDiff file HEAD<cr>', { desc = 'CodeDiff git diff' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gm', '<cmd>CodeDiff file master<cr>',
-    { desc = 'CodeDiff git diff against master' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gd', '<cmd>CodeDiff file HEAD<cr>', { desc = 'CodeDiff file diff vs HEAD' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gm', function()
+    vim.cmd('CodeDiff file ' .. main_branch())
+  end, { desc = 'CodeDiff file diff vs main' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gh', function()
+    vim.cmd('CodeDiff history origin/' .. main_branch() .. '..HEAD')
+  end, { desc = 'CodeDiff branch history vs main' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gb', function()
+    vim.cmd('CodeDiff ' .. main_branch() .. '...')
+  end, { desc = 'CodeDiff branch changes vs main' })
 end)
 
 Config.later(function()

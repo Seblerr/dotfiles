@@ -50,9 +50,7 @@ Config.later(function()
   hipatterns.setup({
     highlighters = {
       fixme     = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'MiniHipatternsFixme'),
-      hack      = hi_words({ 'HACK', 'Hack', }, 'MiniHipatternsHack'),
       todo      = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
-      note      = hi_words({ 'NOTE', 'Note' }, 'MiniHipatternsNote'),
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
@@ -167,10 +165,11 @@ end)
 Config.later(function()
   vim.pack.add({ 'https://github.com/nvim-mini/mini-git' })
 
-  vim.keymap.set({ 'n', 'x' }, '<leader>gh', '<cmd>lua MiniGit.show_at_cursor()<cr>', { desc = 'Show at cursor' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gb', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
+  require('mini.git').setup({
+    command = {
+      split = 'vertical',
+    },
+  })
 
   local align_blame = function(au_data)
     if au_data.data.git_subcommand ~= 'blame' then return end
@@ -188,9 +187,11 @@ Config.later(function()
     callback = align_blame,
   })
 
-  require('mini.git').setup({
-    command = {
-      split = 'vertical',
-    },
-  })
+  vim.keymap.set({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gB', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gl', '<cmd>vertical Git log --oneline<cr>', { desc = 'Git log' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gL', '<cmd>vertical Git log --oneline -- %<cr>', { desc = 'Git log current file' })
+  vim.keymap.set('n', '<leader>gi', MiniGit.show_at_cursor, { desc = 'Git info at cursor' })
+  vim.keymap.set('x', '<leader>gi', MiniGit.show_range_history, { desc = 'Git range history' })
 end)
