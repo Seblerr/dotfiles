@@ -33,7 +33,9 @@ Config.later(function()
   vim.keymap.set('n', '<C-k>', tmux.move_up, { silent = true })
   vim.keymap.set('n', '<C-j>', tmux.move_down, { silent = true })
 
-  -- render-markdown
+end)
+
+Config.on_filetype('markdown', function()
   vim.pack.add({ 'https://github.com/MeanderingProgrammer/render-markdown.nvim' })
   require('render-markdown').setup({})
 end)
