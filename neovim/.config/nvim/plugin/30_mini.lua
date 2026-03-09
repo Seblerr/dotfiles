@@ -42,7 +42,13 @@ Config.later(function()
         change = "▎",
         delete = "",
       },
-    }
+    },
+    mappings = {
+      goto_first = '[C',
+      goto_prev = '[c',
+      goto_next = ']c',
+      goto_last = ']C',
+    },
   })
 
   local hipatterns = require('mini.hipatterns')
@@ -82,6 +88,8 @@ Config.later(function()
 
   vim.keymap.set('n', "<leader>bd", function() MiniBufremove.delete() end, { desc = "Remove buffer" })
   vim.keymap.set('n', "<leader>di", function() MiniDiff.toggle_overlay(0) end, { desc = "Toggle diff overlay" })
+  vim.keymap.set({ 'n', 'x' }, "<leader>ds", function() MiniDiff.do_hunks(0, 'apply') end, { desc = "Stage hunk" })
+  vim.keymap.set({ 'n', 'x' }, "<leader>dr", function() MiniDiff.do_hunks(0, 'reset') end, { desc = "Reset hunk" })
 
   -- mini.clue: show available keybindings after prefix key
   local miniclue = require('mini.clue')
@@ -191,7 +199,8 @@ Config.later(function()
   vim.keymap.set({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
   vim.keymap.set({ 'n', 'x' }, '<leader>gB', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
   vim.keymap.set({ 'n', 'x' }, '<leader>gl', '<cmd>vertical Git log --oneline<cr>', { desc = 'Git log' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gL', '<cmd>vertical Git log --oneline -- %<cr>', { desc = 'Git log current file' })
+  vim.keymap.set({ 'n', 'x' }, '<leader>gL', '<cmd>vertical Git log --oneline -- %<cr>',
+    { desc = 'Git log current file' })
   vim.keymap.set('n', '<leader>gi', MiniGit.show_at_cursor, { desc = 'Git info at cursor' })
   vim.keymap.set('x', '<leader>gi', MiniGit.show_range_history, { desc = 'Git range history' })
 end)

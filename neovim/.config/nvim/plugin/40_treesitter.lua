@@ -12,7 +12,7 @@ Config.now_if_args(function()
     'bash', 'c', 'cpp', 'lua', 'python', 'vimdoc', 'vim',
     'markdown', 'markdown_inline', 'xml', 'rust', 'json',
     'html', 'javascript', 'typescript', 'svelte', 'css',
-    'regex', 'yaml', 'haskell',
+    'regex', 'yaml', 'haskell', 'c_sharp'
   }
 
   -- Install missing parsers

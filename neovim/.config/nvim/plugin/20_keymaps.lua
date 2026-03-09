@@ -35,6 +35,9 @@ vim.keymap.del('n', 'gri')
 map('n', '<leader>yp', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
 end, { desc = 'Yank file path' })
+map('n', '<leader>yb', function()
+  vim.fn.setreg('+', vim.fn.expand('%:t'))
+end, { desc = 'Yank file name' })
 
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
