@@ -40,7 +40,7 @@ map('n', '<leader>yb', function()
 end, { desc = 'Yank file name' })
 
 -- Diagnostics
-map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
+map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic location list' })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = 'Diagnostic open float' })
 
 -- better up/down
@@ -60,12 +60,8 @@ map("n", "gw", "*N")
 map("x", "gw", "*N")
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map({ "n", "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")
@@ -99,12 +95,28 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 
 -- [[ Autocmds ]]
-vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
-vim.cmd([[autocmd FileType spec setlocal commentstring=#\ %s]])
-
 local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
+
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("wrap_spell"),
+  pattern = { "text", "plaintex", "typst", "gitcommit" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("json_conceal"),
+  pattern = { "json", "jsonc", "json5" },
+  callback = function()
+    vim.opt_local.conceallevel = 0
+  end,
+})
 
 -- Open quickfix list automatically
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
@@ -120,25 +132,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
   pattern = '*',
-})
-
--- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("wrap_spell"),
-  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
-})
-
--- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = augroup("json_conceal"),
-  pattern = { "json", "jsonc", "json5" },
-  callback = function()
-    vim.opt_local.conceallevel = 0
-  end,
 })
 
 -- close some filetypes with <q>
@@ -173,31 +166,3 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     vim.cmd("tabnext " .. current_tab)
   end,
 })
-
--- Function to copy lines containing a pattern into a new buffer
-function ExtractText(pattern)
-  local original_buf = vim.api.nvim_get_current_buf()
-
-  vim.cmd("tabnew")
-
-  local new_buf = vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_set_name(new_buf, pattern)
-
-  local lines = vim.api.nvim_buf_get_lines(original_buf, 0, -1, false)
-
-  local matching_lines = {}
-  for _, line in ipairs(lines) do
-    if vim.fn.match(line, pattern) ~= -1 then
-      table.insert(matching_lines, line)
-    end
-  end
-
-  vim.api.nvim_buf_set_lines(new_buf, 0, -1, false, matching_lines)
-end
-
-vim.api.nvim_create_user_command('Extract', function(opts)
-  ExtractText(opts.args)
-end, { nargs = 1 })
-
-vim.api.nvim_set_keymap('n', '<leader>fi', ':lua ExtractText(vim.fn.input("Pattern: "))<CR>',
-  { noremap = true, silent = true })

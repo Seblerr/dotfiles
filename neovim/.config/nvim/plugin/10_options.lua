@@ -20,6 +20,7 @@ opt.grepformat = "%f:%l:%c:%m"
 opt.ignorecase = true      -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.foldlevel = 99
+opt.formatoptions:remove({ 'r', 'o' })
 opt.laststatus = 3
 opt.pumblend = 10     -- Popup blend
 opt.pumheight = 10    -- Maximum number of entries in a popup
