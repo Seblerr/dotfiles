@@ -3,3 +3,4 @@ LICENSE
 spell
 stylua.toml
 **/tmux/plugins/
+.claude/
