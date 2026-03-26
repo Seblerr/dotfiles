@@ -35,6 +35,26 @@ Config.now_if_args(function()
       end
     end,
   })
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client and client.name == 'ty' then
+        client:request('textDocument/diagnostic', {
+          textDocument = vim.lsp.util.make_text_document_params(args.buf),
+        })
+
+        vim.api.nvim_create_autocmd('BufWritePost', {
+          buffer = args.buf,
+          callback = function()
+            client:request('textDocument/diagnostic', {
+              textDocument = vim.lsp.util.make_text_document_params(args.buf),
+            })
+          end,
+        })
+      end
+    end,
+  })
 end)
 
 Config.on_filetype('c,cpp', function()
