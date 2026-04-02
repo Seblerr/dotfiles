@@ -2,6 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.o.exrc = true
+vim.cmd.packadd('nohlsearch')
 
 -- Plugin manager: vim.pack (built-in)
 _G.Config = {}
