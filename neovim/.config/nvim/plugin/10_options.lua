@@ -26,7 +26,7 @@ opt.pumblend = 10     -- Popup blend
 opt.pumheight = 10    -- Maximum number of entries in a popup
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2    -- Size of an indent
-opt.shortmess:append({ W = true, I = true, c = true })
+opt.shortmess:append({ W = true, c = true })
 opt.showmode = false  -- Dont show mode since we have a statusline
 opt.sidescrolloff = 8 -- Columns of context
 opt.numberwidth = 3
