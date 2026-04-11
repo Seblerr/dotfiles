@@ -24,6 +24,8 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "\e[A" history-beginning-search-backward
 bindkey "\e[B" history-beginning-search-forward
+bindkey '^W' backward-kill-word
+bindkey '^H' backward-kill-word
 
 autoload -Uz compinit
 compinit
