@@ -1,8 +1,8 @@
 input {
     keyboard {
         xkb {
-            layout "se(nodeadkeys)"
-            options "caps:escape"
+            layout "se(nodeadkeys),us"
+            options "caps:escape,grp:alt_shift_toggle"
         }
     }
 
@@ -11,6 +11,7 @@ input {
         accel-profile "flat"
     }
 
+    warp-mouse-to-focus
     focus-follows-mouse max-scroll-amount="95%"
 }
 
@@ -56,23 +57,29 @@ layout {
     }
 }
 
+overview {
+    zoom 0.25
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 environment {
   ELECTRON_OZONE_PLATFORM_HINT "auto"
   GDK_BACKEND "wayland,x11,*"
-  SDL_VIDEODRIVER "wayland,x11,windows"
   CLUTTER_BACKEND  "wayland"
 
   QT_AUTO_SCREEN_SCALE_FACTOR "1"
   QT_QPA_PLATFORM "wayland;xcb"
 
-  GBM_BACKEND "nvidia-drm"
-  __GLX_VENDOR_LIBRARY_NAME "nvidia"
-  LIBVA_DRIVER_NAME "nvidia"
-
-  __GL_GSYNC_ALLOWED "1"
-  __GL_SYNC_TO_VBLANK "1"
-
+  // Experimental
   PROTON_ENABLE_WAYLAND "1"
+  PROTON_ENABLE_HDR "1"
+  PROTON_FSR4_UPGRADE "1"
+  MANGOHUD "1"
 }
 
 // Add lines like this to spawn processes at startup.
@@ -102,25 +109,29 @@ prefer-no-csd
 // The path is formatted with strftime(3) to give you the screenshot date and time.
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-workspace "browser"
-workspace "game"
-
 // Window rules
 
 // Floating
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id=r#"steam$"# title="^Friends List$"
-    match app-id=r#"org.gnome.Calculator$"#
+    match app-id="org.gnome.Calculator"
+    match title="gsr ui" // gpu screen recorder
+    match title="Volume Control"
     open-floating true
 }
 
 // Games
 window-rule {
     match app-id="cs2"
+    match app-id="gamescope"
+    match app-id="Terraria.bin.x86_64"
+    match title="Rocket League (64-bit, DX11, Cooked)"
+    match app-id="pathofexilesteam.exe"
+    // match app-id=r#"^steam_app.*"#
+    // match title="ARC Raiders"
 
     open-on-output "DP-2"
-    open-on-workspace "game"
     open-fullscreen true
     variable-refresh-rate true
 
@@ -151,19 +162,18 @@ window-rule {
 
 binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+Space { spawn "rofi" "-show" "drun"; }
+    Mod+Space { spawn "fuzzel"; }
     Mod+B hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
     Mod+E { spawn-sh "ghostty -e yazi"; }
     Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+Shift+S  {  spawn-sh "$HOME/.config/hypr/scripts/screenshot_area.sh"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
     // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber. The allow-when-locked=true property makes them work even when the session is locked. Using spawn-sh allows to pass multiple arguments together with the command.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.051-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
@@ -175,15 +185,15 @@ binds {
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+L     { focus-column-right; }
+    Mod+H     { focus-column-or-monitor-left; }
+    Mod+L     { focus-column-or-monitor-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+H     { move-column-left; }
-    Mod+Ctrl+L     { move-column-right; }
+    Mod+Ctrl+H     { move-column-left-or-to-monitor-left; }
+    Mod+Ctrl+L     { move-column-right-or-to-monitor-right; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
@@ -334,7 +344,8 @@ binds {
     // rather than stacked on top of each other.
     Mod+W { toggle-column-tabbed-display; }
 
-    Print { screenshot; }
+    Mod+Shift+S  {  screenshot show-pointer=false; }
+    Print  {  screenshot show-pointer=false; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
