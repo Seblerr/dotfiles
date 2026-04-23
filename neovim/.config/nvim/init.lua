@@ -1,7 +1,16 @@
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.o.exrc = true
+-- Manual exrc: avoid vim.o.exrc which walks the entire directory tree upward,
+-- which is slow on network filesystems. Only check cwd for .nvim.lua.
+local exrc_path = vim.fn.getcwd() .. '/.nvim.lua'
+if vim.uv.fs_stat(exrc_path) then
+  local trusted = vim.secure.read(exrc_path)
+  if trusted then
+    assert(loadstring(trusted, '@' .. exrc_path))()
+  end
+end
+
 vim.cmd.packadd('nohlsearch')
 
 -- Plugin manager: vim.pack (built-in)
