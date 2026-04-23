@@ -30,6 +30,8 @@ vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grx')
+map('n', '<leader>cl', vim.lsp.codelens.run, { desc = 'Run code lens' })
 
 -- Yank current path
 map('n', '<leader>yp', function()
@@ -96,6 +98,23 @@ map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+
+-- incremental selection treesitter/lsp
+vim.keymap.set({ "n", "x", "o" }, "<A-o>", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_parent(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(vim.v.count1)
+  end
+end, { desc = "Select parent treesitter node or outer incremental lsp selections" })
+
+vim.keymap.set({ "n", "x", "o" }, "<A-i>", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_child(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(-vim.v.count1)
+  end
+end, { desc = "Select child treesitter node or inner incremental lsp selections" })
 
 
 -- [[ Autocmds ]]
