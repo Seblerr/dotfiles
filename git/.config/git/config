@@ -97,9 +97,12 @@
   fix = !nvim -q <(git diff --check --relative)
   #############
   alias = !git config -l | grep alias | cut -c 7-
+  authors = shortlog -sn --no-merges
   #############
   ours = "!f() { git checkout --ours $@ && git add $@; }; f"
   theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
   rbi = "!f() { git fetch origin && git rebase -i origin/master; }; f"
 [mergetool "codediff"]
   cmd = nvim \"$MERGED\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
+[fetch]
+  tags = true
