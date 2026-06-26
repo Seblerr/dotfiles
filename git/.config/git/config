@@ -44,6 +44,7 @@
   #############
   b = branch
   cob = !git switch $(git branch | fzf)
+  cor = "!f() { branch=$(git for-each-ref --format='%(refname)' refs/remotes | grep -v '/HEAD$' | sed 's#^refs/remotes/##' | fzf --prompt='remote branch> '); [ -n \"$branch\" ] && git switch --detach \"$branch\"; }; f"
   bd = !git branch -D $(git branch | fzf)
   #############
   c = commit
