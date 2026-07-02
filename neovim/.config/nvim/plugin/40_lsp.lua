@@ -13,6 +13,7 @@ Config.now_if_args(function()
     'yamlls',
     'hls',
     'ty',
+    'copilot'
   }
 
   for _, server in ipairs(servers) do
@@ -32,26 +33,6 @@ Config.now_if_args(function()
           "<cmd>ClangdSwitchSourceHeader<CR>",
           { buffer = args.buf, desc = "Switch between source and header" }
         )
-      end
-    end,
-  })
-
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client and client.name == 'ty' then
-        client:request('textDocument/diagnostic', {
-          textDocument = vim.lsp.util.make_text_document_params(args.buf),
-        })
-
-        vim.api.nvim_create_autocmd('BufWritePost', {
-          buffer = args.buf,
-          callback = function()
-            client:request('textDocument/diagnostic', {
-              textDocument = vim.lsp.util.make_text_document_params(args.buf),
-            })
-          end,
-        })
       end
     end,
   })
