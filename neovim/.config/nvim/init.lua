@@ -11,9 +11,11 @@ if vim.uv.fs_stat(exrc_path) then
   end
 end
 
+vim.cmd.packadd('nvim.undotree')
 vim.cmd.packadd('nohlsearch')
 
--- Plugin manager: vim.pack (built-in)
+require('vim._core.ui2').enable()
+
 _G.Config = {}
 
 vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })

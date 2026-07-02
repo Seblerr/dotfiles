@@ -71,7 +71,6 @@ map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
 
 -- Builtin undotree
-vim.cmd("packadd nvim.undotree")
 vim.keymap.set("n", "<leader>u", require("undotree").open)
 
 -- save file

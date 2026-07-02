@@ -47,9 +47,7 @@ opt.winminwidth = 5                -- Minimum window width
 opt.wrap = false                   -- Disable line wrap
 opt.winborder = "rounded"
 opt.secure = true
-vim.schedule(function()
-  opt.clipboard = "unnamedplus" -- Sync with system clipboard
-end)
+vim.opt.clipboard = 'unnamedplus'
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
