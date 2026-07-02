@@ -12,12 +12,11 @@ Config.now(function()
     }
   })
   require("mini.statusline").setup()
-  require("mini.starter").setup()
   require("mini.icons").setup()
   require("mini.notify").setup()
   require("mini.misc").setup()
-  MiniMisc.setup_restore_cursor()
   require("mini.cmdline").setup({ autocomplete = { enable = false } })
+  MiniMisc.setup_restore_cursor()
 end)
 
 -- Everything else
@@ -33,6 +32,7 @@ Config.later(function()
   require("mini.cursorword").setup()
   require("mini.bracketed").setup()
   require("mini.indentscope").setup()
+  require("mini.input").setup()
 
   require("mini.diff").setup({
     view = {
@@ -80,11 +80,16 @@ Config.later(function()
 
   local jump2d = require('mini.jump2d')
   jump2d.setup({
-    spotter = jump2d.gen_spotter.pattern('[^%s%p]+'),
-    labels = 'asdfghjkl;',
+    labels = 'asdfghjkl',
     view = { dim = true, n_steps_ahead = 2 },
+    mappings = { start_jumping = '' },
   })
-  vim.keymap.set({ 'n', 'x', 'o' }, 'sj', function() MiniJump2d.start(MiniJump2d.builtin_opts.single_character) end)
+  -- Type one char, then pick a label
+  vim.keymap.set({ 'n', 'x', 'o' }, 'sj', function() MiniJump2d.start(MiniJump2d.builtin_opts.single_character) end,
+    { desc = 'Jump to char' })
+  -- Word start jump
+  vim.keymap.set({ 'n', 'x', 'o' }, 'sJ', function() MiniJump2d.start(MiniJump2d.builtin_opts.word_start) end,
+    { desc = 'Jump to word' })
 
   vim.keymap.set('n', "<leader>bd", function() MiniBufremove.delete() end, { desc = "Remove buffer" })
   vim.keymap.set('n', "<leader>di", function() MiniDiff.toggle_overlay(0) end, { desc = "Toggle diff overlay" })
