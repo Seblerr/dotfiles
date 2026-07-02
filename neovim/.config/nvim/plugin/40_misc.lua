@@ -32,6 +32,11 @@ Config.later(function()
   vim.keymap.set('n', '<C-l>', tmux.move_right, { silent = true })
   vim.keymap.set('n', '<C-k>', tmux.move_up, { silent = true })
   vim.keymap.set('n', '<C-j>', tmux.move_down, { silent = true })
+
+  vim.pack.add({ "https://github.com/rachartier/tiny-cmdline.nvim" })
+  vim.o.cmdheight = 0
+  require("tiny-cmdline").setup()
+  vim.api.nvim_set_hl(0, "TinyCmdlineBorder", { fg = "#89b4fa", bg = "NONE" })
 end)
 
 Config.on_filetype('markdown', function()
