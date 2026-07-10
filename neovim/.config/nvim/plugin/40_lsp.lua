@@ -7,7 +7,7 @@ Config.now_if_args(function()
     'bashls',
     'ruff',
     'lemminx',
-    'tailwindcss',
+    -- 'tailwindcss',
     'svelte',
     'html',
     'yamlls',

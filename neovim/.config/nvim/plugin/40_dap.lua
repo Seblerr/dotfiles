@@ -79,15 +79,12 @@ Config.later(function()
   end
 
   -- Update statusline
-  local original_mode = require("mini.statusline").section_mode
   local function set_statusline()
-    require("mini.statusline").section_mode = function()
-      return "DEBUG", "MiniStatuslineModeOther"
-    end
+    Config.set_statusline_mode("debug", "DEBUG", "MiniStatuslineModeOther")
   end
 
   local function restore_mode()
-    require("mini.statusline").section_mode = original_mode
+    Config.set_statusline_mode("debug")
   end
 
   -- Keybind helper
@@ -109,7 +106,7 @@ Config.later(function()
     },
     hint = [[
   [ Debug Hydra Bindings ]
-  c: Continue     r: Run to cursor
+  c: Continue     r: Run to cursor g: Jump to cursor
   H: Step back    L: Step over   I: Step in
   O: Step out     t: Toggle BP   x: Clear BPs
   a: Watch expr   U: Toggle views X: Terminate
@@ -136,6 +133,7 @@ Config.later(function()
     heads = {
       { "c", dap.continue,                                  { desc = false } },
       { "r", dap.run_to_cursor,                             { desc = false } },
+      { "g", dap.goto_,                                     { desc = false } },
       { "H", dap.step_back,                                 { desc = false } },
       { "L", dap.step_over,                                 { desc = false } },
       { "I", dap.step_into,                                 { desc = false } },

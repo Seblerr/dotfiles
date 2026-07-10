@@ -124,6 +124,54 @@ Config.later(function()
       { mode = { 'n', 'x' }, keys = 'z' },
     },
   })
+
+  -- Statusline custom modes
+  local statusline = require("mini.statusline")
+  local default_section_mode = statusline.section_mode
+  local statusline_mode_priority = {
+    debug = 20,
+    recording = 10,
+  }
+
+  Config.statusline_modes = {}
+  Config.set_statusline_mode = function(source, text, hl)
+    if text == nil then
+      Config.statusline_modes[source] = nil
+    else
+      Config.statusline_modes[source] = {
+        text = text,
+        hl = hl or "MiniStatuslineModeOther",
+        priority = statusline_mode_priority[source] or 0,
+      }
+    end
+    vim.cmd("redrawstatus")
+  end
+
+  local function current_statusline_mode()
+    local current
+    for _, mode in pairs(Config.statusline_modes) do
+      if current == nil or mode.priority > current.priority then
+        current = mode
+      end
+    end
+    return current
+  end
+
+  ---@diagnostic disable-next-line: duplicate-set-field
+  statusline.section_mode = function(args)
+    local mode = current_statusline_mode()
+    if mode ~= nil then
+      return mode.text, mode.hl
+    end
+    return default_section_mode(args)
+  end
+
+  Config.new_autocmd("RecordingEnter", "*", function()
+    Config.set_statusline_mode("recording", "REC @" .. vim.fn.reg_recording(), "MiniStatuslineModeReplace")
+  end, "Show macro recording in statusline")
+  Config.new_autocmd("RecordingLeave", "*", function()
+    Config.set_statusline_mode("recording")
+  end, "Clear macro recording from statusline")
 end)
 
 -- mini.files (standalone repo)
