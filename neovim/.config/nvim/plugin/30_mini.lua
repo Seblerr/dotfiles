@@ -49,7 +49,6 @@ Config.now_if_args(function()
   end, 'Set up mini.completion for attached LSP clients')
 end)
 
--- Everything else
 Config.later(function()
   MiniIcons.tweak_lsp_kind()
 end)
@@ -282,5 +281,4 @@ Config.later(function()
     pattern = 'MiniGitCommandSplit',
     callback = align_blame,
   })
-
 end)
