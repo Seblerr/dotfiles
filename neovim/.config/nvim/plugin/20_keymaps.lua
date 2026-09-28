@@ -84,7 +84,7 @@ map('n', '<leader>fS', '<Cmd>Pick lsp scope="document_symbol"<CR>', { desc = 'Sy
 map('n', '<leader>fv', '<Cmd>Pick visit_paths cwd=""<CR>', { desc = 'Visited paths (all)' })
 map('n', '<leader>fV', '<Cmd>Pick visit_paths<CR>', { desc = 'Visited paths (cwd)' })
 
--- MiniGit mappings.
+-- Git
 map({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
 map({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
 map({ 'n', 'x' }, '<leader>gB', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
@@ -99,6 +99,8 @@ map('n', 'gD', '<Cmd>Pick lsp scope="declaration"<CR>', { desc = 'Declaration' }
 map('n', 'gi', '<Cmd>Pick lsp scope="implementation"<CR>', { desc = 'Implementation' })
 map('n', '<leader>D', '<Cmd>Pick lsp scope="type_definition"<CR>', { desc = 'Type definition' })
 map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code actions' })
+map('n', '<leader>rn', vim.lsp.buf.rename, { silent = true, desc = 'Rename' })
+
 
 vim.keymap.del({ 'n', 'x' }, 'gra')
 vim.keymap.del('n', 'grr')

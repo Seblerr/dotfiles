@@ -8,6 +8,9 @@ Config.later(function()
         enabled = true,
       },
     },
+    nes = {
+      enabled = false
+    }
   })
 
   local cli = require("sidekick.cli")

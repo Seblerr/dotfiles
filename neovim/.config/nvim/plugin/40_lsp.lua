@@ -26,8 +26,6 @@ Config.now_if_args(function()
     vim.lsp.enable(server)
   end
 
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { silent = true, desc = 'Rename' })
-
   vim.api.nvim_create_autocmd("LspAttach", {
     desc = "Clangd specific keymaps",
     callback = function(args)
@@ -51,11 +49,6 @@ end)
 Config.on_filetype('c,cpp', function()
   vim.pack.add({ 'https://github.com/p00f/clangd_extensions.nvim' })
   require('clangd_extensions').setup({})
-end)
-
-Config.on_filetype('lua', function()
-  vim.pack.add({ 'https://github.com/folke/lazydev.nvim' })
-  require('lazydev').setup({})
 end)
 
 Config.later(function()
