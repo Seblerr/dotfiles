@@ -1,3 +1,4 @@
+--[[ Disabled while trying mini.completion.
 Config.now_if_args(function()
   vim.pack.add({ { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('*') } })
   vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' })
@@ -32,3 +33,4 @@ Config.now_if_args(function()
     },
   })
 end)
+--]]

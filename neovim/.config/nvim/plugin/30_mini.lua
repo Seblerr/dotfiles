@@ -20,6 +20,26 @@ Config.now(function()
   MiniMisc.setup_restore_cursor()
 end)
 
+Config.now_if_args(function()
+  local completion = require('mini.completion')
+  local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+  local process_items = function(items, base)
+    return completion.default_process_items(items, base, process_items_opts)
+  end
+
+  completion.setup({
+    lsp_completion = {
+      source_func = 'omnifunc',
+      auto_setup = false,
+      process_items = process_items,
+    },
+  })
+
+  Config.new_autocmd('LspAttach', '*', function(args)
+    vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+  end, 'Set up mini.completion for attached LSP clients')
+end)
+
 -- Everything else
 Config.later(function()
   MiniIcons.tweak_lsp_kind()
@@ -188,6 +208,22 @@ Config.later(function()
   Config.new_autocmd("RecordingLeave", "*", function()
     Config.set_statusline_mode("recording")
   end, "Clear macro recording from statusline")
+end)
+
+Config.later(function()
+  local snippets = require('mini.snippets')
+  snippets.setup({
+    snippets = {
+      snippets.gen_loader.from_lang(),
+    },
+  })
+end)
+
+Config.later(function()
+  local keymap = require("mini.keymap")
+  keymap.setup()
+  keymap.map_multistep('i', '<Tab>', { 'minisnippets_next' })
+  keymap.map_multistep('i', '<S-Tab>', { 'minisnippets_prev' })
 end)
 
 -- mini-git (standalone repo)

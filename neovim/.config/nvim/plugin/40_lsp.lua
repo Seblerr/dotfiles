@@ -16,6 +16,10 @@ Config.now_if_args(function()
     'copilot'
   }
 
+  vim.lsp.config('*', {
+    capabilities = require('mini.completion').get_lsp_capabilities(),
+  })
+
   vim.lsp.codelens.enable()
 
   for _, server in ipairs(servers) do
@@ -38,6 +42,10 @@ Config.now_if_args(function()
       end
     end,
   })
+end)
+
+Config.later(function()
+  vim.pack.add({ 'https://github.com/rafamadriz/friendly-snippets' })
 end)
 
 Config.on_filetype('c,cpp', function()
