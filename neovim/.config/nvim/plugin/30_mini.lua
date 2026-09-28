@@ -11,13 +11,22 @@ Config.now(function()
       move_with_alt = true
     }
   })
+end)
+
+Config.now(function()
   require("mini.statusline").setup()
   require("mini.icons").setup()
   require("mini.notify").setup()
+end)
+
+Config.now_if_args(function()
   require("mini.misc").setup()
-  require("mini.cmdline").setup({ autocomplete = { enable = false } })
   MiniMisc.setup_auto_root()
   MiniMisc.setup_restore_cursor()
+end)
+
+Config.now_if_args(function()
+  require("mini.files").setup()
 end)
 
 Config.now_if_args(function()
@@ -43,12 +52,29 @@ end)
 -- Everything else
 Config.later(function()
   MiniIcons.tweak_lsp_kind()
-  require("mini.move").setup()
+end)
+
+Config.later(function()
   require("mini.bufremove").setup()
+  require("mini.bracketed").setup()
+  require("mini.comment").setup()
+  require("mini.cursorword").setup()
+  require("mini.extra").setup()
+  require("mini.indentscope").setup()
+  require("mini.input").setup()
+  require("mini.jump").setup()
+  require("mini.move").setup()
+  require("mini.splitjoin").setup()
+  require("mini.surround").setup()
   require("mini.trailspace").setup()
   require("mini.visits").setup()
-  require("mini.extra").setup()
-  require("mini.files").setup()
+end)
+
+Config.later(function()
+  require("mini.cmdline").setup({ autocomplete = { enable = false } })
+end)
+
+Config.later(function()
   require("mini.pick").setup({
     mappings = {
       quickfix = {
@@ -62,14 +88,39 @@ Config.later(function()
       },
     },
   })
-  require("mini.jump").setup()
-  require("mini.splitjoin").setup()
-  require("mini.comment").setup()
-  require("mini.cursorword").setup()
-  require("mini.bracketed").setup()
-  require("mini.indentscope").setup()
-  require("mini.input").setup()
+end)
 
+Config.later(function()
+  local snippets = require('mini.snippets')
+  snippets.setup({
+    snippets = {
+      snippets.gen_loader.from_lang(),
+    },
+  })
+end)
+
+Config.later(function()
+  local keymap = require("mini.keymap")
+  keymap.setup()
+  local map_multistep = keymap.map_multistep
+  map_multistep('i', '<Tab>', { 'minisnippets_next' })
+  map_multistep('i', '<S-Tab>', { 'minisnippets_prev' })
+
+  local map_combo = keymap.map_combo
+  -- Support most common modes. This can also contain 't', but would
+  -- only mean to press `<Esc>` inside terminal.
+  local mode = { 'i', 'c', 'x', 's' }
+  map_combo(mode, 'jk', '<BS><BS><Esc>')
+
+  -- To not have to worry about the order of keys, also map "kj"
+  map_combo(mode, 'kj', '<BS><BS><Esc>')
+
+  -- Escape into Normal mode from Terminal mode
+  map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
+  map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
+end)
+
+Config.later(function()
   require("mini.diff").setup({
     view = {
       style = "sign",
@@ -86,7 +137,9 @@ Config.later(function()
       goto_last = ']C',
     },
   })
+end)
 
+Config.later(function()
   local hipatterns = require('mini.hipatterns')
   local hi_words = MiniExtra.gen_highlighter.words
   hipatterns.setup({
@@ -96,10 +149,9 @@ Config.later(function()
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
+end)
 
-  require("mini.surround").setup({})
-  vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
-
+Config.later(function()
   local ai = require('mini.ai')
   require('mini.ai').setup({
     n_lines = 500,
@@ -113,25 +165,18 @@ Config.later(function()
       }),
     }
   })
+end)
 
+Config.later(function()
   local jump2d = require('mini.jump2d')
   jump2d.setup({
     labels = 'asdfghjkl',
     view = { dim = true, n_steps_ahead = 2 },
     mappings = { start_jumping = '' },
   })
-  -- Type one char, then pick a label
-  vim.keymap.set({ 'n', 'x', 'o' }, 'sj', function() MiniJump2d.start(MiniJump2d.builtin_opts.single_character) end,
-    { desc = 'Jump to char' })
-  -- Word start jump
-  vim.keymap.set({ 'n', 'x', 'o' }, 'sJ', function() MiniJump2d.start(MiniJump2d.builtin_opts.word_start) end,
-    { desc = 'Jump to word' })
+end)
 
-  vim.keymap.set('n', "<leader>bd", function() MiniBufremove.delete() end, { desc = "Remove buffer" })
-  vim.keymap.set('n', "<leader>di", function() MiniDiff.toggle_overlay(0) end, { desc = "Toggle diff overlay" })
-  vim.keymap.set({ 'n', 'x' }, "<leader>ds", function() MiniDiff.do_hunks(0, 'apply') end, { desc = "Stage hunk" })
-  vim.keymap.set({ 'n', 'x' }, "<leader>dr", function() MiniDiff.do_hunks(0, 'reset') end, { desc = "Reset hunk" })
-
+Config.later(function()
   -- mini.clue: show available keybindings after prefix key
   local miniclue = require('mini.clue')
   miniclue.setup({
@@ -160,7 +205,9 @@ Config.later(function()
       { mode = { 'n', 'x' }, keys = 'z' },
     },
   })
+end)
 
+Config.later(function()
   -- Statusline custom modes
   local statusline = require("mini.statusline")
   local default_section_mode = statusline.section_mode
@@ -210,22 +257,6 @@ Config.later(function()
   end, "Clear macro recording from statusline")
 end)
 
-Config.later(function()
-  local snippets = require('mini.snippets')
-  snippets.setup({
-    snippets = {
-      snippets.gen_loader.from_lang(),
-    },
-  })
-end)
-
-Config.later(function()
-  local keymap = require("mini.keymap")
-  keymap.setup()
-  keymap.map_multistep('i', '<Tab>', { 'minisnippets_next' })
-  keymap.map_multistep('i', '<S-Tab>', { 'minisnippets_prev' })
-end)
-
 -- mini-git (standalone repo)
 Config.later(function()
   vim.pack.add({ 'https://github.com/nvim-mini/mini-git' })
@@ -252,12 +283,4 @@ Config.later(function()
     callback = align_blame,
   })
 
-  vim.keymap.set({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gB', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gl', '<cmd>vertical Git log --oneline<cr>', { desc = 'Git log' })
-  vim.keymap.set({ 'n', 'x' }, '<leader>gL', '<cmd>vertical Git log --oneline -- %<cr>',
-    { desc = 'Git log current file' })
-  vim.keymap.set('n', '<leader>gi', MiniGit.show_at_cursor, { desc = 'Git info at cursor' })
-  vim.keymap.set('x', '<leader>gi', MiniGit.show_range_history, { desc = 'Git range history' })
 end)

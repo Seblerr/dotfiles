@@ -47,12 +47,6 @@ Config.on_packchanged = function(plugin_name, kinds, callback, desc)
 end
 
 -- Utility functions
-Config.get_git_root = function()
-  local cwd = vim.fn.getcwd()
-  local result = vim.system({ 'git', 'rev-parse', '--show-toplevel' }, { cwd = cwd, text = true }):wait()
-  return result.code == 0 and vim.trim(result.stdout) or cwd
-end
-
 Config.toggle = function(option, values)
   if values then
     if vim.opt_local[option]:get() == values[1] then

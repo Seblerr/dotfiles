@@ -19,11 +19,21 @@ Config.leader_group_clues = {
 }
 
 map({ 'n', 'v' }, '<Space>', '<Nop>')
+map({ 'n', 'x' }, 's', '<Nop>')
+-- Type one char or word start, then pick a label.
+map({ 'n', 'x', 'o' }, 'sj', function() MiniJump2d.start(MiniJump2d.builtin_opts.single_character) end,
+  { desc = 'Jump to char' })
+map({ 'n', 'x', 'o' }, 'sJ', function() MiniJump2d.start(MiniJump2d.builtin_opts.word_start) end,
+  { desc = 'Jump to word' })
 map('n', '<C-d>', '<C-d>zz')
 map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>', { desc = 'Next quickfix' })
 map('n', '<leader>cp', ':cp<CR>', { desc = 'Previous quickfix' })
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
+map('n', '<leader>bd', function() MiniBufremove.delete() end, { desc = 'Remove buffer' })
+map('n', '<leader>di', function() MiniDiff.toggle_overlay(0) end, { desc = 'Toggle diff overlay' })
+map({ 'n', 'x' }, '<leader>ds', function() MiniDiff.do_hunks(0, 'apply') end, { desc = 'Stage hunk' })
+map({ 'n', 'x' }, '<leader>dr', function() MiniDiff.do_hunks(0, 'reset') end, { desc = 'Reset hunk' })
 
 map('n', '<leader>ec', function()
   require('mini.pick').builtin.files(nil, { source = { cwd = vim.fn.stdpath('config') } })
@@ -73,6 +83,15 @@ map('n', '<leader>fs', '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', { desc
 map('n', '<leader>fS', '<Cmd>Pick lsp scope="document_symbol"<CR>', { desc = 'Symbols (document)' })
 map('n', '<leader>fv', '<Cmd>Pick visit_paths cwd=""<CR>', { desc = 'Visited paths (all)' })
 map('n', '<leader>fV', '<Cmd>Pick visit_paths<CR>', { desc = 'Visited paths (cwd)' })
+
+-- MiniGit mappings.
+map({ 'n', 'x' }, '<leader>ga', '<cmd>Git add %<cr>', { desc = 'Git add current file' })
+map({ 'n', 'x' }, '<leader>gc', '<cmd>Git commit<cr>', { desc = 'Git commit' })
+map({ 'n', 'x' }, '<leader>gB', '<cmd>vertical Git blame -- %<cr>', { desc = 'Git blame buffer' })
+map({ 'n', 'x' }, '<leader>gl', '<cmd>vertical Git log --oneline<cr>', { desc = 'Git log' })
+map({ 'n', 'x' }, '<leader>gL', '<cmd>vertical Git log --oneline -- %<cr>', { desc = 'Git log current file' })
+map('n', '<leader>gi', function() MiniGit.show_at_cursor() end, { desc = 'Git info at cursor' })
+map('x', '<leader>gi', function() MiniGit.show_range_history() end, { desc = 'Git range history' })
 
 map('n', 'gr', '<Cmd>Pick lsp scope="references"<CR>', { desc = 'References' })
 map('n', 'gd', '<Cmd>Pick lsp scope="definition"<CR>', { desc = 'Definition' })
