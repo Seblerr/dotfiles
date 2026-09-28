@@ -22,8 +22,10 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 opt.foldlevel = 99
 opt.formatoptions:remove({ 'r', 'o' })
 opt.laststatus = 3
-opt.pumblend = 10     -- Popup blend
+opt.pumblend = 0      -- Keep the popup menu opaque like MiniMax
+opt.pumborder = 'single'
 opt.pumheight = 10    -- Maximum number of entries in a popup
+opt.pummaxwidth = 100 -- Maximum popup menu width
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2    -- Size of an indent
 opt.shortmess:append({ W = true, c = true })
@@ -45,7 +47,7 @@ opt.undolevels = 10000
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5                -- Minimum window width
 opt.wrap = false                   -- Disable line wrap
-opt.winborder = "rounded"
+opt.winborder = "single"
 opt.secure = true
 vim.opt.clipboard = 'unnamedplus'
 

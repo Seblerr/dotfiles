@@ -7,15 +7,15 @@ Config.leader_group_clues = {
   { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
   { mode = 'n', keys = '<Leader>c', desc = '+Code' },
   { mode = 'n', keys = '<Leader>d', desc = '+Debug' },
+  { mode = 'n', keys = '<Leader>e', desc = '+Edit' },
   { mode = 'n', keys = '<Leader>f', desc = '+Find' },
   { mode = 'n', keys = '<Leader>g', desc = '+Git' },
-  { mode = 'n', keys = '<Leader>s', desc = '+Search' },
   { mode = 'n', keys = '<Leader>t', desc = '+Toggle' },
   { mode = 'n', keys = '<Leader>w', desc = '+Window' },
   { mode = 'n', keys = '<Leader>y', desc = '+Yank' },
   { mode = 'x', keys = '<Leader>a', desc = '+AI' },
+  { mode = 'x', keys = '<Leader>f', desc = '+Find' },
   { mode = 'x', keys = '<Leader>g', desc = '+Git' },
-  { mode = 'x', keys = '<Leader>s', desc = '+Search' },
 }
 
 map({ 'n', 'v' }, '<Space>', '<Nop>')
@@ -24,6 +24,62 @@ map('n', '<C-u>', '<C-u>zz')
 map('n', '<leader>cn', ':cn<CR>', { desc = 'Next quickfix' })
 map('n', '<leader>cp', ':cp<CR>', { desc = 'Previous quickfix' })
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
+
+map('n', '<leader>ec', function()
+  require('mini.pick').builtin.files(nil, { source = { cwd = vim.fn.stdpath('config') } })
+end, { desc = 'Config files' })
+map('n', '<leader>ef', function()
+  local mf = require('mini.files')
+  if not mf.close() then
+    local name = vim.api.nvim_buf_get_name(0)
+    mf.open(name ~= '' and name or nil)
+  end
+end, { desc = 'MiniFiles open (current file)' })
+map('n', '<leader>ed', function()
+  local mf = require('mini.files')
+  if not mf.close() then mf.open() end
+end, { desc = 'MiniFiles open (working directory)' })
+
+-- MiniPick mappings.
+map('n', '<leader>f/', '<Cmd>Pick history scope="/"<CR>', { desc = 'Search history' })
+map('n', '<leader>f:', '<Cmd>Pick history scope=":"<CR>', { desc = 'Command history' })
+map('n', '<leader>fa', '<Cmd>Pick git_hunks scope="staged"<CR>', { desc = 'Added hunks' })
+map('n', '<leader>fA', '<Cmd>Pick git_hunks path="%" scope="staged"<CR>', { desc = 'Added hunks (buffer)' })
+map('n', '<leader>,', '<Cmd>Pick buffers<CR>', { desc = 'Buffers' })
+map('n', '<leader>fc', '<Cmd>Pick git_commits<CR>', { desc = 'Commits' })
+map('n', '<leader>fC', '<Cmd>Pick git_commits path="%"<CR>', { desc = 'Commits (buffer)' })
+map('n', '<leader>fd', '<Cmd>Pick diagnostic scope="current"<CR>', { desc = 'Diagnostics (buffer)' })
+map('n', '<leader>fD', '<Cmd>Pick diagnostic scope="all"<CR>', { desc = 'Diagnostics (workspace)' })
+map('n', '<leader>ff', '<Cmd>Pick files<CR>', { desc = 'Files' })
+map('n', '<leader>fF', '<Cmd>Pick git_files<CR>', { desc = 'Git files' })
+map('n', '<leader>fg', '<Cmd>Pick grep_live<CR>', { desc = 'Live grep' })
+map('n', '<leader>fG', '<Cmd>Pick grep<CR>', { desc = 'Grep pattern' })
+map('n', '<leader>fw', '<Cmd>Pick grep pattern="<cword>"<CR>', { desc = 'Grep word under cursor' })
+map('x', '<leader>fw', function()
+  local lines = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
+  if #lines ~= 1 then return end
+  MiniPick.builtin.grep({ pattern = lines[1], method = 'plain' })
+end, { desc = 'Grep selection' })
+map('n', '<leader>fh', '<Cmd>Pick help<CR>', { desc = 'Help tags' })
+map('n', '<leader>fH', '<Cmd>Pick hl_groups<CR>', { desc = 'Highlight groups' })
+map('n', '<leader>fk', '<Cmd>Pick keymaps<CR>', { desc = 'Keymaps' })
+map('n', '<leader>fl', '<Cmd>Pick buf_lines scope="current"<CR>', { desc = 'Lines (buffer)' })
+map('n', '<leader>fL', '<Cmd>Pick buf_lines scope="all"<CR>', { desc = 'Lines (all)' })
+map('n', '<leader>fm', '<Cmd>Pick git_hunks<CR>', { desc = 'Modified hunks' })
+map('n', '<leader>fM', '<Cmd>Pick git_hunks path="%"<CR>', { desc = 'Modified hunks (buffer)' })
+map('n', '<leader>fr', '<Cmd>Pick resume<CR>', { desc = 'Resume picker' })
+map('n', '<leader>fR', '<Cmd>Pick lsp scope="references"<CR>', { desc = 'References (LSP)' })
+map('n', '<leader>fs', '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', { desc = 'Symbols (workspace)' })
+map('n', '<leader>fS', '<Cmd>Pick lsp scope="document_symbol"<CR>', { desc = 'Symbols (document)' })
+map('n', '<leader>fv', '<Cmd>Pick visit_paths cwd=""<CR>', { desc = 'Visited paths (all)' })
+map('n', '<leader>fV', '<Cmd>Pick visit_paths<CR>', { desc = 'Visited paths (cwd)' })
+
+map('n', 'gr', '<Cmd>Pick lsp scope="references"<CR>', { desc = 'References' })
+map('n', 'gd', '<Cmd>Pick lsp scope="definition"<CR>', { desc = 'Definition' })
+map('n', 'gD', '<Cmd>Pick lsp scope="declaration"<CR>', { desc = 'Declaration' })
+map('n', 'gi', '<Cmd>Pick lsp scope="implementation"<CR>', { desc = 'Implementation' })
+map('n', '<leader>D', '<Cmd>Pick lsp scope="type_definition"<CR>', { desc = 'Type definition' })
+map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code actions' })
 
 vim.keymap.del({ 'n', 'x' }, 'gra')
 vim.keymap.del('n', 'grr')

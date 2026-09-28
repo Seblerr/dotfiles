@@ -1,7 +1,7 @@
 -- icons used by other plugins
 return {
   dap = {
-    Stopped             = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
+    Stopped             = { "󰁕 ", "DiagnosticWarn" },
     Breakpoint          = " ",
     BreakpointCondition = " ",
     BreakpointRejected  = { " ", "DiagnosticError" },

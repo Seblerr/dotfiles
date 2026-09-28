@@ -16,6 +16,8 @@ Config.now_if_args(function()
     'copilot'
   }
 
+  vim.lsp.codelens.enable()
+
   for _, server in ipairs(servers) do
     vim.lsp.enable(server)
   end

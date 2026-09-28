@@ -16,16 +16,32 @@ Config.now(function()
   require("mini.notify").setup()
   require("mini.misc").setup()
   require("mini.cmdline").setup({ autocomplete = { enable = false } })
+  MiniMisc.setup_auto_root()
   MiniMisc.setup_restore_cursor()
 end)
 
 -- Everything else
 Config.later(function()
+  MiniIcons.tweak_lsp_kind()
   require("mini.move").setup()
   require("mini.bufremove").setup()
   require("mini.trailspace").setup()
   require("mini.visits").setup()
   require("mini.extra").setup()
+  require("mini.files").setup()
+  require("mini.pick").setup({
+    mappings = {
+      quickfix = {
+        char = '<C-q>',
+        func = function()
+          local matches = MiniPick.get_picker_matches()
+          if not matches or not matches.all or #matches.all == 0 then return end
+          MiniPick.default_choose_marked(matches.all)
+          return true
+        end,
+      },
+    },
+  })
   require("mini.jump").setup()
   require("mini.splitjoin").setup()
   require("mini.comment").setup()
@@ -172,54 +188,6 @@ Config.later(function()
   Config.new_autocmd("RecordingLeave", "*", function()
     Config.set_statusline_mode("recording")
   end, "Clear macro recording from statusline")
-end)
-
--- mini.files (standalone repo)
-Config.later(function()
-  vim.pack.add({ 'https://github.com/nvim-mini/mini.files' })
-  require('mini.files').setup()
-
-  vim.keymap.set('n', '<leader>e', function()
-    local mf = require('mini.files')
-    if not mf.close() then
-      local buf = vim.api.nvim_get_current_buf()
-      if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
-        local name = vim.api.nvim_buf_get_name(buf)
-        mf.open(name ~= "" and name or nil)
-      else
-        mf.open()
-      end
-    end
-  end, { desc = "MiniFiles open" })
-
-  vim.keymap.set('n', '<leader>E', function()
-    local mf = require('mini.files')
-    if not mf.close() then
-      local git_root = Config.get_git_root()
-      mf.open(git_root, false)
-    end
-  end, { desc = "MiniFiles open (git root)" })
-
-  local map_split = function(buf_id, lhs, direction)
-    local rhs = function()
-      local new_target_window
-      vim.api.nvim_win_call(require('mini.files').get_explorer_state().target_window, function()
-        vim.cmd(direction .. ' split')
-        new_target_window = vim.api.nvim_get_current_win()
-      end)
-      MiniFiles.set_target_window(new_target_window)
-    end
-    local desc = 'Split ' .. direction
-    vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
-  end
-
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesBufferCreate',
-    callback = function(args)
-      local buf_id = args.data.buf_id
-      map_split(buf_id, 'gs', 'belowright vertical')
-    end,
-  })
 end)
 
 -- mini-git (standalone repo)

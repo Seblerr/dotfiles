@@ -48,8 +48,9 @@ end
 
 -- Utility functions
 Config.get_git_root = function()
-  local dot_git_path = vim.fn.finddir(".git", ".;") --[[@as string]]
-  return vim.fn.fnamemodify(dot_git_path, ":h")
+  local cwd = vim.fn.getcwd()
+  local result = vim.system({ 'git', 'rev-parse', '--show-toplevel' }, { cwd = cwd, text = true }):wait()
+  return result.code == 0 and vim.trim(result.stdout) or cwd
 end
 
 Config.toggle = function(option, values)
