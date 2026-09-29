@@ -77,6 +77,7 @@ map('n', '<leader>fl', '<Cmd>Pick buf_lines scope="current"<CR>', { desc = 'Line
 map('n', '<leader>fL', '<Cmd>Pick buf_lines scope="all"<CR>', { desc = 'Lines (all)' })
 map('n', '<leader>fm', '<Cmd>Pick git_hunks<CR>', { desc = 'Modified hunks' })
 map('n', '<leader>fM', '<Cmd>Pick git_hunks path="%"<CR>', { desc = 'Modified hunks (buffer)' })
+map('n', '<leader>fo', '<Cmd>Pick oldfiles<CR>', { desc = 'Old files' })
 map('n', '<leader>fr', '<Cmd>Pick resume<CR>', { desc = 'Resume picker' })
 map('n', '<leader>fR', '<Cmd>Pick lsp scope="references"<CR>', { desc = 'References (LSP)' })
 map('n', '<leader>fs', '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>', { desc = 'Symbols (workspace)' })

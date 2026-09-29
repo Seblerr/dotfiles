@@ -20,8 +20,6 @@ Config.now_if_args(function()
     capabilities = require('mini.completion').get_lsp_capabilities(),
   })
 
-  vim.lsp.codelens.enable()
-
   for _, server in ipairs(servers) do
     vim.lsp.enable(server)
   end
