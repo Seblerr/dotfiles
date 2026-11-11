@@ -37,7 +37,7 @@ Config.later(function()
   })
 
   vim.keymap.set("n", "<leader>tf", "<Cmd>FormatToggle<CR>", { desc = "Toggle Autoformat" })
-  vim.keymap.set({ "n", "x" }, "<leader>fo", function()
+  vim.keymap.set({ "n", "x" }, "<leader>cf", function()
     require("conform").format({ async = true, lsp_fallback = true })
   end, { desc = "Format buffer" })
 
