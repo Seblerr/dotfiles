@@ -52,7 +52,13 @@ end)
 Config.later(function()
   vim.api.nvim_create_user_command('Mason', function()
     vim.pack.add({ 'https://github.com/williamboman/mason.nvim' })
-    require('mason').setup({})
+    require('mason').setup({
+      registries = {
+        'github:mason-org/mason-registry',
+        -- Roslyn language server in the same version as VS Code (roslyn.nvim needs a recent one).
+        'github:Crashdummyy/mason-registry',
+      },
+    })
     vim.cmd('Mason')
   end, {})
 end)
